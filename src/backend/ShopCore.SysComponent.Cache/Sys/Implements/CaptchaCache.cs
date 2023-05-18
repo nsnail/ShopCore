@@ -1,0 +1,56 @@
+using ShopCore.Cache;
+using ShopCore.Domain.Dto.Sys.Captcha;
+using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+
+namespace ShopCore.SysComponent.Cache.Sys.Implements;
+
+/// <inheritdoc cref="ICaptchaCache" />
+public sealed class CaptchaCache : DistributedCache<ICaptchaService>, IScoped, ICaptchaCache
+{
+    /// <summary>
+    ///     Initializes a new instance of the <see cref="CaptchaCache" /> class.
+    /// </summary>
+    public CaptchaCache(IDistributedCache cache, ICaptchaService service) //
+        : base(cache, service) { }
+
+    /// <summary>
+    ///     获取人机校验图
+    /// </summary>
+    public async Task<GetCaptchaRsp> GetCaptchaImageAsync()
+    {
+        var captchaRsp = await Service.GetCaptchaImageAsync();
+        await CreateAsync(GetCacheKey(captchaRsp.Id), captchaRsp.SawOffsetX, TimeSpan.FromMinutes(1));
+        return captchaRsp;
+    }
+
+    /// <summary>
+    ///     完成人机校验 ，并删除缓存项
+    /// </summary>
+    /// <exception cref="ShopCoreInvalidOperationException">人机验证未通过</exception>
+    public async Task VerifyCaptchaAndRemoveAsync(VerifyCaptchaReq req)
+    {
+        var ret = await VerifyCaptchaAsync(req);
+        if (ret) {
+            // 人机验证通过，删除人机验证缓存
+            await RemoveAsync(GetCacheKey(req.Id));
+        }
+        else {
+            throw new ShopCoreInvalidOperationException(Ln.人机验证未通过);
+        }
+    }
+
+    /// <summary>
+    ///     完成人机校验
+    /// </summary>
+    public async Task<bool> VerifyCaptchaAsync(VerifyCaptchaReq req)
+    {
+        var cacheKey = GetCacheKey(req.Id);
+        var val      = await GetAsync<int?>(cacheKey);
+        return await Service.VerifyCaptchaAsync(req with { SawOffsetX = val });
+    }
+
+    private string GetCacheKey(string id)
+    {
+        return $"{GetType().FullName}.{nameof(GetCaptchaImageAsync)}.{id}";
+    }
+}

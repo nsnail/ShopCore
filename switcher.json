@@ -1,0 +1,11 @@
+{
+  "solution": "ShopCore.sln",
+  "solutionFolder": null,
+  "mappings": {
+    "FreeSql.NS": "../ForkedGitReps/FreeSql/FreeSql/FreeSql.csproj",
+    "FreeSql.DbContext.NS": "../ForkedGitReps/FreeSql/FreeSql.DbContext/FreeSql.DbContext.csproj",
+    "FreeSql.Provider.SqlServer.NS":
+      "../ForkedGitReps/FreeSql/Providers/FreeSql.Provider.SqlServer/FreeSql.Provider.SqlServer.csproj"
+  },
+  "removeProjects": true
+}

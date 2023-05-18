@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <Import Project="$(SolutionDir)/CodeQuality.props" />
+    <ItemGroup>
+        <ProjectReference Include="../ShopCore.Cache/ShopCore.Cache.csproj" />
+        <ProjectReference Include="../ShopCore.SysComponent.Application/ShopCore.SysComponent.Application.csproj" />
+    </ItemGroup>
+</Project>

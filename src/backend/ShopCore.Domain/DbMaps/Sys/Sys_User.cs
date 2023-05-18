@@ -1,0 +1,116 @@
+using ShopCore.Domain.DbMaps.Biz;
+using ShopCore.Domain.DbMaps.Dependency;
+using ShopCore.Domain.DbMaps.Dependency.Fields;
+using ShopCore.Domain.Dto.Sys.User;
+
+namespace ShopCore.Domain.DbMaps.Sys;
+
+/// <summary>
+///     用户基本信息表
+/// </summary>
+[Table(Name = Chars.FLG_TABLE_NAME_PREFIX + nameof(Sys_User))]
+[Index($"idx_{{tablename}}_{nameof(UserName)}", nameof(UserName), true)]
+[Index($"idx_{{tablename}}_{nameof(Mobile)}",   nameof(Mobile),   true)]
+[Index($"idx_{{tablename}}_{nameof(Email)}",    nameof(Email),    true)]
+public record Sys_User : VersionEntity, IFieldEnabled, IRegister
+{
+    /// <summary>
+    ///     头像链接
+    /// </summary>
+    [JsonIgnore]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    public virtual string Avatar { get; init; }
+
+    /// <summary>
+    ///     所属部门
+    /// </summary>
+    [JsonIgnore]
+    [Navigate(nameof(DeptId))]
+    public Sys_Dept Dept { get; init; }
+
+    /// <summary>
+    ///     部门id
+    /// </summary>
+    [JsonIgnore]
+    public virtual long DeptId { get; init; }
+
+    /// <summary>
+    ///     邮箱
+    /// </summary>
+    [JsonIgnore]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    public virtual string Email { get; init; }
+
+    /// <summary>
+    ///     是否启用
+    /// </summary>
+    [JsonIgnore]
+    public virtual bool Enabled { get; init; }
+
+    /// <summary>
+    ///     会员
+    /// </summary>
+    [JsonIgnore]
+    [Navigate(nameof(Mobile), TempPrimary = nameof(Biz_Member.Mobile))]
+    public Biz_Member Member { get; init; }
+
+    /// <summary>
+    ///     手机号
+    /// </summary>
+    [JsonIgnore]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    public virtual string Mobile { get; init; }
+
+    /// <summary>
+    ///     密码
+    /// </summary>
+    [JsonIgnore]
+    public Guid Password { get; set; }
+
+    /// <summary>
+    ///     所属岗位
+    /// </summary>
+    [JsonIgnore]
+    [Navigate(ManyToMany = typeof(Sys_UserPosition))]
+    public ICollection<Sys_Position> Positions { get; init; }
+
+    /// <summary>
+    ///     用户档案
+    /// </summary>
+    [JsonIgnore]
+    public Sys_UserProfile Profile { get; init; }
+
+    /// <summary>
+    ///     所属角色
+    /// </summary>
+    [JsonIgnore]
+    [Navigate(ManyToMany = typeof(Sys_UserRole))]
+    public ICollection<Sys_Role> Roles { get; init; }
+
+    /// <summary>
+    ///     做授权验证的Token，全局唯一，可以随时重置（强制下线）
+    /// </summary>
+    [JsonIgnore]
+    public Guid Token { get; init; }
+
+    /// <summary>
+    ///     用户名
+    /// </summary>
+    [JsonIgnore]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    public virtual string UserName { get; init; }
+
+    /// <inheritdoc />
+    public void Register(TypeAdapterConfig config)
+    {
+        _ = config.ForType<CreateUserReq, Sys_User>()
+                  .Map(dest => dest.Password, src => src.PasswordText.Pwd().Guid())
+                  .Map(dest => dest.Token,    _ => Guid.NewGuid())
+                  .Map( //
+                      dest => dest.Roles
+                    , src => src.RoleIds.NullOrEmpty() ? Array.Empty<Sys_Role>() : src.RoleIds.Select(x => new Sys_Role { Id = x }))
+                  .Map( //
+                      dest => dest.Positions
+                    , src => src.PositionIds.NullOrEmpty() ? Array.Empty<Sys_Position>() : src.PositionIds.Select(x => new Sys_Position { Id = x }));
+    }
+}
