@@ -20,7 +20,7 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     接口Id
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string ApiId { get; init; }
 
     /// <summary>
@@ -32,7 +32,7 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     /// <summary>
     ///     创建者客户端用户代理
     /// </summary>
-    [Column(Position = -1, DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(Position = -1, DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string CreatedUserAgent { get; init; }
 
     /// <summary>
@@ -51,14 +51,14 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     异常信息
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string Exception { get; init; }
 
     /// <summary>
     ///     附加数据
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string ExtraData { get; init; }
 
     /// <summary>
@@ -71,63 +71,63 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     请求方法
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
     public virtual string Method { get; init; }
 
     /// <summary>
     ///     来源地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string ReferUrl { get; init; }
 
     /// <summary>
     ///     请求内容
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string RequestBody { get; init; }
 
     /// <summary>
     ///     请求content-type
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string RequestContentType { get; init; }
 
     /// <summary>
     ///     请求头信息
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string RequestHeaders { get; init; }
 
     /// <summary>
     ///     请求地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string RequestUrl { get; init; }
 
     /// <summary>
     ///     响应内容
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string ResponseBody { get; init; }
 
     /// <summary>
     ///     响应content-type
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string ResponseContentType { get; init; }
 
     /// <summary>
     ///     响应头
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_MAX)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string ResponseHeaders { get; init; }
 
     /// <summary>

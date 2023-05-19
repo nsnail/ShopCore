@@ -5,6 +5,7 @@ using ShopCore.Domain.Dto.Dependency;
 using ShopCore.Domain.Dto.Sys.Dic.Content;
 using ShopCore.Domain.Dto.Sys.UserProfile;
 using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+using DataType = FreeSql.DataType;
 
 namespace ShopCore.SysComponent.Application.Services.Sys;
 
@@ -88,8 +89,7 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
                                                                    NationArea = x.b.Adapt<QueryDicContentRsp>()
                                                                  , CompanyArea = x.c.Adapt<QueryDicContentRsp>()
                                                                  , HomeArea = x.d.Adapt<QueryDicContentRsp>()
-                                                                 , EmergencyContactArea
-                                                                   = x.e.Adapt<QueryDicContentRsp>()
+                                                                 , EmergencyContactArea = x.e.Adapt<QueryDicContentRsp>()
                                                                }));
     }
 
@@ -108,13 +108,10 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
                                                               , e = new { e.Key, e.Value }
                                                             });
         return ret.ConvertAll(x => x.a.Adapt<QueryUserProfileRsp>() with {
-                                                                             NationArea
-                                                                             = x.b.Adapt<QueryDicContentRsp>()
-                                                                           , CompanyArea
-                                                                             = x.c.Adapt<QueryDicContentRsp>()
+                                                                             NationArea = x.b.Adapt<QueryDicContentRsp>()
+                                                                           , CompanyArea = x.c.Adapt<QueryDicContentRsp>()
                                                                            , HomeArea = x.d.Adapt<QueryDicContentRsp>()
-                                                                           , EmergencyContactArea
-                                                                             = x.e.Adapt<QueryDicContentRsp>()
+                                                                           , EmergencyContactArea = x.e.Adapt<QueryDicContentRsp>()
                                                                          });
     }
 
@@ -124,25 +121,36 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
     public async Task<QueryUserProfileRsp> UpdateAsync(UpdateUserProfileReq req)
     {
         var entity = req.Adapt<Sys_UserProfile>();
+        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
+            return await UpdateForSqliteAsync(entity);
+        }
 
         var ret = await Rpo.UpdateDiy.SetSource(entity).ExecuteUpdatedAsync();
         return ret.FirstOrDefault()?.Adapt<QueryUserProfileRsp>();
     }
 
-    private ISelect<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent> QueryInternal(
-        QueryReq<QueryUserProfileReq> req)
+    private ISelect<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent> QueryInternal(QueryReq<QueryUserProfileReq> req)
     {
         return Rpo.Orm.Select<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent>()
-                  .LeftJoin((a, b, _, __, ___) =>
-                                a.NationArea.ToString() == b.Value && b.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, c, __, ___) =>
-                                a.CompanyArea.ToString() == c.Value && c.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, __, d, ___) =>
-                                a.HomeArea.ToString() == d.Value && d.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, __, ___, e) => a.EmergencyContactArea.ToString() == e.Value &&
-                                                  e.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, b, _,  __,  ___) => a.NationArea.ToString()         == b.Value && b.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, c,  __,  ___) => a.CompanyArea.ToString()        == c.Value && c.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, __, d,   ___) => a.HomeArea.ToString()           == d.Value && d.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, __, ___, e) => a.EmergencyContactArea.ToString() == e.Value && e.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
                   .WhereDynamicFilter(req.DynamicFilter)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending((a, _, __, ___, ____) => a.Id);
+    }
+
+    /// <summary>
+    ///     非sqlite数据库请删掉
+    /// </summary>
+    private async Task<QueryUserProfileRsp> UpdateForSqliteAsync(Sys_UserProfile req)
+    {
+        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
+            return null;
+        }
+
+        var ret = await Rpo.Select.Where(a => a.Id == req.Id).ToOneAsync();
+        return ret.Adapt<QueryUserProfileRsp>();
     }
 }

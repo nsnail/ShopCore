@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.DbMaps.Sys;
 
@@ -17,7 +18,7 @@ public sealed record QueryPositionRsp : Sys_Position
     public override long Id { get; init; }
 
     /// <inheritdoc cref="Sys_Position.Name" />
-    [Required]
+    [NotEmpty]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public override string Name { get; init; }
 

@@ -5,27 +5,17 @@
       {
         "Group": "Sys",
         "Title": "系统组件",
-        "Description": "Line开放平台 - 系统组件",
+        "Description": "ShopCore - 系统组件",
       },
       {
-        "Group": "Cst",
-        "Title": "管理服务",
-        "Description": "Line开放平台 - 管理服务",
-      },
-      {
-        "Group": "Res",
-        "Title": "资源组件",
-        "Description": "Line开放平台 - 资源组件",
-      },
-      {
-        "Group": "Tsk",
-        "Title": "任务组件",
-        "Description": "Line开放平台 - 任务组件",
+        "Group": "Biz",
+        "Title": "业务服务",
+        "Description": "ShopCore - 业务服务",
       },
       {
         "Group": "Tpl",
         "Title": "示例服务",
-        "Description": "Line开放平台 - 示例服务",
+        "Description": "ShopCore - 示例服务",
         "Visible": false
       },
       {

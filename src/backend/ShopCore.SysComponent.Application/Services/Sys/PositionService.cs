@@ -4,6 +4,7 @@ using ShopCore.Domain.DbMaps.Sys;
 using ShopCore.Domain.Dto.Dependency;
 using ShopCore.Domain.Dto.Sys.Position;
 using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+using DataType = FreeSql.DataType;
 
 namespace ShopCore.SysComponent.Application.Services.Sys;
 
@@ -72,8 +73,7 @@ public sealed class PositionService : RepositoryService<Sys_Position, IPositionS
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryPositionRsp>(req.Page, req.PageSize, total
-                                                 , list.Adapt<IEnumerable<QueryPositionRsp>>());
+        return new PagedQueryRsp<QueryPositionRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryPositionRsp>>());
     }
 
     /// <summary>
@@ -90,6 +90,10 @@ public sealed class PositionService : RepositoryService<Sys_Position, IPositionS
     /// </summary>
     public async Task<QueryPositionRsp> UpdateAsync(UpdatePositionReq req)
     {
+        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
+            return await UpdateForSqliteAsync(req);
+        }
+
         var ret = await Rpo.UpdateDiy.SetSource(req).ExecuteUpdatedAsync();
         return ret.FirstOrDefault()?.Adapt<QueryPositionRsp>();
     }
@@ -109,5 +113,18 @@ public sealed class PositionService : RepositoryService<Sys_Position, IPositionS
         }
 
         return ret;
+    }
+
+    /// <summary>
+    ///     非sqlite数据库请删掉
+    /// </summary>
+    private async Task<QueryPositionRsp> UpdateForSqliteAsync(Sys_Position req)
+    {
+        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
+            return null;
+        }
+
+        var ret = await Rpo.Select.Where(a => a.Id == req.Id).ToOneAsync();
+        return ret.Adapt<QueryPositionRsp>();
     }
 }

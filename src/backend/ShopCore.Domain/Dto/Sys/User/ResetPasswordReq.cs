@@ -11,13 +11,13 @@ public sealed record ResetPasswordReq : DataAbstraction
     /// <summary>
     ///     密码
     /// </summary>
-    [Required]
+    [NotEmpty]
     [Password]
     public string PasswordText { get; init; }
 
     /// <summary>
     ///     短信验证请求
     /// </summary>
-    [Required]
+    [NotEmpty]
     public VerifySmsCodeReq VerifySmsCodeReq { get; init; }
 }

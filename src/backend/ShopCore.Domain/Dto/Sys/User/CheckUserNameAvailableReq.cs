@@ -10,7 +10,7 @@ public sealed record CheckUserNameAvailableReq : Sys_User
 {
     /// <inheritdoc cref="Sys_User.UserName" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     [UserName]
     public override string UserName { get; init; }
 }

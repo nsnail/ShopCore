@@ -27,13 +27,13 @@ public record Sys_DicContent : VersionEntity
     ///     项名称
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Key { get; init; }
 
     /// <summary>
     ///     键值
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string Value { get; init; }
 }

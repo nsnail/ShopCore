@@ -36,14 +36,14 @@ public record CreateUserReq : Sys_User
     /// <summary>
     ///     密码
     /// </summary>
-    [Required]
+    [NotEmpty]
     [Password]
     public virtual string PasswordText { get; init; }
 
     /// <summary>
     ///     岗位id列表
     /// </summary>
-    [Required]
+    [NotEmpty]
     [MinLength(1)]
     [MaxLength(Numbers.BULK_REQ_LIMIT)]
     public IReadOnlyCollection<long> PositionIds { get; init; }
@@ -51,19 +51,19 @@ public record CreateUserReq : Sys_User
     /// <summary>
     ///     用户档案
     /// </summary>
-    [Required]
+    [NotEmpty]
     public new CreateUserProfileReq Profile { get; init; }
 
     /// <summary>
     ///     角色id列表
     /// </summary>
-    [Required]
+    [NotEmpty]
     [MinLength(1)]
     [MaxLength(Numbers.BULK_REQ_LIMIT)]
     public IReadOnlyCollection<long> RoleIds { get; init; }
 
     /// <inheritdoc cref="Sys_User.UserName" />
-    [Required]
+    [NotEmpty]
     [UserName]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string UserName { get; init; }

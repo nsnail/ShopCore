@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 
 namespace ShopCore.Domain.Dto.Sys.Role;
@@ -9,11 +10,11 @@ public sealed record UpdateRoleReq : CreateRoleReq
 {
     /// <inheritdoc cref="IFieldPrimary{T}.Id" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override long Id { get; init; }
 
     /// <inheritdoc cref="IFieldVersion.Version" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override long Version { get; init; }
 }

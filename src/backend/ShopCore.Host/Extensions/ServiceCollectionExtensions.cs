@@ -248,9 +248,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSnowflake(this IServiceCollection me)
     {
         // 雪花漂移算法
-        var workerId = Convert.ToUInt16( //
-            Environment.GetEnvironmentVariable(Chars.FLG_SNOWFLAKE_WORK_ID), CultureInfo.InvariantCulture);
-        var idGeneratorOptions = new IdGeneratorOptions(workerId) { WorkerIdBitLength = 6 };
+        var idGeneratorOptions = new IdGeneratorOptions();
         YitIdHelper.SetIdGenerator(idGeneratorOptions);
         return me;
     }

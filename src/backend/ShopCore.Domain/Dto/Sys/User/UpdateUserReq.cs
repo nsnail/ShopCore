@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.Dto.Sys.UserProfile;
 
@@ -21,7 +22,7 @@ public sealed record UpdateUserReq : CreateUserReq
     /// <summary>
     ///     用户档案
     /// </summary>
-    [Required]
+    [NotEmpty]
     public new UpdateUserProfileReq Profile { get; init; }
 
     /// <inheritdoc cref="IFieldVersion.Version" />

@@ -6,6 +6,7 @@ using ShopCore.Domain.Dto.Sys.Sms;
 using ShopCore.Domain.Enums.Sys;
 using ShopCore.Domain.Events;
 using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+using DataType = FreeSql.DataType;
 
 namespace ShopCore.SysComponent.Application.Services.Sys;
 
@@ -127,6 +128,10 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
     /// </summary>
     public async Task<QuerySmsRsp> UpdateAsync(UpdateSmsReq req)
     {
+        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
+            return await UpdateForSqliteAsync(req);
+        }
+
         var ret = await Rpo.UpdateDiy.SetSource(req).ExecuteUpdatedAsync();
         return ret.FirstOrDefault()?.Adapt<QuerySmsRsp>();
     }
@@ -159,10 +164,10 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
                                                            Count = 1
                                                          , DynamicFilter
                                                                = new DynamicFilterInfo {
-                                                                     Field    = nameof(Sys_Sms.DestMobile)
-                                                                   , Operator = DynamicFilterOperator.Eq
-                                                                   , Value    = mobile
-                                                                 }
+                                                                                           Field    = nameof(Sys_Sms.DestMobile)
+                                                                                         , Operator = DynamicFilterOperator.Eq
+                                                                                         , Value    = mobile
+                                                                                       }
                                                        })
             .ToOneAsync();
     }
@@ -173,5 +178,18 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
                   .WhereDynamic(req.Filter)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending(a => a.Id);
+    }
+
+    /// <summary>
+    ///     非sqlite数据库请删掉
+    /// </summary>
+    private async Task<QuerySmsRsp> UpdateForSqliteAsync(Sys_Sms req)
+    {
+        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
+            return null;
+        }
+
+        var ret = await Rpo.Select.Where(a => a.Id == req.Id).ToOneAsync();
+        return ret.Adapt<QuerySmsRsp>();
     }
 }

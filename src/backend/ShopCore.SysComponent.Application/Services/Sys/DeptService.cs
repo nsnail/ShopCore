@@ -36,7 +36,7 @@ public sealed class DeptService : RepositoryService<Sys_Dept, IDeptService>, IDe
     public async Task<QueryDeptRsp> CreateAsync(CreateDeptReq req)
     {
         if (req.ParentId != 0 && !await Rpo.Select.AnyAsync(a => a.Id == req.ParentId)) {
-            throw new ShopCoreInvalidOperationException(Ln.父部门不存在);
+            throw new ShopCoreInvalidOperationException(Ln.父节点不存在);
         }
 
         var ret = await Rpo.InsertAsync(req);
@@ -96,10 +96,7 @@ public sealed class DeptService : RepositoryService<Sys_Dept, IDeptService>, IDe
     /// </summary>
     public async Task<IEnumerable<QueryDeptRsp>> QueryAsync(QueryReq<QueryDeptReq> req)
     {
-        var ret = await Rpo.Select.WhereDynamicFilter(req.DynamicFilter)
-                           .WhereDynamic(req.Filter)
-                           .OrderByDescending(a => a.Sort)
-                           .ToTreeListAsync();
+        var ret = await Rpo.Select.WhereDynamicFilter(req.DynamicFilter).WhereDynamic(req.Filter).OrderByDescending(a => a.Sort).ToTreeListAsync();
         return ret.Adapt<IEnumerable<QueryDeptRsp>>();
     }
 

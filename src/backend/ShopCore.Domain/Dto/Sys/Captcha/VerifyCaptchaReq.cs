@@ -1,3 +1,5 @@
+using ShopCore.Domain.Attributes.DataValidation;
+
 namespace ShopCore.Domain.Dto.Sys.Captcha;
 
 /// <summary>
@@ -8,7 +10,7 @@ public sealed record VerifyCaptchaReq : DataAbstraction
     /// <summary>
     ///     唯一编码
     /// </summary>
-    [Required]
+    [NotEmpty]
     public string Id { get; init; }
 
     /// <summary>
@@ -20,6 +22,6 @@ public sealed record VerifyCaptchaReq : DataAbstraction
     /// <summary>
     ///     验证数据
     /// </summary>
-    [Required]
+    [NotEmpty]
     public string VerifyData { get; init; }
 }

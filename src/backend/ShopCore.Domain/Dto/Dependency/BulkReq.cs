@@ -1,3 +1,5 @@
+using ShopCore.Domain.Attributes.DataValidation;
+
 namespace ShopCore.Domain.Dto.Dependency;
 
 /// <summary>
@@ -9,7 +11,7 @@ public sealed record BulkReq<T> : DataAbstraction
     /// <summary>
     ///     请求对象
     /// </summary>
-    [Required]
+    [NotEmpty]
     [MinLength(1)]
     [MaxLength(Numbers.BULK_REQ_LIMIT)]
     public IEnumerable<T> Items { get; init; }

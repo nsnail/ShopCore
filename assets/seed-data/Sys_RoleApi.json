@@ -1,67 +1,18 @@
 [
   {
     "ApiId": "api/sys/menu/user.menus",
-    "Id": 396423792504837,
-    "RoleId": 371729860788229
-  },
-  {
-    "ApiId": "api/sys/user/user.info",
-    "Id": 396423792508933,
-    "RoleId": 371729860788229
-  },
-  {
-    "ApiId": "api/sys/menu",
-    "Id": 396423792508934,
-    "RoleId": 371729860788229
-  },
-  {
-    "ApiId": "api/sys/user",
-    "Id": 396423792508935,
-    "RoleId": 371729860788229
-  },
-  {
-    "ApiId": "api/sys/menu/user.menus",
-    "Id": 396423792508936,
     "RoleId": 371729946431493
   },
   {
     "ApiId": "api/sys/user/user.info",
-    "Id": 396423792508937,
     "RoleId": 371729946431493
   },
   {
     "ApiId": "api/sys/menu",
-    "Id": 396423792508938,
     "RoleId": 371729946431493
   },
   {
     "ApiId": "api/sys/user",
-    "Id": 396423792508939,
     "RoleId": 371729946431493
-  },
-  {
-    "ApiId": "api/sys/menu/user.menus",
-    "Id": 396423792508940,
-    "RoleId": 395383113412617
-  },
-  {
-    "ApiId": "api/sys/user/user.info",
-    "Id": 396423792508941,
-    "RoleId": 395383113412617
-  },
-  {
-    "ApiId": "api/sys/menu",
-    "Id": 396423792513029,
-    "RoleId": 395383113412617
-  },
-  {
-    "ApiId": "api/sys/user",
-    "Id": 396423792513030,
-    "RoleId": 395383113412617
-  },
-  {
-    "ApiId": "api/biz/member/init.login.pwd",
-    "Id": 396423792513031,
-    "RoleId": 395383113412617
   }
 ]

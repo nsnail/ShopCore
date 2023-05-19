@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Sys;
 
 namespace ShopCore.Domain.Dto.Sys.User;
@@ -10,10 +11,10 @@ public record PwdLoginReq : DataAbstraction
     /// <summary>
     ///     用户名、手机号、邮箱
     /// </summary>
-    [Required]
+    [NotEmpty]
     public string Account { get; init; }
 
     /// <inheritdoc cref="Sys_User.Password" />
-    [Required]
+    [NotEmpty]
     public string Password { get; init; }
 }

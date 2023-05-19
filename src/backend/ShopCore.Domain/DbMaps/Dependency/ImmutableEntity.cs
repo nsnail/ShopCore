@@ -33,7 +33,7 @@ public abstract record ImmutableEntity<T> : LiteImmutableEntity<T>, IFieldCreate
     ///     创建者用户名
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31, CanUpdate = false, Position = -1)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31, CanUpdate = false, Position = -1)]
     public virtual string CreatedUserName { get; set; }
 
     /// <summary>

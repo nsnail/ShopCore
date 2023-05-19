@@ -11,7 +11,7 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
     private const string _REPLACE_TO_EMPTY = "//~";
 
     private static readonly string _clientProjectPath = Path.Combine( //
-        Environment.CurrentDirectory, $"../../Client/{nameof(ShopCore)}.App");
+        Environment.CurrentDirectory, "../../frontend/admin");
 
     private readonly IApiService _apiService;
 
@@ -34,19 +34,14 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
         var moduleType = Enum.GetName(req.Type)!;
 
         // 模板层目录
-        var tplAppDir = projectDirs.First(x => x.EndsWith($"{nameof(SysComponent)}.{nameof(Application)}", true
-                                                        , CultureInfo.InvariantCulture));
-        var tplHostDir
-            = projectDirs.First(x => x.EndsWith($"{nameof(SysComponent)}.{nameof(Host)}", true
-                                              , CultureInfo.InvariantCulture));
+        var tplAppDir  = projectDirs.First(x => x.EndsWith($"{nameof(SysComponent)}.{nameof(Application)}", true, CultureInfo.InvariantCulture));
+        var tplHostDir = projectDirs.First(x => x.EndsWith($"{nameof(SysComponent)}.{nameof(Host)}",        true, CultureInfo.InvariantCulture));
 
         // 业务逻辑层目录
-        var appDir = projectDirs.First(x => x.EndsWith($"{moduleType}.{nameof(Application)}", true
-                                                     , CultureInfo.InvariantCulture));
+        var appDir = projectDirs.First(x => x.EndsWith($"{moduleType}.{nameof(Application)}", true, CultureInfo.InvariantCulture));
 
         // 数据契约层目录
-        var dataDir = projectDirs.First(x => x.EndsWith($"{nameof(ShopCore)}.{nameof(Domain)}", true
-                                                      , CultureInfo.InvariantCulture));
+        var dataDir = projectDirs.First(x => x.EndsWith($"{nameof(ShopCore)}.{nameof(Domain)}", true, CultureInfo.InvariantCulture));
 
         // Api接口层目录
         var hostDir = projectDirs.First(x => x.EndsWith($"{moduleType}.Host", true, CultureInfo.InvariantCulture));
@@ -87,9 +82,8 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
                           ,           Path.Combine(modulesDir, $"I{req.ModuleName}Module.cs"));
 
         // iService
-        await WriteCodeFileAsync(
-            req, Path.Combine(tplAppDir, nameof(Services), nameof(Tpl), nameof(Dependency), "IExampleService.cs")
-     ,           Path.Combine(servicesDependencyDir, $"I{req.ModuleName}Service.cs"));
+        await WriteCodeFileAsync(req, Path.Combine(tplAppDir,             nameof(Services), nameof(Tpl), nameof(Dependency), "IExampleService.cs")
+                          ,           Path.Combine(servicesDependencyDir, $"I{req.ModuleName}Service.cs"));
 
         // service
         await WriteCodeFileAsync(req, Path.Combine(tplAppDir,   nameof(Services), nameof(Tpl), "ExampleService.cs")
@@ -100,24 +94,20 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
                           ,           Path.Combine(controllerDir, $"{req.ModuleName}Controller.cs"));
 
         // createReq
-        await WriteCodeFileAsync(
-            req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "CreateExampleReq.cs")
-     ,           Path.Combine(dtoDir,  $"Create{req.ModuleName}Req.cs"));
+        await WriteCodeFileAsync(req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "CreateExampleReq.cs")
+                          ,           Path.Combine(dtoDir,  $"Create{req.ModuleName}Req.cs"));
 
         // updateReq
-        await WriteCodeFileAsync(
-            req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "UpdateExampleReq.cs")
-     ,           Path.Combine(dtoDir,  $"Update{req.ModuleName}Req.cs"));
+        await WriteCodeFileAsync(req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "UpdateExampleReq.cs")
+                          ,           Path.Combine(dtoDir,  $"Update{req.ModuleName}Req.cs"));
 
         // queryReq
-        await WriteCodeFileAsync(
-            req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "QueryExampleReq.cs")
-     ,           Path.Combine(dtoDir,  $"Query{req.ModuleName}Req.cs"));
+        await WriteCodeFileAsync(req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "QueryExampleReq.cs")
+                          ,           Path.Combine(dtoDir,  $"Query{req.ModuleName}Req.cs"));
 
         // queryRsp
-        await WriteCodeFileAsync(
-            req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "QueryExampleRsp.cs")
-     ,           Path.Combine(dtoDir,  $"Query{req.ModuleName}Rsp.cs"));
+        await WriteCodeFileAsync(req, Path.Combine(dataDir, nameof(Domain.Dto), nameof(Tpl), "Example", "QueryExampleRsp.cs")
+                          ,           Path.Combine(dtoDir,  $"Query{req.ModuleName}Rsp.cs"));
 
         // entity
         await WriteCodeFileAsync(req, Path.Combine(dataDir,   nameof(Domain.DbMaps), nameof(Tpl), "Tpl_Example.cs")
@@ -129,11 +119,8 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
     /// </summary>
     public async Task GenerateIconCodeAsync(GenerateIconCodeReq req)
     {
-        var tplSvg = await File.ReadAllTextAsync(
-            Path.Combine(_clientProjectPath, "src", "assets", "icons", "tpl", "Svg.vue"));
-        var tplExport
-            = await File.ReadAllTextAsync(
-                Path.Combine(_clientProjectPath, "src", "assets", "icons", "tpl", "export.js"));
+        var tplSvg    = await File.ReadAllTextAsync(Path.Combine(_clientProjectPath, "src", "assets", "icons", "tpl", "Svg.vue"));
+        var tplExport = await File.ReadAllTextAsync(Path.Combine(_clientProjectPath, "src", "assets", "icons", "tpl", "export.js"));
 
         var vueContent = tplSvg.Replace("$svgCode$", req.SvgCode).Replace(_REPLACE_TO_EMPTY, string.Empty);
 
@@ -148,9 +135,7 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
         var indexJsFile = Path.Combine(dir, "index.js");
 
         await File.AppendAllTextAsync(
-            indexJsFile
-          , Environment.NewLine +
-            tplExport.Replace("$iconName$", req.IconName).Replace(_REPLACE_TO_EMPTY, string.Empty));
+            indexJsFile, Environment.NewLine + tplExport.Replace("$iconName$", req.IconName).Replace(_REPLACE_TO_EMPTY, string.Empty));
 
         // 修改iconSelect.js
         var iconSelectFile    = Path.Combine(_clientProjectPath, "src", "config", "iconSelect.js");
@@ -179,8 +164,7 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
             return item.Children.Select(x => tplInner.Replace("$actionDesc$", x.Summary)
                                                      .Replace( //
                                                          "$actionName$"
-                                                       , Regex.Replace(x.Name, @"\.(\w)"
-                                                                     , y => y.Groups[1].Value.ToUpperInvariant()))
+                                                  , Regex.Replace(x.Name, @"\.(\w)", y => y.Groups[1].Value.ToUpperInvariant()))
                                                      .Replace("$actionPath$", x.Id)
                                                      .Replace( //
                                                          "$actionMethod$",       x.Method?.ToLowerInvariant())
@@ -198,8 +182,7 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
             var content = tplOuter.Replace("$controllerDesc$", item.Summary)
                                   .Replace("$controllerPath$", item.Id)
                                   .Replace( //
-                                      "$inner$"
-                       , string.Join(Environment.NewLine + Environment.NewLine, Select(item)))
+                                      "$inner$",              string.Join(Environment.NewLine + Environment.NewLine, Select(item)))
                                   .Replace(_REPLACE_TO_EMPTY, string.Empty);
 
             await File.WriteAllTextAsync(file, content);
@@ -210,8 +193,8 @@ public sealed class DevService : ServiceBase<DevService>, IDevService
     {
         var tplContent = await File.ReadAllTextAsync(tplFile);
         tplContent = tplContent.Replace(nameof(Tpl), Enum.GetName(req.Type)![..3])
-                               .Replace("示例",               req.ModuleRemark)
-                               .Replace("Example",          req.ModuleName)
+                               .Replace("示例",                    req.ModuleRemark)
+                               .Replace("Example",               req.ModuleName)
                                .Replace("ShopCore.SysComponent", nameof(SysComponent));
 
         await File.WriteAllTextAsync(writeFile, tplContent);

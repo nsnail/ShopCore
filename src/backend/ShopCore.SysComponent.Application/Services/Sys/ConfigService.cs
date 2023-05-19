@@ -4,6 +4,7 @@ using ShopCore.Domain.DbMaps.Sys;
 using ShopCore.Domain.Dto.Dependency;
 using ShopCore.Domain.Dto.Sys.Config;
 using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+using DataType = FreeSql.DataType;
 
 namespace ShopCore.SysComponent.Application.Services.Sys;
 
@@ -69,8 +70,7 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
     /// </summary>
     public async Task<QueryConfigRsp> GetLatestConfigAsync()
     {
-        var ret = await QueryAsync(
-            new QueryReq<QueryConfigReq> { Count = 1, Filter = new QueryConfigReq { Enabled = true } });
+        var ret = await QueryAsync(new QueryReq<QueryConfigReq> { Count = 1, Filter = new QueryConfigReq { Enabled = true } });
         return ret.FirstOrDefault();
     }
 
@@ -81,8 +81,7 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryConfigRsp>(req.Page, req.PageSize, total
-                                               , list.Adapt<IEnumerable<QueryConfigRsp>>());
+        return new PagedQueryRsp<QueryConfigRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryConfigRsp>>());
     }
 
     /// <summary>
@@ -99,6 +98,10 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
     /// </summary>
     public async Task<QueryConfigRsp> UpdateAsync(UpdateConfigReq req)
     {
+        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
+            return await UpdateForSqliteAsync(req);
+        }
+
         var ret = await Rpo.UpdateDiy.SetSource(req).ExecuteUpdatedAsync();
         return ret.FirstOrDefault()?.Adapt<QueryConfigRsp>();
     }
@@ -113,5 +116,18 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
                       req.Filter?.Enabled.HasValue ?? false, a => a.Enabled == req.Filter.Enabled.Value)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending(a => a.Id);
+    }
+
+    /// <summary>
+    ///     非sqlite数据库请删掉
+    /// </summary>
+    private async Task<QueryConfigRsp> UpdateForSqliteAsync(Sys_Config req)
+    {
+        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
+            return null;
+        }
+
+        var ret = await Rpo.Select.Where(a => a.Id == req.Id).ToOneAsync();
+        return ret.Adapt<QueryConfigRsp>();
     }
 }

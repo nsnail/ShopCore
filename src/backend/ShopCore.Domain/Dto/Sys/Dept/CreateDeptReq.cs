@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.DbMaps.Sys;
 
@@ -10,7 +11,7 @@ public record CreateDeptReq : Sys_Dept
 {
     /// <inheritdoc cref="Sys_Dept.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="Sys_Dept.ParentId" />

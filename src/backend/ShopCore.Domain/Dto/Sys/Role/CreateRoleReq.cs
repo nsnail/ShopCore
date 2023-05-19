@@ -40,7 +40,7 @@ public record CreateRoleReq : Sys_Role
 
     /// <inheritdoc cref="Sys_Role.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="IFieldSort.Sort" />

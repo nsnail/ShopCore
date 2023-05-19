@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Sys;
 
 namespace ShopCore.Domain.Dto.Sys.Sms;
@@ -8,7 +9,7 @@ namespace ShopCore.Domain.Dto.Sys.Sms;
 public record VerifySmsCodeReq : Sys_Sms
 {
     /// <inheritdoc cref="Sys_Sms.Code" />
-    [Required]
+    [NotEmpty]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string Code { get; init; }
 

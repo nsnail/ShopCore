@@ -20,35 +20,35 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     ///     唯一编码
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127, IsIdentity = false, IsPrimary = true, Position = 1)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127, IsIdentity = false, IsPrimary = true, Position = 1)]
     public override string Id { get; init; }
 
     /// <summary>
     ///     请求方式
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
     public virtual string Method { get; init; }
 
     /// <summary>
     ///     服务名称
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Name { get; init; }
 
     /// <summary>
     ///     命名空间
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string Namespace { get; init; }
 
     /// <summary>
     ///     父id
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string ParentId { get; init; }
 
     /// <summary>
@@ -62,6 +62,6 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     ///     服务描述
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Summary { get; init; }
 }

@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Sys;
 
 namespace ShopCore.Domain.Dto.Sys.Dic.Catalog;
@@ -9,12 +10,12 @@ public record CreateDicCatalogReq : Sys_DicCatalog
 {
     /// <inheritdoc cref="Sys_DicCatalog.Code" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override string Code { get; init; }
 
     /// <inheritdoc cref="Sys_DicCatalog.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [Required]
+    [NotEmpty]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="Sys_DicCatalog.ParentId" />

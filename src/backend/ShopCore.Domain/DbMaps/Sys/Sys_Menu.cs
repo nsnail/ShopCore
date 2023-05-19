@@ -15,7 +15,7 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     子节点或详情页需要高亮的上级菜单路由地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string Active { get; init; }
 
     /// <summary>
@@ -29,14 +29,14 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     背景颜色
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR7)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_7)]
     public virtual string Color { get; init; }
 
     /// <summary>
     ///     组件
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Component { get; init; }
 
     /// <summary>
@@ -61,14 +61,14 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     图标
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string Icon { get; init; }
 
     /// <summary>
     ///     菜单名称
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Name { get; init; }
 
     /// <summary>
@@ -81,14 +81,14 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     菜单路径
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string Path { get; init; }
 
     /// <summary>
     ///     重定向地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string Redirect { get; init; }
 
     /// <summary>
@@ -102,20 +102,20 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
-    public virtual long Sort { get; init; } = Numbers.DEF_SORT_VAL;
+    public virtual long Sort { get; init; }
 
     /// <summary>
     ///     标签
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string Tag { get; init; }
 
     /// <summary>
     ///     菜单标题
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Title { get; init; }
 
     /// <summary>

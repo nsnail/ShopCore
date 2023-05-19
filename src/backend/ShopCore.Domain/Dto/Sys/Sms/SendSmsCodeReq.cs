@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Sys;
 using ShopCore.Domain.Dto.Sys.Captcha;
 using ShopCore.Domain.Enums.Sys;
@@ -10,7 +11,7 @@ namespace ShopCore.Domain.Dto.Sys.Sms;
 public sealed record SendSmsCodeReq : Sys_Sms
 {
     /// <inheritdoc cref="Sys_Sms.DestMobile" />
-    [Required]
+    [NotEmpty]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public override string DestMobile { get; init; }
 
@@ -18,13 +19,13 @@ public sealed record SendSmsCodeReq : Sys_Sms
     public override SmsStatues Status => SmsStatues.Waiting;
 
     /// <inheritdoc cref="Sys_Sms.Type" />
-    [Required]
+    [NotEmpty]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override SmsTypes Type { get; init; }
 
     /// <summary>
     ///     人机校验请求
     /// </summary>
-    [Required]
+    [NotEmpty]
     public VerifyCaptchaReq VerifyCaptchaReq { get; init; }
 }

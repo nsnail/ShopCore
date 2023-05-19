@@ -20,7 +20,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     证件号码
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string CertificateNumber { get; init; }
 
     /// <summary>
@@ -33,7 +33,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     工作地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string CompanyAddress { get; init; }
 
     /// <summary>
@@ -46,14 +46,14 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     工作单位
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string CompanyName { get; init; }
 
     /// <summary>
     ///     工作电话
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string CompanyTelephone { get; init; }
 
     /// <summary>
@@ -66,7 +66,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     紧急联系地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string EmergencyContactAddress { get; init; }
 
     /// <summary>
@@ -79,21 +79,21 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     紧急联系人手机号
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
     public virtual string EmergencyContactMobile { get; init; }
 
     /// <summary>
     ///     紧急联系人
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string EmergencyContactName { get; init; }
 
     /// <summary>
     ///     毕业学校
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string GraduateSchool { get; init; }
 
     /// <summary>
@@ -106,7 +106,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     住宅地址
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string HomeAddress { get; init; }
 
     /// <summary>
@@ -119,7 +119,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     住宅电话
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string HomeTelephone { get; init; }
 
     /// <summary>
@@ -151,14 +151,14 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     职业
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string Profession { get; init; }
 
     /// <summary>
     ///     真实姓名
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string RealName { get; init; }
 
     /// <summary>
@@ -171,7 +171,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     描述
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string Summary { get; init; }
 
     /// <summary>

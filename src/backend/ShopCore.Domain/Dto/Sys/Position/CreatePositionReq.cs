@@ -1,3 +1,4 @@
+using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.DbMaps.Sys;
 
@@ -9,7 +10,7 @@ namespace ShopCore.Domain.Dto.Sys.Position;
 public record CreatePositionReq : Sys_Position
 {
     /// <inheritdoc cref="Sys_Position.Name" />
-    [Required]
+    [NotEmpty]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string Name { get; init; }
 

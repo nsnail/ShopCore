@@ -13,28 +13,28 @@ public record Sys_Sms : VersionEntity
     ///     验证码
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR7)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_7)]
     public virtual string Code { get; init; }
 
     /// <summary>
     ///     短信内容
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public string Content { get; init; }
 
     /// <summary>
     ///     目的手机号
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
     public virtual string DestMobile { get; init; }
 
     /// <summary>
     ///     发送报告
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public string Report { get; init; }
 
     /// <summary>

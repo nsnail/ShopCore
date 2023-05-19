@@ -65,7 +65,7 @@ public sealed class UserController : ControllerBase<IUserService>, IUserModule
     /// <summary>
     ///     删除用户
     /// </summary>
-    [NonAction]
+    [Transaction]
     public Task<int> DeleteAsync(DelReq req)
     {
         return Service.DeleteAsync(req);

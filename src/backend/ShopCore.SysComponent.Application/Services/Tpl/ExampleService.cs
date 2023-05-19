@@ -4,6 +4,7 @@ using ShopCore.Domain.DbMaps.Tpl;
 using ShopCore.Domain.Dto.Dependency;
 using ShopCore.Domain.Dto.Tpl.Example;
 using ShopCore.SysComponent.Application.Services.Tpl.Dependency;
+using DataType = FreeSql.DataType;
 
 namespace ShopCore.SysComponent.Application.Services.Tpl;
 
@@ -70,8 +71,7 @@ public sealed class ExampleService : RepositoryService<Tpl_Example, IExampleServ
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryExampleRsp>(req.Page, req.PageSize, total
-                                                , list.Adapt<IEnumerable<QueryExampleRsp>>());
+        return new PagedQueryRsp<QueryExampleRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryExampleRsp>>());
     }
 
     /// <summary>
@@ -88,6 +88,10 @@ public sealed class ExampleService : RepositoryService<Tpl_Example, IExampleServ
     /// </summary>
     public async Task<QueryExampleRsp> UpdateAsync(UpdateExampleReq req)
     {
+        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
+            return await UpdateForSqliteAsync(req);
+        }
+
         var ret = await Rpo.UpdateDiy.SetSource(req).ExecuteUpdatedAsync();
         return ret.FirstOrDefault()?.Adapt<QueryExampleRsp>();
     }
@@ -98,5 +102,18 @@ public sealed class ExampleService : RepositoryService<Tpl_Example, IExampleServ
                   .WhereDynamic(req.Filter)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending(a => a.Id);
+    }
+
+    /// <summary>
+    ///     非sqlite数据库请删掉
+    /// </summary>
+    private async Task<QueryExampleRsp> UpdateForSqliteAsync(Tpl_Example req)
+    {
+        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
+            return null;
+        }
+
+        var ret = await Rpo.Select.Where(a => a.Id == req.Id).ToOneAsync();
+        return ret.Adapt<QueryExampleRsp>();
     }
 }

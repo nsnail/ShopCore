@@ -14,20 +14,20 @@ public record Sys_Position : VersionEntity, IFieldSort, IFieldSummary
     ///     岗位名称
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string Name { get; init; }
 
     /// <summary>
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
-    public virtual long Sort { get; init; } = Numbers.DEF_SORT_VAL;
+    public virtual long Sort { get; init; }
 
     /// <summary>
     ///     岗位描述
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR255)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
     public virtual string Summary { get; init; }
 
     /// <summary>

@@ -1,4 +1,3 @@
-using ShopCore.Domain.DbMaps.Biz;
 using ShopCore.Domain.DbMaps.Dependency;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.Dto.Sys.User;
@@ -18,7 +17,7 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     ///     头像链接
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR127)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
     public virtual string Avatar { get; init; }
 
     /// <summary>
@@ -38,7 +37,7 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     ///     邮箱
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR63)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]
     public virtual string Email { get; init; }
 
     /// <summary>
@@ -48,17 +47,10 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     public virtual bool Enabled { get; init; }
 
     /// <summary>
-    ///     会员
-    /// </summary>
-    [JsonIgnore]
-    [Navigate(nameof(Mobile), TempPrimary = nameof(Biz_Member.Mobile))]
-    public Biz_Member Member { get; init; }
-
-    /// <summary>
     ///     手机号
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR15)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
     public virtual string Mobile { get; init; }
 
     /// <summary>
@@ -97,7 +89,7 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     ///     用户名
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string UserName { get; init; }
 
     /// <inheritdoc />
@@ -108,9 +100,13 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
                   .Map(dest => dest.Token,    _ => Guid.NewGuid())
                   .Map( //
                       dest => dest.Roles
-                    , src => src.RoleIds.NullOrEmpty() ? Array.Empty<Sys_Role>() : src.RoleIds.Select(x => new Sys_Role { Id = x }))
+                    , src => src.RoleIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Role>()
+                          : src.RoleIds.Select(x => new Sys_Role { Id = x }))
                   .Map( //
                       dest => dest.Positions
-                    , src => src.PositionIds.NullOrEmpty() ? Array.Empty<Sys_Position>() : src.PositionIds.Select(x => new Sys_Position { Id = x }));
+                    , src => src.PositionIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Position>()
+                          : src.PositionIds.Select(x => new Sys_Position { Id = x }));
     }
 }

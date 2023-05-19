@@ -1,3 +1,5 @@
+using ShopCore.Domain.Attributes.DataValidation;
+
 namespace ShopCore.Domain.Dto.Sys.Role;
 
 /// <summary>
@@ -8,12 +10,12 @@ public sealed record MapMenusReq : DataAbstraction
     /// <summary>
     ///     菜单id
     /// </summary>
-    [Required]
+    [NotEmpty]
     public IReadOnlyCollection<long> MenuIds { get; init; }
 
     /// <summary>
     ///     角色id
     /// </summary>
-    [Required]
+    [NotEmpty]
     public long RoleId { get; init; }
 }

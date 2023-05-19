@@ -38,6 +38,6 @@ public abstract record VersionEntity<T> : LiteVersionEntity<T>, IFieldModifiedUs
     ///     修改者用户名
     /// </summary>
     [JsonIgnore]
-    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR31, CanInsert = false, Position = -1)]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31, CanInsert = false, Position = -1)]
     public string ModifiedUserName { get; init; }
 }
