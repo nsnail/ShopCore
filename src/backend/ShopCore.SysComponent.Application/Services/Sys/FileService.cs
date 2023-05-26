@@ -38,7 +38,8 @@ public sealed class FileService : ServiceBase<IFileService>, IFileService
 
         if (file.Length > _uploadOptions.MaxSize) {
             throw new ShopCoreInvalidOperationException(string.Format( //
-                                                            CultureInfo.InvariantCulture, Ln.允许的文件大小, _uploadOptions.MaxSize));
+                                                            CultureInfo.InvariantCulture, Ln.允许的文件大小
+                                                          , _uploadOptions.MaxSize));
         }
 
         var             fileName   = $"{Guid.NewGuid()}{Path.GetExtension(file.FileName)}";

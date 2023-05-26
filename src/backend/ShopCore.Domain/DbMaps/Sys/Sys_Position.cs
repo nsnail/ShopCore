@@ -21,6 +21,7 @@ public record Sys_Position : VersionEntity, IFieldSort, IFieldSummary
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long Sort { get; init; }
 
     /// <summary>
@@ -35,5 +36,5 @@ public record Sys_Position : VersionEntity, IFieldSort, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserPosition))]
-    public ICollection<Sys_User> Users { get; init; }
+    public virtual ICollection<Sys_User> Users { get; init; }
 }

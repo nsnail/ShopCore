@@ -14,7 +14,7 @@ export default {
 generateCsCode :{
     url: `${config.API_URL}/api/sys/dev/generate.cs.code`,
         name: `生成后端代码`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ generateCsCode :{
 generateIconCode :{
     url: `${config.API_URL}/api/sys/dev/generate.icon.code`,
         name: `生成图标代码`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ generateIconCode :{
 generateJsCode :{
     url: `${config.API_URL}/api/sys/dev/generate.js.code`,
         name: `生成接口代码`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

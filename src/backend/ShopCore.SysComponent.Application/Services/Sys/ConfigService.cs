@@ -70,7 +70,8 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
     /// </summary>
     public async Task<QueryConfigRsp> GetLatestConfigAsync()
     {
-        var ret = await QueryAsync(new QueryReq<QueryConfigReq> { Count = 1, Filter = new QueryConfigReq { Enabled = true } });
+        var ret = await QueryAsync(
+            new QueryReq<QueryConfigReq> { Count = 1, Filter = new QueryConfigReq { Enabled = true } });
         return ret.FirstOrDefault();
     }
 
@@ -81,7 +82,8 @@ public sealed class ConfigService : RepositoryService<Sys_Config, IConfigService
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryConfigRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryConfigRsp>>());
+        return new PagedQueryRsp<QueryConfigRsp>(req.Page, req.PageSize, total
+                                               , list.Adapt<IEnumerable<QueryConfigRsp>>());
     }
 
     /// <summary>

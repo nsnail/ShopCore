@@ -2,22 +2,22 @@
     <el-main>
         <el-row :gutter="15">
             <el-col :lg="24">
-                <el-card shadow="never" class="aboutTop">
+                <el-card class="aboutTop" shadow="never">
                     <div class="aboutTop-info">
-                        <img src="img/logo.png">
+                        <img alt="" src="img/logo.png">
                         <h2>{{ data.name }}</h2>
                         <p>{{ data.version }}</p>
                     </div>
                 </el-card>
-                <el-card shadow="never" header="dependencies">
-                    <el-descriptions border :column="3">
+                <el-card header="dependencies" shadow="never">
+                    <el-descriptions :column="3" border>
                         <el-descriptions-item v-for="(value, key) in data.dependencies" :key="key" :label="key">
                             {{ value }}
                         </el-descriptions-item>
                     </el-descriptions>
                 </el-card>
-                <el-card shadow="never" header="devDependencies">
-                    <el-descriptions border :column="3">
+                <el-card header="devDependencies" shadow="never">
+                    <el-descriptions :column="3" border>
                         <el-descriptions-item v-for="(value, key) in data.devDependencies" :key="key" :label="key">
                             {{ value }}
                         </el-descriptions-item>

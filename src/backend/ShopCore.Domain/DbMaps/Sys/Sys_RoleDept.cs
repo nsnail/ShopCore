@@ -13,23 +13,25 @@ public record Sys_RoleDept : ImmutableEntity
     ///     关联的部门
     /// </summary>
     [JsonIgnore]
-    public Sys_Dept Dept { get; init; }
+    public virtual Sys_Dept Dept { get; init; }
 
     /// <summary>
-    ///     可访问的部门id
+    ///     可访问的部门编号
     /// </summary>
     [JsonIgnore]
-    public long DeptId { get; init; }
+    [Column]
+    public virtual long DeptId { get; init; }
 
     /// <summary>
     ///     关联的角色
     /// </summary>
     [JsonIgnore]
-    public Sys_Role Role { get; init; }
+    public virtual Sys_Role Role { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
     [JsonIgnore]
-    public long RoleId { get; init; }
+    [Column]
+    public virtual long RoleId { get; init; }
 }

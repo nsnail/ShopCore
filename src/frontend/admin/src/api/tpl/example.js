@@ -14,7 +14,7 @@ export default {
 bulkDelete :{
     url: `${config.API_URL}/api/tpl/example/bulk.delete`,
         name: `批量删除示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ bulkDelete :{
 create :{
     url: `${config.API_URL}/api/tpl/example/create`,
         name: `创建示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ create :{
 delete :{
     url: `${config.API_URL}/api/tpl/example/delete`,
         name: `删除示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ delete :{
 pagedQuery :{
     url: `${config.API_URL}/api/tpl/example/paged.query`,
         name: `分页查询示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -58,7 +58,7 @@ pagedQuery :{
 query :{
     url: `${config.API_URL}/api/tpl/example/query`,
         name: `查询示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -69,7 +69,7 @@ query :{
 update :{
     url: `${config.API_URL}/api/tpl/example/update`,
         name: `更新示例`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

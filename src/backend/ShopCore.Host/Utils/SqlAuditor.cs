@@ -27,7 +27,7 @@ public sealed class SqlAuditor : ISingleton
         // 设置服务器时间偏差
         _timeOffset = DateTime.UtcNow.Subtract(App.GetService<IFreeSql>().Ado.QuerySingle(() => DateTime.UtcNow));
 
-        logger.Info($"{Ln.数据库服务器时钟偏移} {_timeOffset}");
+        logger.Info($"{Ln.数据库} {Ln.服务器} {Ln.时钟偏移} {_timeOffset}");
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public sealed class SqlAuditor : ISingleton
     }
 
     /// <summary>
-    ///     设置雪花id字段
+    ///     设置雪花编号字段
     /// </summary>
     private static void SetSnowflake(AuditValueEventArgs e)
     {

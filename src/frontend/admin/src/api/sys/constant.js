@@ -14,7 +14,7 @@ export default {
 getChars :{
     url: `${config.API_URL}/api/sys/constant/get.chars`,
         name: `获得常量字符串`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ getChars :{
 getEnums :{
     url: `${config.API_URL}/api/sys/constant/get.enums`,
         name: `获得公共枚举值`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ getEnums :{
 getLocalizedStrings :{
     url: `${config.API_URL}/api/sys/constant/get.localized.strings`,
         name: `获得本地化字符串`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ getLocalizedStrings :{
 getNumbers :{
     url: `${config.API_URL}/api/sys/constant/get.numbers`,
         name: `获得数字常量表`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

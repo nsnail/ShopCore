@@ -14,7 +14,7 @@ export default {
 getServerUtcTime :{
     url: `${config.API_URL}/api/sys/tools/get.server.utc.time`,
         name: `服务器时间`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ getServerUtcTime :{
 version :{
     url: `${config.API_URL}/api/sys/tools/version`,
         name: `版本信息`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

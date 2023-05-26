@@ -23,7 +23,7 @@ public record Sys_Menu : VersionEntity, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public IEnumerable<Sys_Menu> Children { get; init; }
+    public virtual IEnumerable<Sys_Menu> Children { get; init; }
 
     /// <summary>
     ///     背景颜色
@@ -43,18 +43,21 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     是否整页路由
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool FullPageRouting { get; init; }
 
     /// <summary>
     ///     是否隐藏菜单
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool Hidden { get; init; }
 
     /// <summary>
     ///     是否隐藏面包屑
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool HiddenBreadCrumb { get; init; }
 
     /// <summary>
@@ -72,9 +75,10 @@ public record Sys_Menu : VersionEntity, IFieldSort
     public virtual string Name { get; init; }
 
     /// <summary>
-    ///     父id
+    ///     父编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long ParentId { get; init; }
 
     /// <summary>
@@ -96,12 +100,13 @@ public record Sys_Menu : VersionEntity, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleMenu))]
-    public ICollection<Sys_Role> Roles { get; init; }
+    public virtual ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long Sort { get; init; }
 
     /// <summary>
@@ -122,5 +127,6 @@ public record Sys_Menu : VersionEntity, IFieldSort
     ///     菜单类型
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual MenuTypes Type { get; init; }
 }

@@ -243,7 +243,7 @@ public static class ServiceCollectionExtensions
     }
 
     /// <summary>
-    ///     注册雪花id生成器
+    ///     注册雪花编号生成器
     /// </summary>
     public static IServiceCollection AddSnowflake(this IServiceCollection me)
     {

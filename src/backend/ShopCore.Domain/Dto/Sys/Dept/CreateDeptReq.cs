@@ -11,7 +11,7 @@ public record CreateDeptReq : Sys_Dept
 {
     /// <inheritdoc cref="Sys_Dept.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.部门名称))]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="Sys_Dept.ParentId" />

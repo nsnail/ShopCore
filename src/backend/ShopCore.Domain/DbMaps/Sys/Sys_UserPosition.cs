@@ -12,23 +12,25 @@ public record Sys_UserPosition : ImmutableEntity
     ///     关联的岗位
     /// </summary>
     [JsonIgnore]
-    public Sys_Position Position { get; init; }
+    public virtual Sys_Position Position { get; init; }
 
     /// <summary>
-    ///     岗位id
+    ///     岗位编号
     /// </summary>
     [JsonIgnore]
-    public long PositionId { get; init; }
+    [Column]
+    public virtual long PositionId { get; init; }
 
     /// <summary>
     ///     关联的用户
     /// </summary>
     [JsonIgnore]
-    public Sys_User User { get; init; }
+    public virtual Sys_User User { get; init; }
 
     /// <summary>
-    ///     用户id
+    ///     用户编号
     /// </summary>
     [JsonIgnore]
-    public long UserId { get; init; }
+    [Column]
+    public virtual long UserId { get; init; }
 }

@@ -14,10 +14,10 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ApiId))]
-    public Sys_Api Api { get; init; }
+    public virtual Sys_Api Api { get; init; }
 
     /// <summary>
-    ///     接口Id
+    ///     接口编号
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
@@ -39,12 +39,14 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     执行耗时（微秒）
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long Duration { get; init; }
 
     /// <summary>
     ///     程序响应码
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual ErrorCodes ErrorCode { get; init; }
 
     /// <summary>
@@ -65,6 +67,7 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     HTTP状态码
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual int HttpStatusCode { get; init; }
 
     /// <summary>
@@ -134,5 +137,6 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     ///     服务器IP
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual int? ServerIp { get; init; }
 }

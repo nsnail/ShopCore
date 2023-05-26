@@ -14,7 +14,7 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public IEnumerable<Sys_Api> Children { get; init; }
+    public virtual IEnumerable<Sys_Api> Children { get; init; }
 
     /// <summary>
     ///     唯一编码
@@ -45,7 +45,7 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     public virtual string Namespace { get; init; }
 
     /// <summary>
-    ///     父id
+    ///     父编号
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
@@ -56,7 +56,7 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleApi))]
-    public ICollection<Sys_Role> Roles { get; init; }
+    public virtual ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     服务描述

@@ -10,7 +10,7 @@ public sealed record VerifyCaptchaReq : DataAbstraction
     /// <summary>
     ///     唯一编码
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.唯一编码))]
     public string Id { get; init; }
 
     /// <summary>
@@ -22,6 +22,6 @@ public sealed record VerifyCaptchaReq : DataAbstraction
     /// <summary>
     ///     验证数据
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.验证数据))]
     public string VerifyData { get; init; }
 }

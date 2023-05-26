@@ -50,7 +50,7 @@ public sealed class Startup : ShopCore.Host.Startup
         _ = services.AddConsoleFormatter() // 控制台日志模板
                     .AddAllOptions()       // 注册配置项
                     .AddJwt()              // Jwt 授权处理器
-                    .AddSnowflake()        // 雪花id生成器
+                    .AddSnowflake()        // 雪花编号生成器
                     .AddEventBus()         // 事件总线
                     .AddFreeSql()          // freeSql
                     .AddCorsAccessor()     // 支持跨域访问

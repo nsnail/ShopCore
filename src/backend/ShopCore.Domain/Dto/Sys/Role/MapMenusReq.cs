@@ -8,14 +8,14 @@ namespace ShopCore.Domain.Dto.Sys.Role;
 public sealed record MapMenusReq : DataAbstraction
 {
     /// <summary>
-    ///     菜单id
+    ///     菜单编号
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.菜单编号))]
     public IReadOnlyCollection<long> MenuIds { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.角色编号))]
     public long RoleId { get; init; }
 }

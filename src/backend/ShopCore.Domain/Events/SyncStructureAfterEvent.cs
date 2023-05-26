@@ -17,7 +17,7 @@ public sealed record SyncStructureAfterEvent : SyncStructureBeforeEvent
     /// <inheritdoc />
     public override string ToString()
     {
-        return string.Format(CultureInfo.InvariantCulture, "{0}: {1}: {2}", Id, Ln.数据库结构同步完成
+        return string.Format(CultureInfo.InvariantCulture, "{0}: {1} {2} {3} {4}: {5}", Id, Ln.数据库, Ln.结构, Ln.同步, Ln.完成
                            , string.Join(',', EntityTypes.Select(x => x.Name)));
     }
 }

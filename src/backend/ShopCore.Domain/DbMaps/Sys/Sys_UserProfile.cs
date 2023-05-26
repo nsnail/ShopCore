@@ -14,6 +14,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     出生日期
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual DateTime? BornDate { get; init; }
 
     /// <summary>
@@ -27,6 +28,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     证件类型
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual CertificateTypes? CertificateType { get; init; }
 
     /// <summary>
@@ -40,7 +42,8 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     工作地区
     /// </summary>
     [JsonIgnore]
-    public int? CompanyArea { get; init; }
+    [Column]
+    public virtual int? CompanyArea { get; init; }
 
     /// <summary>
     ///     工作单位
@@ -60,6 +63,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     文化程度
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual Educations? Education { get; init; }
 
     /// <summary>
@@ -73,7 +77,8 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     紧急联系地区
     /// </summary>
     [JsonIgnore]
-    public int? EmergencyContactArea { get; init; }
+    [Column]
+    public virtual int? EmergencyContactArea { get; init; }
 
     /// <summary>
     ///     紧急联系人手机号
@@ -100,6 +105,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     身高
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual int? Height { get; init; }
 
     /// <summary>
@@ -113,7 +119,8 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     住宅地区
     /// </summary>
     [JsonIgnore]
-    public int? HomeArea { get; init; }
+    [Column]
+    public virtual int? HomeArea { get; init; }
 
     /// <summary>
     ///     住宅电话
@@ -126,6 +133,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     婚姻状况
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual MarriageStatues? MarriageStatus { get; init; }
 
     /// <summary>
@@ -133,18 +141,21 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     /// </summary>
     /// 7
     [JsonIgnore]
+    [Column]
     public virtual Nations? Nation { get; init; }
 
     /// <summary>
     ///     籍贯
     /// </summary>
     [JsonIgnore]
-    public int? NationArea { get; init; }
+    [Column]
+    public virtual int? NationArea { get; init; }
 
     /// <summary>
     ///     政治面貌
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual PoliticalStatues? PoliticalStatus { get; init; }
 
     /// <summary>
@@ -165,6 +176,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     性别
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual Sexes? Sex { get; init; }
 
     /// <summary>
@@ -178,7 +190,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     用户基本信息
     /// </summary>
     [JsonIgnore]
-    public Sys_User User { get; init; }
+    public virtual Sys_User User { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)

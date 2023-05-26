@@ -96,7 +96,10 @@ public sealed class DeptService : RepositoryService<Sys_Dept, IDeptService>, IDe
     /// </summary>
     public async Task<IEnumerable<QueryDeptRsp>> QueryAsync(QueryReq<QueryDeptReq> req)
     {
-        var ret = await Rpo.Select.WhereDynamicFilter(req.DynamicFilter).WhereDynamic(req.Filter).OrderByDescending(a => a.Sort).ToTreeListAsync();
+        var ret = await Rpo.Select.WhereDynamicFilter(req.DynamicFilter)
+                           .WhereDynamic(req.Filter)
+                           .OrderByDescending(a => a.Sort)
+                           .ToTreeListAsync();
         return ret.Adapt<IEnumerable<QueryDeptRsp>>();
     }
 

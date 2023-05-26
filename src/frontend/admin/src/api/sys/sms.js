@@ -14,7 +14,7 @@ export default {
 pagedQuery :{
     url: `${config.API_URL}/api/sys/sms/paged.query`,
         name: `分页查询短信`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ pagedQuery :{
 query :{
     url: `${config.API_URL}/api/sys/sms/query`,
         name: `查询短信`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ query :{
 sendSmsCode :{
     url: `${config.API_URL}/api/sys/sms/send.sms.code`,
         name: `发送短信验证码`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ sendSmsCode :{
 verifySmsCode :{
     url: `${config.API_URL}/api/sys/sms/verify.sms.code`,
         name: `完成短信验证`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

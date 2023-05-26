@@ -10,7 +10,7 @@ namespace ShopCore.Domain.Dto.Sys.Position;
 public record CreatePositionReq : Sys_Position
 {
     /// <inheritdoc cref="Sys_Position.Name" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.岗位名称))]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string Name { get; init; }
 

@@ -14,7 +14,7 @@ export default {
 bulkDelete :{
     url: `${config.API_URL}/api/biz/product.category/bulk.delete`,
         name: `批量删除商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ bulkDelete :{
 create :{
     url: `${config.API_URL}/api/biz/product.category/create`,
         name: `创建商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ create :{
 delete :{
     url: `${config.API_URL}/api/biz/product.category/delete`,
         name: `删除商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ delete :{
 pagedQuery :{
     url: `${config.API_URL}/api/biz/product.category/paged.query`,
         name: `分页查询商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -58,7 +58,7 @@ pagedQuery :{
 query :{
     url: `${config.API_URL}/api/biz/product.category/query`,
         name: `查询商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -69,7 +69,7 @@ query :{
 update :{
     url: `${config.API_URL}/api/biz/product.category/update`,
         name: `更新商品分类`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

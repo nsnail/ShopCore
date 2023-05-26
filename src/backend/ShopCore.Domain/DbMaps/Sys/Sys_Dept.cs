@@ -14,7 +14,7 @@ public record Sys_Dept : VersionEntity, IFieldSummary, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public IEnumerable<Sys_Dept> Children { get; init; }
+    public virtual IEnumerable<Sys_Dept> Children { get; init; }
 
     /// <summary>
     ///     部门名称
@@ -24,9 +24,10 @@ public record Sys_Dept : VersionEntity, IFieldSummary, IFieldSort
     public virtual string Name { get; init; }
 
     /// <summary>
-    ///     父id
+    ///     父编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long ParentId { get; init; }
 
     /// <summary>
@@ -34,12 +35,13 @@ public record Sys_Dept : VersionEntity, IFieldSummary, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleDept))]
-    public ICollection<Sys_Role> Roles { get; init; }
+    public virtual ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long Sort { get; init; }
 
     /// <summary>

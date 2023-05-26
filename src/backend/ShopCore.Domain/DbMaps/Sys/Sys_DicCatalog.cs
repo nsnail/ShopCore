@@ -14,7 +14,7 @@ public record Sys_DicCatalog : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public IEnumerable<Sys_DicCatalog> Children { get; init; }
+    public virtual IEnumerable<Sys_DicCatalog> Children { get; init; }
 
     /// <summary>
     ///     字典编码
@@ -28,7 +28,7 @@ public record Sys_DicCatalog : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(Sys_DicContent.CatalogId))]
-    public ICollection<Sys_DicContent> Contents { get; init; }
+    public virtual ICollection<Sys_DicContent> Contents { get; init; }
 
     /// <summary>
     ///     字典名称
@@ -38,8 +38,9 @@ public record Sys_DicCatalog : VersionEntity
     public virtual string Name { get; init; }
 
     /// <summary>
-    ///     父id
+    ///     父编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long ParentId { get; init; }
 }

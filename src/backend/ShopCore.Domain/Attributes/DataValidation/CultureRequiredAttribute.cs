@@ -3,7 +3,7 @@ namespace ShopCore.Domain.Attributes.DataValidation;
 /// <summary>
 ///     非空验证器
 /// </summary>
-public sealed class NotEmptyAttribute : RequiredAttribute
+public sealed class CultureRequiredAttribute : RequiredAttribute
 {
     /// <summary>Applies formatting to an error message, based on the data field where the error occurred.</summary>
     /// <param name="name">The name to include in the formatted message.</param>
@@ -11,6 +11,6 @@ public sealed class NotEmptyAttribute : RequiredAttribute
     /// <returns>An instance of the formatted error message.</returns>
     public override string FormatErrorMessage(string name)
     {
-        return $"{name} {Ln.不能为空}";
+        return $"{ErrorMessageString.NullOrEmpty(name)} {Ln.不能为空}";
     }
 }

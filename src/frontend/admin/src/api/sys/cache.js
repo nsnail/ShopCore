@@ -14,7 +14,7 @@ export default {
 cacheStatistics :{
     url: `${config.API_URL}/api/sys/cache/cache.statistics`,
         name: `缓存统计`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ cacheStatistics :{
 clear :{
     url: `${config.API_URL}/api/sys/cache/clear`,
         name: `清空缓存`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

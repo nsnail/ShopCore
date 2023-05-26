@@ -36,14 +36,14 @@ public record CreateUserReq : Sys_User
     /// <summary>
     ///     密码
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.密码))]
     [Password]
     public virtual string PasswordText { get; init; }
 
     /// <summary>
-    ///     岗位id列表
+    ///     岗位编号列表
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.岗位编号列表))]
     [MinLength(1)]
     [MaxLength(Numbers.BULK_REQ_LIMIT)]
     public IReadOnlyCollection<long> PositionIds { get; init; }
@@ -51,19 +51,19 @@ public record CreateUserReq : Sys_User
     /// <summary>
     ///     用户档案
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.用户档案))]
     public new CreateUserProfileReq Profile { get; init; }
 
     /// <summary>
-    ///     角色id列表
+    ///     角色编号列表
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.角色编号列表))]
     [MinLength(1)]
     [MaxLength(Numbers.BULK_REQ_LIMIT)]
     public IReadOnlyCollection<long> RoleIds { get; init; }
 
     /// <inheritdoc cref="Sys_User.UserName" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.用户名))]
     [UserName]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string UserName { get; init; }

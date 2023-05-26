@@ -14,7 +14,7 @@ export default {
 check :{
     url: `${config.API_URL}/api/health/check`,
         name: `健康检查`,
-        get:async function(data, config={}) {
+        get:async function(data={}, config={}) {
         return await http.get(this.url,data, config)
     }
 },

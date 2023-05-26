@@ -53,17 +53,17 @@
                         </el-form-item>
                     </el-form>
                     <el-button plain type="primary" @click="getBase64"
-                        >Base64
+                    >Base64
                     </el-button>
                     <el-button plain type="primary" @click="getBlob"
-                        >Blob
+                    >Blob
                     </el-button>
                     <el-button plain type="primary" @click="getFile"
-                        >File
+                    >File
                     </el-button>
                 </el-card>
                 <el-card header="方法结果" shadow="never">
-                    <img :src="imgData" />
+                    <img :src="imgData" alt=""/>
                 </el-card>
             </el-col>
             <el-col :lg="10">

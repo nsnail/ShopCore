@@ -71,7 +71,8 @@ public sealed class ExampleService : RepositoryService<Tpl_Example, IExampleServ
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryExampleRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryExampleRsp>>());
+        return new PagedQueryRsp<QueryExampleRsp>(req.Page, req.PageSize, total
+                                                , list.Adapt<IEnumerable<QueryExampleRsp>>());
     }
 
     /// <summary>

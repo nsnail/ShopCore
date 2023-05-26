@@ -14,7 +14,7 @@ export default {
 bulkDelete :{
     url: `${config.API_URL}/api/sys/config/bulk.delete`,
         name: `批量删除配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ bulkDelete :{
 create :{
     url: `${config.API_URL}/api/sys/config/create`,
         name: `创建配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ create :{
 delete :{
     url: `${config.API_URL}/api/sys/config/delete`,
         name: `删除配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ delete :{
 getLatestConfig :{
     url: `${config.API_URL}/api/sys/config/get.latest.config`,
         name: `获取最新有效配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -58,7 +58,7 @@ getLatestConfig :{
 pagedQuery :{
     url: `${config.API_URL}/api/sys/config/paged.query`,
         name: `分页查询配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -69,7 +69,7 @@ pagedQuery :{
 query :{
     url: `${config.API_URL}/api/sys/config/query`,
         name: `查询配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -80,7 +80,7 @@ query :{
 update :{
     url: `${config.API_URL}/api/sys/config/update`,
         name: `更新配置`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

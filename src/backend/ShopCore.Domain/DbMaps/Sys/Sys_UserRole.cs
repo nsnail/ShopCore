@@ -12,23 +12,25 @@ public record Sys_UserRole : VersionEntity
     ///     关联的角色
     /// </summary>
     [JsonIgnore]
-    public Sys_Role Role { get; init; }
+    public virtual Sys_Role Role { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
     [JsonIgnore]
-    public long RoleId { get; init; }
+    [Column]
+    public virtual long RoleId { get; init; }
 
     /// <summary>
     ///     关联的用户
     /// </summary>
     [JsonIgnore]
-    public Sys_User User { get; init; }
+    public virtual Sys_User User { get; init; }
 
     /// <summary>
-    ///     用户id
+    ///     用户编号
     /// </summary>
     [JsonIgnore]
-    public long UserId { get; init; }
+    [Column]
+    public virtual long UserId { get; init; }
 }

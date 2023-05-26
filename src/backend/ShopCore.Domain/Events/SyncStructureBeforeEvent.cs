@@ -24,6 +24,6 @@ public record SyncStructureBeforeEvent : SqlCommandEvent
     /// <inheritdoc />
     public override string ToString()
     {
-        return string.Format(CultureInfo.InvariantCulture, "{0}: {1}", Id, Ln.数据库同步开始);
+        return string.Format(CultureInfo.InvariantCulture, "{0}: {1} {2} {3}", Id, Ln.数据库, Ln.同步, Ln.开始);
     }
 }

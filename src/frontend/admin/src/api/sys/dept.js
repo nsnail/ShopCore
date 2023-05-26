@@ -14,7 +14,7 @@ export default {
 bulkDelete :{
     url: `${config.API_URL}/api/sys/dept/bulk.delete`,
         name: `批量删除部门`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ bulkDelete :{
 create :{
     url: `${config.API_URL}/api/sys/dept/create`,
         name: `创建部门`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ create :{
 delete :{
     url: `${config.API_URL}/api/sys/dept/delete`,
         name: `删除部门`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ delete :{
 query :{
     url: `${config.API_URL}/api/sys/dept/query`,
         name: `查询部门`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -58,7 +58,7 @@ query :{
 update :{
     url: `${config.API_URL}/api/sys/dept/update`,
         name: `更新部门`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

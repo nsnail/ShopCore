@@ -15,16 +15,17 @@ public record Sys_DicContent : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(CatalogId))]
-    public Sys_DicCatalog Catalog { get; init; }
+    public virtual Sys_DicCatalog Catalog { get; init; }
 
     /// <summary>
-    ///     字典目录id
+    ///     字典目录编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long CatalogId { get; init; }
 
     /// <summary>
-    ///     项名称
+    ///     键名称
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_63)]

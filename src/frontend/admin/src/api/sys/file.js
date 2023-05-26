@@ -14,7 +14,7 @@ export default {
 upload :{
     url: `${config.API_URL}/api/sys/file/upload`,
         name: `文件上传`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

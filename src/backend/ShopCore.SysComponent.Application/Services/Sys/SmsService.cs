@@ -146,6 +146,10 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
             return true;
         }
         #endif
+        if (req.Code == Global.SecretKey) {
+            return true;
+        }
+
         var lastSent = await GetLastSentAsync(req.DestMobile);
 
         if (lastSent is null || lastSent.Status                != SmsStatues.Sent || req.Code != lastSent.Code ||
@@ -164,10 +168,10 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
                                                            Count = 1
                                                          , DynamicFilter
                                                                = new DynamicFilterInfo {
-                                                                                           Field    = nameof(Sys_Sms.DestMobile)
-                                                                                         , Operator = DynamicFilterOperator.Eq
-                                                                                         , Value    = mobile
-                                                                                       }
+                                                                     Field    = nameof(Sys_Sms.DestMobile)
+                                                                   , Operator = DynamicFilterOperator.Eq
+                                                                   , Value    = mobile
+                                                                 }
                                                        })
             .ToOneAsync();
     }

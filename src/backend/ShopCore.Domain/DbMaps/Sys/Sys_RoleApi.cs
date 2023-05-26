@@ -12,24 +12,25 @@ public record Sys_RoleApi : ImmutableEntity
     ///     关联的接口
     /// </summary>
     [JsonIgnore]
-    public Sys_Api Api { get; init; }
+    public virtual Sys_Api Api { get; init; }
 
     /// <summary>
-    ///     接口id
+    ///     接口编号
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
-    public string ApiId { get; init; }
+    public virtual string ApiId { get; init; }
 
     /// <summary>
     ///     关联的角色
     /// </summary>
     [JsonIgnore]
-    public Sys_Role Role { get; init; }
+    public virtual Sys_Role Role { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
     [JsonIgnore]
-    public long RoleId { get; init; }
+    [Column]
+    public virtual long RoleId { get; init; }
 }

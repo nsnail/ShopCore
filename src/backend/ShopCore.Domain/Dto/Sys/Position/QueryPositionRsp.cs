@@ -18,7 +18,7 @@ public sealed record QueryPositionRsp : Sys_Position
     public override long Id { get; init; }
 
     /// <inheritdoc cref="Sys_Position.Name" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.岗位名称))]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public override string Name { get; init; }
 

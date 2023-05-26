@@ -14,7 +14,7 @@ export default {
 pagedQuery :{
     url: `${config.API_URL}/api/sys/log/paged.query`,
         name: `分页查询请求日志`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ pagedQuery :{
 query :{
     url: `${config.API_URL}/api/sys/log/query`,
         name: `查询请求日志`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

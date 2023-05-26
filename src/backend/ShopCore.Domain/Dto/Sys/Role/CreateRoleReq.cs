@@ -20,7 +20,7 @@ public record CreateRoleReq : Sys_Role
     public override DataScopes DataScope { get; init; } = DataScopes.All;
 
     /// <summary>
-    ///     当 DataScope = SpecificDept ，此参数指定部门id
+    ///     当 DataScope = SpecificDept ，此参数指定部门编号
     /// </summary>
     [SpecificDept]
     public IReadOnlyCollection<long> DeptIds { get; init; }
@@ -40,7 +40,7 @@ public record CreateRoleReq : Sys_Role
 
     /// <inheritdoc cref="Sys_Role.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.角色名称))]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="IFieldSort.Sort" />

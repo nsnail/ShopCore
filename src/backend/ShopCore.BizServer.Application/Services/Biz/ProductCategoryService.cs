@@ -9,7 +9,8 @@ using DataType = FreeSql.DataType;
 namespace ShopCore.BizServer.Application.Services.Biz;
 
 /// <inheritdoc cref="IProductCategoryService" />
-public sealed class ProductCategoryService : RepositoryService<Biz_ProductCategory, IProductCategoryService>, IProductCategoryService
+public sealed class ProductCategoryService : RepositoryService<Biz_ProductCategory, IProductCategoryService>
+                                           , IProductCategoryService
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="ProductCategoryService" /> class.
@@ -72,11 +73,13 @@ public sealed class ProductCategoryService : RepositoryService<Biz_ProductCatego
     /// <summary>
     ///     分页查询商品分类
     /// </summary>
-    public async Task<PagedQueryRsp<QueryProductCategoryRsp>> PagedQueryAsync(PagedQueryReq<QueryProductCategoryReq> req)
+    public async Task<PagedQueryRsp<QueryProductCategoryRsp>> PagedQueryAsync(
+        PagedQueryReq<QueryProductCategoryReq> req)
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryProductCategoryRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryProductCategoryRsp>>());
+        return new PagedQueryRsp<QueryProductCategoryRsp>(req.Page, req.PageSize, total
+                                                        , list.Adapt<IEnumerable<QueryProductCategoryRsp>>());
     }
 
     /// <summary>
@@ -84,7 +87,7 @@ public sealed class ProductCategoryService : RepositoryService<Biz_ProductCatego
     /// </summary>
     public async Task<IEnumerable<QueryProductCategoryRsp>> QueryAsync(QueryReq<QueryProductCategoryReq> req)
     {
-        var ret = await QueryInternal(req).Take(req.Count).ToListAsync();
+        var ret = await QueryInternal(req).ToTreeListAsync();
         return ret.Adapt<IEnumerable<QueryProductCategoryRsp>>();
     }
 
@@ -106,7 +109,9 @@ public sealed class ProductCategoryService : RepositoryService<Biz_ProductCatego
         return Rpo.Select.WhereDynamicFilter(req.DynamicFilter)
                   .WhereDynamic(req.Filter)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
-                  .OrderByDescending(a => a.Id);
+                  .OrderByDescending(a => a.Sort)
+                  .OrderBy(a => a.CategoryName)
+                  .OrderBy(a => a.Id);
     }
 
     /// <summary>

@@ -40,7 +40,7 @@ public record CreateMenuReq : Sys_Menu
 
     /// <inheritdoc cref="Sys_Menu.Name" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.菜单名称))]
     public override string Name { get; init; }
 
     /// <inheritdoc cref="Sys_Menu.ParentId" />
@@ -63,7 +63,7 @@ public record CreateMenuReq : Sys_Menu
     public override string Tag => Meta.Tag;
 
     /// <inheritdoc cref="Sys_Menu.Title" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.菜单标题))]
     public override string Title => Meta.Title;
 
     /// <inheritdoc cref="Sys_Menu.Type" />

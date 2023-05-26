@@ -14,7 +14,7 @@ export default {
 bulkDelete :{
     url: `${config.API_URL}/api/sys/menu/bulk.delete`,
         name: `批量删除菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ bulkDelete :{
 create :{
     url: `${config.API_URL}/api/sys/menu/create`,
         name: `创建菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -36,7 +36,7 @@ create :{
 delete :{
     url: `${config.API_URL}/api/sys/menu/delete`,
         name: `删除菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -47,7 +47,7 @@ delete :{
 query :{
     url: `${config.API_URL}/api/sys/menu/query`,
         name: `查询菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -58,7 +58,7 @@ query :{
 update :{
     url: `${config.API_URL}/api/sys/menu/update`,
         name: `更新菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -69,7 +69,7 @@ update :{
 userMenus :{
     url: `${config.API_URL}/api/sys/menu/user.menus`,
         name: `当前用户菜单`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

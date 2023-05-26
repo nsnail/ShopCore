@@ -50,6 +50,7 @@ public static class Chars
     public const string FLG_HTTP_METHOD_TRACE          = "TRACE";
     public const string FLG_RANDOM_UNAME_PWD           = "VcXlp7WY";
     public const string FLG_REDIS_INSTANCE_DATA_CACHE  = "DataCache";
+    public const string FLG_SYSTEM_PREFIX              = "sc_";
     public const string FLG_TABLE_NAME_PREFIX          = "";
 
     public const string FLG_UA_MOBILE

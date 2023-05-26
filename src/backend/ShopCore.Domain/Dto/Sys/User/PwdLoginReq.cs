@@ -11,10 +11,10 @@ public record PwdLoginReq : DataAbstraction
     /// <summary>
     ///     用户名、手机号、邮箱
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.账号))]
     public string Account { get; init; }
 
     /// <inheritdoc cref="Sys_User.Password" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.密码))]
     public string Password { get; init; }
 }

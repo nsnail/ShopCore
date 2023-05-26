@@ -16,20 +16,18 @@ namespace ShopCore.SysComponent.Application.Services.Sys;
 public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUserService
 {
     private readonly Expression<Func<Sys_User, Sys_User>> _selectUserFields = a => new Sys_User {
-                                                                                                    Id          = a.Id
-                                                                                                  , Positions   = a.Positions
-                                                                                                  , Avatar      = a.Avatar
-                                                                                                  , Email       = a.Email
-                                                                                                  , Mobile      = a.Mobile
-                                                                                                  , Enabled     = a.Enabled
-                                                                                                  , UserName    = a.UserName
-                                                                                                  , Version     = a.Version
-                                                                                                  , CreatedTime = a.CreatedTime
-                                                                                                  , Dept = new Sys_Dept {
-                                                                                                        Id = a.Dept.Id, Name = a.Dept.Name
-                                                                                                    }
-                                                                                                  , Roles = a.Roles
-                                                                                                };
+        Id          = a.Id
+      , Positions   = a.Positions
+      , Avatar      = a.Avatar
+      , Email       = a.Email
+      , Mobile      = a.Mobile
+      , Enabled     = a.Enabled
+      , UserName    = a.UserName
+      , Version     = a.Version
+      , CreatedTime = a.CreatedTime
+      , Dept        = new Sys_Dept { Id = a.Dept.Id, Name = a.Dept.Name }
+      , Roles       = a.Roles
+    };
 
     private readonly ISmsService _smsService;
 
@@ -138,7 +136,8 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
     public async Task<QueryUserRsp> GetForUpdateAsync(QueryUserReq req)
     {
         // ReSharper disable once MethodHasAsyncOverload
-        return (await QueryInternal(new QueryReq<QueryUserReq> { Filter = req }).ForUpdate().ToOneAsync()).Adapt<QueryUserRsp>();
+        return (await QueryInternal(new QueryReq<QueryUserReq> { Filter = req }).ForUpdate().ToOneAsync())
+            .Adapt<QueryUserRsp>();
     }
 
     /// <summary>
@@ -146,7 +145,9 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
     /// </summary>
     public async Task<PagedQueryRsp<QueryUserRsp>> PagedQueryAsync(PagedQueryReq<QueryUserReq> req)
     {
-        var list = await (await QueryInternalAsync(req)).Page(req.Page, req.PageSize).Count(out var total).ToListAsync(_selectUserFields);
+        var list = await (await QueryInternalAsync(req)).Page(req.Page, req.PageSize)
+                                                        .Count(out var total)
+                                                        .ToListAsync(_selectUserFields);
         return new PagedQueryRsp<QueryUserRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryUserRsp>>());
     }
 
@@ -278,7 +279,10 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
         var dbUser = await Rpo.Where(a => a.Token == UserToken.Token && a.Enabled)
                               .Include(a => a.Dept)
                               .IncludeMany( //
-                                  a => a.Roles, then => then.IncludeMany(a => a.Menus).IncludeMany(a => a.Depts).IncludeMany(a => a.Apis))
+                                  a => a.Roles
+                                , then => then.IncludeMany(a => a.Menus)
+                                              .IncludeMany(a => a.Depts)
+                                              .IncludeMany(a => a.Apis))
                               .ToOneAsync();
         return dbUser.Adapt<QueryUserRsp>();
     }
@@ -289,22 +293,32 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
             throw new ShopCoreInvalidOperationException(Ln.请联系管理员激活账号);
         }
 
-        var tokenPayload = new Dictionary<string, object> { { nameof(ContextUserToken), dbUser.Adapt<ContextUserToken>() } };
+        var tokenPayload
+            = new Dictionary<string, object> { { nameof(ContextUserToken), dbUser.Adapt<ContextUserToken>() } };
 
         var accessToken = JWTEncryption.Encrypt(tokenPayload);
-        return new LoginRsp { AccessToken = accessToken, RefreshToken = JWTEncryption.GenerateRefreshToken(accessToken) };
+        return new LoginRsp {
+                                AccessToken  = accessToken
+                              , RefreshToken = JWTEncryption.GenerateRefreshToken(accessToken)
+                            };
     }
 
     private async Task CreateUpdateCheckAsync(CreateUserReq req)
     {
         // 检查角色是否存在
-        var roles = await Rpo.Orm.Select<Sys_Role>().ForUpdate().Where(a => req.RoleIds.Contains(a.Id)).ToListAsync(a => a.Id);
+        var roles = await Rpo.Orm.Select<Sys_Role>()
+                             .ForUpdate()
+                             .Where(a => req.RoleIds.Contains(a.Id))
+                             .ToListAsync(a => a.Id);
         if (roles.Count != req.RoleIds.Count) {
             throw new ShopCoreInvalidOperationException(Ln.角色不存在);
         }
 
         // 检查岗位是否存在
-        var positions = await Rpo.Orm.Select<Sys_Position>().ForUpdate().Where(a => req.PositionIds.Contains(a.Id)).ToListAsync(a => a.Id);
+        var positions = await Rpo.Orm.Select<Sys_Position>()
+                                 .ForUpdate()
+                                 .Where(a => req.PositionIds.Contains(a.Id))
+                                 .ToListAsync(a => a.Id);
         if (positions.Count != req.PositionIds.Count) {
             throw new ShopCoreInvalidOperationException(Ln.岗位不存在);
         }
@@ -329,7 +343,10 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
     {
         IEnumerable<long> deptIds = null;
         if (req.Filter?.DeptId > 0) {
-            deptIds = await Rpo.Orm.Select<Sys_Dept>().Where(a => a.Id == req.Filter.DeptId).AsTreeCte().ToListAsync(a => a.Id);
+            deptIds = await Rpo.Orm.Select<Sys_Dept>()
+                               .Where(a => a.Id == req.Filter.DeptId)
+                               .AsTreeCte()
+                               .ToListAsync(a => a.Id);
         }
 
         var ret = Rpo.Select.Include(a => a.Dept)
@@ -345,7 +362,8 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
                          req.Filter?.PositionId > 0, a => a.Positions.Any(b => b.Id == req.Filter.PositionId))
                      .WhereIf( //
                          req.Keywords?.Length > 0
-                       , a => a.UserName.Contains(req.Keywords) || a.Id == req.Keywords.Int64Try(0) || a.Mobile == req.Keywords)
+                       , a => a.UserName.Contains(req.Keywords) || a.Id == req.Keywords.Int64Try(0) ||
+                              a.Mobile                                  == req.Keywords)
                      .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending);
 
         if (!req.Prop?.Equals(nameof(req.Filter.CreatedTime), StringComparison.OrdinalIgnoreCase) ?? true) {

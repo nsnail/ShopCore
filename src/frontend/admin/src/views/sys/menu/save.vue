@@ -26,8 +26,8 @@
                     <el-form-item label="上级菜单" prop="parentId">
                         <el-cascader
                             v-model="form.parentId"
-                            :options="menuOptions"
-                            :props="menuProps"
+                            :options="treeOptions"
+                            :props="treeProps"
                             :show-all-levels="false"
                             clearable
                             placeholder="顶级菜单"
@@ -153,7 +153,7 @@ export default {
         scIconSelect,
     },
     props: {
-        menu: {
+        tree: {
             type: Object,
             default: () => {},
         },
@@ -163,11 +163,14 @@ export default {
             form: {
                 id: 0,
                 parentId: 0,
+                sort: 0,
                 name: "",
                 path: "",
                 component: "",
                 redirect: "",
                 meta: {
+                    hidden: false,
+                    hiddenBreadCrumb: false,
                     title: "",
                     icon: "",
                     active: "",
@@ -176,40 +179,26 @@ export default {
                     fullPage: false,
                     tag: "",
                 },
-                apiList: [],
             },
-            menuOptions: [],
-            menuProps: {
+            treeOptions: [],
+            treeProps: {
                 emitPath: false,
                 value: "id",
                 label: "title",
                 checkStrictly: true,
             },
-            predefineColors: [
-                "#ff4500",
-                "#ff8c00",
-                "#ffd700",
-                "#67C23A",
-                "#00ced1",
-                "#06c755",
-                "#c71585",
-            ],
             rules: {
                 meta: {
                     title: [{ required: true, message: "请输入显示名称" }],
                 },
             },
-            apiListAddTemplate: {
-                code: "",
-                url: "",
-            },
             loading: false,
         };
     },
     watch: {
-        menu: {
+        tree: {
             handler() {
-                this.menuOptions = this.treeToMap(this.menu);
+                this.treeOptions = this.treeToMap(this.tree);
             },
             deep: true,
         },
@@ -240,7 +229,7 @@ export default {
                     this.loading = true;
                     try {
                         if (!this.form.parentId) this.form.parentId = 0;
-                        const res = await this.$API.sys_menu.update.post(
+                        const res = await this.$API["sys_menu"].update.post(
                             this.form
                         );
                         this.$message.success("保存成功");
@@ -253,7 +242,6 @@ export default {
         //表单注入数据
         setData(data, pid) {
             this.form = data;
-            this.form.apiList = data.apiList || [];
             this.form.parentId = pid;
         },
     },
@@ -267,15 +255,7 @@ h2 {
     padding: 0 0 30px 0;
 }
 
-.apilist {
-    border-left: 1px solid #eee;
-}
-
 [data-theme="dark"] h2 {
     color: #fff;
-}
-
-[data-theme="dark"] .apilist {
-    border-color: #434343;
 }
 </style>

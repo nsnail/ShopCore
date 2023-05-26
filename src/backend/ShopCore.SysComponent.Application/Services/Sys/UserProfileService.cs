@@ -89,7 +89,8 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
                                                                    NationArea = x.b.Adapt<QueryDicContentRsp>()
                                                                  , CompanyArea = x.c.Adapt<QueryDicContentRsp>()
                                                                  , HomeArea = x.d.Adapt<QueryDicContentRsp>()
-                                                                 , EmergencyContactArea = x.e.Adapt<QueryDicContentRsp>()
+                                                                 , EmergencyContactArea
+                                                                   = x.e.Adapt<QueryDicContentRsp>()
                                                                }));
     }
 
@@ -108,10 +109,13 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
                                                               , e = new { e.Key, e.Value }
                                                             });
         return ret.ConvertAll(x => x.a.Adapt<QueryUserProfileRsp>() with {
-                                                                             NationArea = x.b.Adapt<QueryDicContentRsp>()
-                                                                           , CompanyArea = x.c.Adapt<QueryDicContentRsp>()
+                                                                             NationArea
+                                                                             = x.b.Adapt<QueryDicContentRsp>()
+                                                                           , CompanyArea
+                                                                             = x.c.Adapt<QueryDicContentRsp>()
                                                                            , HomeArea = x.d.Adapt<QueryDicContentRsp>()
-                                                                           , EmergencyContactArea = x.e.Adapt<QueryDicContentRsp>()
+                                                                           , EmergencyContactArea
+                                                                             = x.e.Adapt<QueryDicContentRsp>()
                                                                          });
     }
 
@@ -129,13 +133,18 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
         return ret.FirstOrDefault()?.Adapt<QueryUserProfileRsp>();
     }
 
-    private ISelect<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent> QueryInternal(QueryReq<QueryUserProfileReq> req)
+    private ISelect<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent> QueryInternal(
+        QueryReq<QueryUserProfileReq> req)
     {
         return Rpo.Orm.Select<Sys_UserProfile, Sys_DicContent, Sys_DicContent, Sys_DicContent, Sys_DicContent>()
-                  .LeftJoin((a, b, _,  __,  ___) => a.NationArea.ToString()         == b.Value && b.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, c,  __,  ___) => a.CompanyArea.ToString()        == c.Value && c.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, __, d,   ___) => a.HomeArea.ToString()           == d.Value && d.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
-                  .LeftJoin((a, _, __, ___, e) => a.EmergencyContactArea.ToString() == e.Value && e.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, b, _, __, ___) =>
+                                a.NationArea.ToString() == b.Value && b.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, c, __, ___) =>
+                                a.CompanyArea.ToString() == c.Value && c.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, __, d, ___) =>
+                                a.HomeArea.ToString() == d.Value && d.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
+                  .LeftJoin((a, _, __, ___, e) => a.EmergencyContactArea.ToString() == e.Value &&
+                                                  e.CatalogId == Numbers.DIC_CATALOG_ID_GEO_AREA)
                   .WhereDynamicFilter(req.DynamicFilter)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending((a, _, __, ___, ____) => a.Id);

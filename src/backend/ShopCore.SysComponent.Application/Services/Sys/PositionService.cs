@@ -73,7 +73,8 @@ public sealed class PositionService : RepositoryService<Sys_Position, IPositionS
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryPositionRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryPositionRsp>>());
+        return new PagedQueryRsp<QueryPositionRsp>(req.Page, req.PageSize, total
+                                                 , list.Adapt<IEnumerable<QueryPositionRsp>>());
     }
 
     /// <summary>

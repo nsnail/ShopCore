@@ -14,7 +14,7 @@ export default {
 query :{
     url: `${config.API_URL}/api/sys/api/query`,
         name: `查询接口`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ query :{
 sync :{
     url: `${config.API_URL}/api/sys/api/sync`,
         name: `同步接口`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

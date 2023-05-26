@@ -22,7 +22,7 @@ public sealed record UpdateUserReq : CreateUserReq
     /// <summary>
     ///     用户档案
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.用户档案))]
     public new UpdateUserProfileReq Profile { get; init; }
 
     /// <inheritdoc cref="IFieldVersion.Version" />

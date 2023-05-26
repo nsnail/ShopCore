@@ -6,7 +6,7 @@ namespace ShopCore.Domain.Dto.Dependency;
 public sealed record DelReq : DelReq<long>;
 
 /// <summary>
-///     请求：通过id删除
+///     请求：通过编号删除
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public record DelReq<T> : DataAbstraction, IFieldPrimary<T>

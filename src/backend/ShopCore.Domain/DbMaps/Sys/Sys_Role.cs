@@ -17,12 +17,13 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleApi))]
-    public ICollection<Sys_Api> Apis { get; init; }
+    public virtual ICollection<Sys_Api> Apis { get; init; }
 
     /// <summary>
     ///     数据范围
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual DataScopes DataScope { get; init; }
 
     /// <summary>
@@ -30,18 +31,20 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleDept))]
-    public ICollection<Sys_Dept> Depts { get; init; }
+    public virtual ICollection<Sys_Dept> Depts { get; init; }
 
     /// <summary>
     ///     是否显示仪表板
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool DisplayDashboard { get; init; }
 
     /// <summary>
     ///     是否忽略权限控制
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool IgnorePermissionControl { get; init; }
 
     /// <summary>
@@ -49,10 +52,10 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleMenu))]
-    public ICollection<Sys_Menu> Menus { get; init; }
+    public virtual ICollection<Sys_Menu> Menus { get; init; }
 
     /// <summary>
-    ///     角色名
+    ///     角色名称
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
@@ -62,6 +65,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     ///     排序值，越大越前
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long Sort { get; init; }
 
     /// <summary>
@@ -76,7 +80,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserRole))]
-    public ICollection<Sys_User> Users { get; init; }
+    public virtual ICollection<Sys_User> Users { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)
@@ -84,12 +88,19 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
         _ = config.ForType<CreateRoleReq, Sys_Role>()
                   .Map( //
                       dest => dest.Depts
-                    , src => src.DeptIds.NullOrEmpty() ? Array.Empty<Sys_Dept>() : src.DeptIds.Select(x => new Sys_Dept { Id = x }))
+                    , src => src.DeptIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Dept>()
+                          : src.DeptIds.Select(x => new Sys_Dept { Id = x }))
                   .Map( //
                       dest => dest.Menus
-                    , src => src.MenuIds.NullOrEmpty() ? Array.Empty<Sys_Menu>() : src.MenuIds.Select(x => new Sys_Menu { Id = x }))
+                    , src => src.MenuIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Menu>()
+                          : src.MenuIds.Select(x => new Sys_Menu { Id = x }))
                   .Map( //
-                      dest => dest.Apis, src => src.ApiIds.NullOrEmpty() ? Array.Empty<Sys_Api>() : src.ApiIds.Select(x => new Sys_Api { Id = x }))
+                      dest => dest.Apis
+                    , src => src.ApiIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Api>()
+                          : src.ApiIds.Select(x => new Sys_Api { Id = x }))
 
             //
             ;

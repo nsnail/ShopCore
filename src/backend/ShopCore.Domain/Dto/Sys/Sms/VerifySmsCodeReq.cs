@@ -9,7 +9,7 @@ namespace ShopCore.Domain.Dto.Sys.Sms;
 public record VerifySmsCodeReq : Sys_Sms
 {
     /// <inheritdoc cref="Sys_Sms.Code" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.验证码))]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override string Code { get; init; }
 

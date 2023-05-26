@@ -1,28 +1,28 @@
 <template>
     <el-container>
-        <el-aside v-loading="menuloading" width="300px">
+        <el-aside v-loading="loading" width="300px">
             <el-container>
                 <el-header>
                     <el-input
-                        v-model="menuFilterText"
+                        v-model="filterText"
                         clearable
                         placeholder="输入关键字进行过滤"
                     ></el-input>
                 </el-header>
                 <el-main class="nopadding">
                     <el-tree
-                        ref="menu"
-                        :data="menuList"
+                        ref="tree"
+                        :data="treeList"
                         :default-expand-all="true"
                         :expand-on-click-node="false"
-                        :filter-node-method="menuFilterNode"
-                        :props="menuProps"
-                        class="menu"
+                        :filter-node-method="treeFilterNode"
+                        :props="treeProps"
+                        class="tree"
                         draggable
                         highlight-current
                         node-key="id"
                         show-checkbox
-                        @node-click="menuClick"
+                        @node-click="treeClick"
                         @node-drop="nodeDrop"
                     >
                         <template #default="{ node, data }">
@@ -51,7 +51,7 @@
                         plain
                         size="small"
                         type="danger"
-                        @click="delMenu"
+                        @click="delTree"
                     ></el-button>
                 </el-footer>
             </el-container>
@@ -60,7 +60,7 @@
             <el-main ref="main" class="nopadding" style="padding: 20px">
                 <save
                     ref="save"
-                    :menu="menuList"
+                    :tree="treeList"
                     @success="handleSuccess"
                 ></save>
             </el-main>
@@ -68,7 +68,6 @@
     </el-container>
 </template>
 <script>
-let newMenuIndex = 1;
 import save from "./save";
 
 export default {
@@ -77,40 +76,40 @@ export default {
     },
     data() {
         return {
-            menuloading: false,
-            menuList: [],
-            menuProps: {
+            loading: false,
+            treeList: [],
+            treeProps: {
                 label: (data) => {
                     return data.meta.title;
                 },
             },
-            menuFilterText: "",
+            filterText: "",
         };
     },
     watch: {
-        menuFilterText(val) {
-            this.$refs.menu.filter(val);
+        filterText(val) {
+            this.$refs.tree.filter(val);
         },
     },
     mounted() {
-        this.getMenu();
+        this.getTree();
     },
     methods: {
         //加载树数据
-        async getMenu() {
-            this.menuloading = true;
-            const res = await this.$API.sys_menu.query.post();
-            this.menuloading = false;
-            this.menuList = res.data;
+        async getTree() {
+            this.loading = true;
+            const res = await this.$API["sys_menu"].query.post();
+            this.loading = false;
+            this.treeList = res.data;
         },
         //树点击
-        menuClick(data, node) {
+        treeClick(data, node) {
             const pid = node.level === 1 ? 0 : node.parent.data.id;
             this.$refs.save.setData(data, pid);
             this.$refs.main.$el.scrollTop = 0;
         },
         //树过滤
-        menuFilterNode(value, data) {
+        treeFilterNode(value, data) {
             if (!value) return true;
             const targetText = data.meta.title;
             return targetText.indexOf(value) !== -1;
@@ -124,28 +123,29 @@ export default {
         },
         //增加
         async add(node, data) {
-            const newMenuName = "未命名" + newMenuIndex++;
-            const newMenuData = {
+            const newTreeName = "未命名";
+            const newTreeData = {
                 parentId: data ? data.id : 0,
                 name: Math.random().toString(),
                 path: Math.random().toString(),
                 meta: {
-                    title: newMenuName,
+                    title: newTreeName,
                     type: "menu",
                 },
             };
-            this.menuloading = true;
-            const res = await this.$API.sys_menu.create.post(newMenuData);
-            this.menuloading = false;
-            newMenuData.id = res.data.id;
-            this.$refs.menu.append(newMenuData, node);
-            this.$refs.menu.setCurrentKey(newMenuData.id);
+            this.loading = true;
+            const res = await this.$API["sys_menu"].create.post(newTreeData);
+            this.loading = false;
+            newTreeData.id = res.data.id;
+            newTreeData.sort = res.data.sort;
+            this.$refs.tree.append(newTreeData, node);
+            this.$refs.tree.setCurrentKey(newTreeData.id);
             const pid = node ? node.data.id : "";
-            this.$refs.save.setData(newMenuData, pid);
+            this.$refs.save.setData(newTreeData, pid);
         },
         //删除菜单
-        async delMenu() {
-            const CheckedNodes = this.$refs.menu.getCheckedNodes();
+        async delTree() {
+            const CheckedNodes = this.$refs.tree.getCheckedNodes();
             if (CheckedNodes.length === 0) {
                 this.$message.warning("请选择需要删除的项");
                 return false;
@@ -162,7 +162,7 @@ export default {
             if (confirm !== "confirm") {
                 return false;
             }
-            this.menuloading = true;
+            this.loading = true;
             const reqData = {
                 items: CheckedNodes.map((item) => {
                     return {
@@ -171,26 +171,26 @@ export default {
                 }),
             };
             try {
-                await this.$API.sys_menu.bulkDelete.post(reqData);
+                await this.$API["sys_menu"].bulkDelete.post(reqData);
                 CheckedNodes.forEach((item) => {
-                    const node = this.$refs.menu.getNode(item);
+                    const node = this.$refs.tree.getNode(item);
                     if (node.isCurrent) {
                         this.$refs.save.setData({});
                     }
-                    this.$refs.menu.remove(item);
+                    this.$refs.tree.remove(item);
                 });
             } catch {}
-            this.menuloading = false;
+            this.loading = false;
         },
         handleSuccess() {
             this.$refs.save.setData({});
-            this.getMenu();
+            this.getTree();
         },
     },
 };
 </script>
 <style scoped>
-.menu:deep(.el-tree-node__label) {
+.tree:deep(.el-tree-node__label) {
     display: flex;
     flex: 1;
     height: 100%;
@@ -210,10 +210,6 @@ export default {
     display: flex;
     align-items: center;
     height: 100%;
-}
-
-.custom-tree-node .label .el-tag {
-    margin-left: 5px;
 }
 
 .custom-tree-node .do {

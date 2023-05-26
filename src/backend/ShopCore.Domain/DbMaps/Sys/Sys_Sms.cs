@@ -21,10 +21,10 @@ public record Sys_Sms : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
-    public string Content { get; init; }
+    public virtual string Content { get; init; }
 
     /// <summary>
-    ///     目的手机号
+    ///     目标手机
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_15)]
@@ -35,17 +35,19 @@ public record Sys_Sms : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
-    public string Report { get; init; }
+    public virtual string Report { get; init; }
 
     /// <summary>
     ///     短信状态
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual SmsStatues Status { get; init; }
 
     /// <summary>
     ///     短信类型
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual SmsTypes Type { get; init; }
 }

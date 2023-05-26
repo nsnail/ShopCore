@@ -8,7 +8,7 @@ namespace ShopCore.Domain.Dto.Sys.User;
 public sealed record QueryUserReq : Sys_User
 {
     /// <summary>
-    ///     部门id
+    ///     部门编号
     /// </summary>
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override long DeptId { get; init; }
@@ -20,12 +20,12 @@ public sealed record QueryUserReq : Sys_User
     public override long Id { get; init; }
 
     /// <summary>
-    ///     岗位id
+    ///     岗位编号
     /// </summary>
     public long PositionId { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
     public long RoleId { get; init; }
 }

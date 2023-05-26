@@ -13,23 +13,25 @@ public record Sys_RoleMenu : ImmutableEntity
     ///     关联的菜单
     /// </summary>
     [JsonIgnore]
-    public Sys_Menu Menu { get; init; }
+    public virtual Sys_Menu Menu { get; init; }
 
     /// <summary>
-    ///     菜单id
+    ///     菜单编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long MenuId { get; init; }
 
     /// <summary>
     ///     关联的角色
     /// </summary>
     [JsonIgnore]
-    public Sys_Role Role { get; init; }
+    public virtual Sys_Role Role { get; init; }
 
     /// <summary>
-    ///     角色id
+    ///     角色编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long RoleId { get; init; }
 }

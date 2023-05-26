@@ -12,7 +12,7 @@ public static class Numbers
 {
     public const int  BULK_REQ_LIMIT            = 100;             // 批量请求允许的最大数量
     public const long DEF_SORT_VAL              = 100;             // 排序默认值
-    public const long DIC_CATALOG_ID_GEO_AREA   = 379794295185413; // 字典目录id-行政区划字典
+    public const long DIC_CATALOG_ID_GEO_AREA   = 379794295185413; // 字典目录编号-行政区划字典
     public const int  HEART_TIMEOUT_SECS        = 600;             // 心跳超时时间
     public const int  HTTP_STATUS_BIZ_FAIL      = 900;             // Http状态码-业务异常
     public const long NEW_USER_BUY_INVEST_ID    = 408808284721159; // 新会员购买投资编号

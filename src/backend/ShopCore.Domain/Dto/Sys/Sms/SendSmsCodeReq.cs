@@ -11,7 +11,7 @@ namespace ShopCore.Domain.Dto.Sys.Sms;
 public sealed record SendSmsCodeReq : Sys_Sms
 {
     /// <inheritdoc cref="Sys_Sms.DestMobile" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.目标手机))]
     [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
     public override string DestMobile { get; init; }
 
@@ -19,13 +19,13 @@ public sealed record SendSmsCodeReq : Sys_Sms
     public override SmsStatues Status => SmsStatues.Waiting;
 
     /// <inheritdoc cref="Sys_Sms.Type" />
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.短信类型))]
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override SmsTypes Type { get; init; }
 
     /// <summary>
     ///     人机校验请求
     /// </summary>
-    [NotEmpty]
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.人机校验请求))]
     public VerifyCaptchaReq VerifyCaptchaReq { get; init; }
 }

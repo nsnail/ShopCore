@@ -1,0 +1,56 @@
+[
+  {
+    "categoryName": "电子产品",
+    "sort": 100,
+    "children": [
+      {
+        "categoryName": "手机",
+        "sort": 100,
+      },
+      {
+        "categoryName": "电视",
+        "sort": 100,
+      },
+      {
+        "categoryName": "电脑",
+        "sort": 100,
+      }
+    ]
+  },
+  {
+    "categoryName": "家居用品",
+    "sort": 100,
+    "children": [
+      {
+        "categoryName": "家具",
+        "sort": 100,
+      },
+      {
+        "categoryName": "厨具",
+        "sort": 100,
+      },
+      {
+        "categoryName": "卫浴用品",
+        "sort": 100,
+      }
+    ]
+  },
+  {
+    "categoryName": "服装",
+    "sort": 100,
+    "children": [
+      {
+        "categoryName": "男装",
+        "sort": 100,
+      },
+      {
+        "categoryName": "女装",
+        "sort": 100,
+      },
+      {
+        "categoryName": "童装",
+        "sort": 100,
+      }
+    ]
+  }
+]

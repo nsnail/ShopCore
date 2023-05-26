@@ -14,7 +14,7 @@ export default {
 getCaptchaImage :{
     url: `${config.API_URL}/api/sys/captcha/get.captcha.image`,
         name: `获取人机校验图`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },
@@ -25,7 +25,7 @@ getCaptchaImage :{
 verifyCaptcha :{
     url: `${config.API_URL}/api/sys/captcha/verify.captcha`,
         name: `完成人机校验`,
-        post:async function(data, config={}) {
+        post:async function(data={}, config={}) {
         return await http.post(this.url,data, config)
     }
 },

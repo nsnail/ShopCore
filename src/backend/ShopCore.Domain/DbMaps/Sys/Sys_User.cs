@@ -25,12 +25,13 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(DeptId))]
-    public Sys_Dept Dept { get; init; }
+    public virtual Sys_Dept Dept { get; init; }
 
     /// <summary>
-    ///     部门id
+    ///     部门编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long DeptId { get; init; }
 
     /// <summary>
@@ -44,6 +45,7 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     ///     是否启用
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual bool Enabled { get; init; }
 
     /// <summary>
@@ -57,33 +59,35 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     ///     密码
     /// </summary>
     [JsonIgnore]
-    public Guid Password { get; set; }
+    [Column]
+    public virtual Guid Password { get; set; }
 
     /// <summary>
     ///     所属岗位
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserPosition))]
-    public ICollection<Sys_Position> Positions { get; init; }
+    public virtual ICollection<Sys_Position> Positions { get; init; }
 
     /// <summary>
     ///     用户档案
     /// </summary>
     [JsonIgnore]
-    public Sys_UserProfile Profile { get; init; }
+    public virtual Sys_UserProfile Profile { get; init; }
 
     /// <summary>
     ///     所属角色
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserRole))]
-    public ICollection<Sys_Role> Roles { get; init; }
+    public virtual ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     做授权验证的Token，全局唯一，可以随时重置（强制下线）
     /// </summary>
     [JsonIgnore]
-    public Guid Token { get; init; }
+    [Column]
+    public virtual Guid Token { get; init; }
 
     /// <summary>
     ///     用户名

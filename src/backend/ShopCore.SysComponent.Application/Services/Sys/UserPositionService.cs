@@ -9,7 +9,8 @@ using DataType = FreeSql.DataType;
 namespace ShopCore.SysComponent.Application.Services.Sys;
 
 /// <inheritdoc cref="IUserPositionService" />
-public sealed class UserPositionService : RepositoryService<Sys_UserPosition, IUserPositionService>, IUserPositionService
+public sealed class UserPositionService : RepositoryService<Sys_UserPosition, IUserPositionService>
+                                        , IUserPositionService
 {
     /// <summary>
     ///     Initializes a new instance of the <see cref="UserPositionService" /> class.
@@ -72,7 +73,8 @@ public sealed class UserPositionService : RepositoryService<Sys_UserPosition, IU
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryUserPositionRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryUserPositionRsp>>());
+        return new PagedQueryRsp<QueryUserPositionRsp>(req.Page, req.PageSize, total
+                                                     , list.Adapt<IEnumerable<QueryUserPositionRsp>>());
     }
 
     /// <summary>

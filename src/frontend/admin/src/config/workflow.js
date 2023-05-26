@@ -4,7 +4,7 @@ import API from "@/api";
 
 export default {
     //配置接口正常返回代码
-    successCode: 200,
+    successCode: "succeed",
     //配置组织
     group: {
         //请求接口对象
@@ -14,15 +14,15 @@ export default {
             return {
                 rows: res.data,
                 msg: res.message,
-                code: res.code
-            }
+                code: res.code,
+            };
         },
         //显示数据字段映射
         props: {
-            key: 'id',
-            label: 'label',
-            children: 'children'
-        }
+            key: "id",
+            label: "label",
+            children: "children",
+        },
     },
     //配置用户
     user: {
@@ -33,19 +33,19 @@ export default {
                 rows: res.data.rows,
                 total: res.data.total,
                 msg: res.message,
-                code: res.code
-            }
+                code: res.code,
+            };
         },
         props: {
-            key: 'id',
-            label: 'user',
+            key: "id",
+            label: "user",
         },
         request: {
-            page: 'page',
-            pageSize: 'pageSize',
-            groupId: 'groupId',
-            keyword: 'keyword'
-        }
+            page: "page",
+            pageSize: "pageSize",
+            groupId: "groupId",
+            keyword: "keyword",
+        },
     },
     //配置角色
     role: {
@@ -56,14 +56,14 @@ export default {
             return {
                 rows: res.data,
                 msg: res.message,
-                code: res.code
-            }
+                code: res.code,
+            };
         },
         //显示数据字段映射
         props: {
-            key: 'id',
-            label: 'label',
-            children: 'children'
-        }
-    }
-}
+            key: "id",
+            label: "label",
+            children: "children",
+        },
+    },
+};

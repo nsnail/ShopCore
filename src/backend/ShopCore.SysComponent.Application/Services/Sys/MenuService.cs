@@ -83,11 +83,7 @@ public sealed class MenuService : RepositoryService<Sys_Menu, IMenuService>, IMe
     /// </summary>
     public async Task<IEnumerable<QueryMenuRsp>> QueryAsync(QueryReq<QueryMenuReq> req)
     {
-        var ret = await Rpo.Select.WhereDynamicFilter(req.DynamicFilter)
-                           .WhereDynamic(req.Filter)
-                           .OrderByDescending(a => a.Sort)
-                           .OrderBy(a => a.Title)
-                           .ToTreeListAsync();
+        var ret = await QueryInternal(req).ToTreeListAsync();
         return ret.Adapt<IEnumerable<QueryMenuRsp>>();
     }
 
@@ -134,5 +130,15 @@ public sealed class MenuService : RepositoryService<Sys_Menu, IMenuService>, IMe
         }
 
         return await ret;
+    }
+
+    private ISelect<Sys_Menu> QueryInternal(QueryReq<QueryMenuReq> req)
+    {
+        return Rpo.Select.WhereDynamicFilter(req.DynamicFilter)
+                  .WhereDynamic(req.Filter)
+                  .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
+                  .OrderByDescending(a => a.Sort)
+                  .OrderBy(a => a.Name)
+                  .OrderBy(a => a.Id);
     }
 }

@@ -13,6 +13,7 @@ public record Biz_ProductCategory : VersionEntity, IFieldSort
     ///     分类名称
     /// </summary>
     [JsonIgnore]
+    [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
     public virtual string CategoryName { get; init; }
 
     /// <summary>
@@ -23,13 +24,16 @@ public record Biz_ProductCategory : VersionEntity, IFieldSort
     public virtual IEnumerable<Biz_ProductCategory> Children { get; init; }
 
     /// <summary>
-    ///     父id
+    ///     父编号
     /// </summary>
     [JsonIgnore]
+    [Column]
     public virtual long ParentId { get; init; }
 
     /// <summary>
     ///     排序值，越大越前
     /// </summary>
+    [JsonIgnore]
+    [Column]
     public virtual long Sort { get; init; }
 }
