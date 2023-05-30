@@ -83,7 +83,7 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     public virtual ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
-    ///     做授权验证的Token，全局唯一，可以随时重置（强制下线）
+    ///     授权验证Token，全局唯一，可以随时重置（强制下线）
     /// </summary>
     [JsonIgnore]
     [Column]
@@ -104,13 +104,9 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
                   .Map(dest => dest.Token,    _ => Guid.NewGuid())
                   .Map( //
                       dest => dest.Roles
-                    , src => src.RoleIds.NullOrEmpty()
-                          ? Array.Empty<Sys_Role>()
-                          : src.RoleIds.Select(x => new Sys_Role { Id = x }))
+                    , src => src.RoleIds.NullOrEmpty() ? Array.Empty<Sys_Role>() : src.RoleIds.Select(x => new Sys_Role { Id = x }))
                   .Map( //
                       dest => dest.Positions
-                    , src => src.PositionIds.NullOrEmpty()
-                          ? Array.Empty<Sys_Position>()
-                          : src.PositionIds.Select(x => new Sys_Position { Id = x }));
+                    , src => src.PositionIds.NullOrEmpty() ? Array.Empty<Sys_Position>() : src.PositionIds.Select(x => new Sys_Position { Id = x }));
     }
 }

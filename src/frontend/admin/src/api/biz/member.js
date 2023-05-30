@@ -20,6 +20,17 @@ bulkDelete :{
 },
 
 /**
+ * 检查手机号是否可用
+ */
+checkMemberMobileAvailable :{
+    url: `${config.API_URL}/api/biz/member/check.member.mobile.available`,
+        name: `检查手机号是否可用`,
+        post:async function(data={}, config={}) {
+        return await http.post(this.url,data, config)
+    }
+},
+
+/**
  * 检查用户名是否可用
  */
 checkMemberUserNameAvailable :{

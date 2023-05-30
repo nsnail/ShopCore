@@ -93,6 +93,12 @@ public sealed class SqlAuditor : ISingleton
                 }
 
                 break;
+            case nameof(IFieldCreatedClient.CreatedReferer):
+                if (e.Value is null or "") {
+                    e.Value = App.HttpContext?.Request.GetRefererUrlAddress();
+                }
+
+                break;
             default:
                 return;
         }

@@ -87,8 +87,7 @@ public sealed class RequestLogService : RepositoryService<Sys_RequestLog, IReque
                                                  , a.Id
                                                });
 
-        return new PagedQueryRsp<QueryRequestLogRsp>(req.Page, req.PageSize, total
-                                                   , list.Adapt<IEnumerable<QueryRequestLogRsp>>());
+        return new PagedQueryRsp<QueryRequestLogRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryRequestLogRsp>>());
     }
 
     /// <summary>

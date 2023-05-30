@@ -14,12 +14,7 @@ public interface IMemberModule : ICrudModule<CreateMemberReq, QueryMemberRsp // 
 >
 {
     /// <summary>
-    ///     检查用户名是否可用
-    /// </summary>
-    Task<bool> CheckMemberUserNameAvailableAsync(CheckMemberUserNameAvailableReq req);
-
-    /// <summary>
     ///     会员注册
     /// </summary>
-    Task<RegisterMemberRsp> RegisterAsync(RegisterMemberReq req);
+    Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req);
 }

@@ -190,6 +190,7 @@ export default {
                                         await this.$API.sys_user.checkMobileAvailable.post(
                                             {
                                                 mobile: valueEquals,
+                                                id: this.form.id,
                                             }
                                         );
                                     if (res.data) {
@@ -215,7 +216,10 @@ export default {
                             try {
                                 const res =
                                     await this.$API.sys_user.checkUserNameAvailable.post(
-                                        { userName: valueEquals }
+                                        {
+                                            userName: valueEquals,
+                                            id: this.form.id,
+                                        }
                                     );
                                 return res.data
                                     ? callback()

@@ -29,14 +29,6 @@ public sealed class MemberController : ControllerBase<IMemberService>, IMemberMo
     }
 
     /// <summary>
-    ///     检查用户名是否可用
-    /// </summary>
-    public Task<bool> CheckMemberUserNameAvailableAsync(CheckMemberUserNameAvailableReq req)
-    {
-        return Service.CheckMemberUserNameAvailableAsync(req);
-    }
-
-    /// <summary>
     ///     创建会员
     /// </summary>
     [Transaction]
@@ -93,7 +85,7 @@ public sealed class MemberController : ControllerBase<IMemberService>, IMemberMo
     /// </summary>
     [AllowAnonymous]
     [Transaction]
-    public Task<RegisterMemberRsp> RegisterAsync(RegisterMemberReq req)
+    public Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req)
     {
         return Service.RegisterAsync(req);
     }

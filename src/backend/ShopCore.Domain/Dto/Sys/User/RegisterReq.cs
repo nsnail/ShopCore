@@ -1,15 +1,13 @@
 using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Sys;
-using ShopCore.Domain.Dto.Biz.Member;
 using ShopCore.Domain.Dto.Sys.Sms;
-using ShopCore.Domain.Dto.Sys.UserProfile;
 
 namespace ShopCore.Domain.Dto.Sys.User;
 
 /// <summary>
 ///     请求：注册用户
 /// </summary>
-public record RegisterReq : Sys_User, IRegister
+public record RegisterReq : Sys_User
 {
     /// <summary>
     ///     密码
@@ -43,21 +41,5 @@ public record RegisterReq : Sys_User, IRegister
     ///     短信验证请求
     /// </summary>
     [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.短信验证请求))]
-    public VerifySmsCodeReq VerifySmsCodeReq { get; init; }
-
-    /// <inheritdoc />
-    public new void Register(TypeAdapterConfig config)
-    {
-        _ = config.ForType<RegisterMemberReq, RegisterReq>() //
-                  .Map(d => d.Profile, _ => new CreateUserProfileReq())
-                  .Map(d => d.Enabled, _ => true)
-                  .Map(d => d.Mobile,  s => s.VerifySmsCodeReq.DestMobile)
-                  #pragma warning disable IDE0057
-                  .Map( //
-                      d => d.UserName, _ => string.Concat(Chars.FLG_SYSTEM_PREFIX, Guid.NewGuid().ToString().Substring(24)))
-            #pragma warning restore IDE0057
-
-            //
-            ;
-    }
+    public VerifySmsCodeReq VerifySmsCodeReq { get; set; }
 }

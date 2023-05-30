@@ -10,25 +10,16 @@ namespace ShopCore.Domain.Dto.Biz.Member;
 /// </summary>
 public record CreateMemberReq : Biz_Member, IRegister
 {
-    /// <inheritdoc cref="Biz_Member.Mobile" />
-    [CultureRequired]
-    [Mobile]
-    public override string Mobile { get; init; }
-
-    /// <inheritdoc cref="Biz_Member.UserName" />
-    [CultureRequired]
-    [UserName]
-    public override string UserName { get; init; }
+    /// <inheritdoc cref="Biz_Member.SysUser" />
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.系统用户))]
+    public new CreateUserReq SysUser { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)
     {
-        _ = config.ForType<RegisterRsp, CreateMemberReq>() //
-                  .Map(d => d.Mobile,    s => s.Mobile)
-                  .Map(d => d.Enabled,   s => s.Enabled)
+        _ = config.ForType<QueryUserRsp, CreateMemberReq>() //
                   .Map(d => d.Id,        _ => YitIdHelper.NextId())
                   .Map(d => d.SysUserId, s => s.Id)
-                  .Map(d => d.SaltKey,   _ => Guid.NewGuid())
 
             //
             ;

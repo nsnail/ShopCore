@@ -1,4 +1,5 @@
-using ShopCore.Domain.Dto.Sys.Sms;
+using ShopCore.Domain.Attributes.DataValidation;
+using ShopCore.Domain.DbMaps.Biz;
 using ShopCore.Domain.Dto.Sys.User;
 
 namespace ShopCore.Domain.Dto.Biz.Member;
@@ -6,28 +7,9 @@ namespace ShopCore.Domain.Dto.Biz.Member;
 /// <summary>
 ///     请求：会员注册
 /// </summary>
-public sealed record RegisterMemberReq : RegisterReq, IRegister
+public sealed record RegisterMemberReq : Biz_Member
 {
-    /// <summary>
-    ///     密码
-    /// </summary>
-    [JsonIgnore]
-    public override string PasswordText { get; init; } = Chars.FLG_RANDOM_UNAME_PWD;
-
-    /// <summary>
-    ///     用户名
-    /// </summary>
-    [JsonIgnore]
-    public override string UserName { get; init; } = Chars.FLG_RANDOM_UNAME_PWD;
-
-    /// <inheritdoc />
-    public new void Register(TypeAdapterConfig config)
-    {
-        _ = config.ForType<CreateMemberReq, RegisterMemberReq>() //
-                  .Map(                                          //
-                      d => d.VerifySmsCodeReq, s => new VerifySmsCodeReq { DestMobile = s.Mobile, Code = Global.SecretKey })
-
-            //
-            ;
-    }
+    /// <inheritdoc cref="Biz_Member.SysUser" />
+    [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.系统用户))]
+    public new RegisterReq SysUser { get; init; }
 }

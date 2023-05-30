@@ -53,7 +53,7 @@
                 ></el-table-column>
                 <el-table-column
                     label="用户名"
-                    prop="userName"
+                    prop="sysUser.userName"
                     sortable="custom"
                 >
                     <template #default="scope">
@@ -65,14 +65,14 @@
                                 ></el-avatar>
                             </div>
                             <div style="flex-grow: 1">
-                                {{ scope.row.userName }}
+                                {{ scope.row.sysUser.userName }}
                             </div>
                         </div>
                     </template>
                 </el-table-column>
                 <el-table-column
                     label="手机号"
-                    prop="mobile"
+                    prop="sysUser.mobile"
                     sortable="custom"
                 ></el-table-column>
                 <el-table-column
@@ -90,16 +90,16 @@
                     align="center"
                     column-key="enabled"
                     label="启用"
-                    prop="enabled"
+                    prop="sysUser.enabled"
                     width="80"
                 >
                     <template #default="scope">
                         <sc-status-indicator
-                            v-if="scope.row.enabled"
+                            v-if="scope.row.sysUser.enabled"
                             type="success"
                         ></sc-status-indicator>
                         <sc-status-indicator
-                            v-if="!scope.row.enabled"
+                            v-if="!scope.row.sysUser.enabled"
                             pulse
                             type="danger"
                         ></sc-status-indicator>
@@ -198,7 +198,7 @@ export default {
                     );
                 if (filters.enabled.length > 0) {
                     this.queryParams.dynamicFilter.filters.push({
-                        field: "enabled",
+                        field: "sysUser.enabled",
                         operator: "Any",
                         value: filters.enabled,
                     });
@@ -304,17 +304,10 @@ export default {
         },
         //获取头像
         getImageUrl(scope) {
-            return scope.row.imageUrl
-                ? scope.row.imageUrl
+            return scope.row.sysUser.avatar
+                ? scope.row.sysUser.avatar
                 : this.$CONFIG.DEF_AVATAR;
         },
     },
 };
 </script>
-
-<style scoped>
-.el-aside-filter {
-    background: var(--el-bg-color);
-    padding: 10px;
-}
-</style>

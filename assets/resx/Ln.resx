@@ -144,6 +144,7 @@
     <data name="独龙族" xml:space="preserve"><value>独龙族</value></data>
     <data name="珞巴族" xml:space="preserve"><value>珞巴族</value></data>
     <data name="瑶族" xml:space="preserve"><value>瑶族</value></data>
+    <data name="用户" xml:space="preserve"><value>用户</value></data>
     <data name="用户不存在" xml:space="preserve"><value>用户不存在</value></data>
     <data name="用户名" xml:space="preserve"><value>用户名</value></data>
     <data name="用户名不能是手机号" xml:space="preserve"><value>用户名不能是手机号</value></data>
@@ -159,7 +160,9 @@
     <data name="硕士" xml:space="preserve"><value>硕士</value></data>
     <data name="离异" xml:space="preserve"><value>离异</value></data>
     <data name="签名缺失" xml:space="preserve"><value>签名缺失</value></data>
+    <data name="系统" xml:space="preserve"><value>系统</value></data>
     <data name="系统模块" xml:space="preserve"><value>系统模块</value></data>
+    <data name="系统用户" xml:space="preserve"><value>系统用户</value></data>
     <data name="纳西族" xml:space="preserve"><value>纳西族</value></data>
     <data name="结构" xml:space="preserve"><value>结构</value></data>
     <data name="结果非预期" xml:space="preserve"><value>结果非预期</value></data>

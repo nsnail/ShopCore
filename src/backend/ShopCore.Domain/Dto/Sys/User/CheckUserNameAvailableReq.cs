@@ -1,4 +1,5 @@
 using ShopCore.Domain.Attributes.DataValidation;
+using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.DbMaps.Sys;
 
 namespace ShopCore.Domain.Dto.Sys.User;
@@ -8,6 +9,10 @@ namespace ShopCore.Domain.Dto.Sys.User;
 /// </summary>
 public sealed record CheckUserNameAvailableReq : Sys_User
 {
+    /// <inheritdoc cref="IFieldPrimary{T}.Id" />
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public override long Id { get; init; }
+
     /// <inheritdoc cref="Sys_User.UserName" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.用户名))]
