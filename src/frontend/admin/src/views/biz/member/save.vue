@@ -29,19 +29,41 @@
                             placeholder="用户名"
                         ></el-input>
                     </el-form-item>
-                    <el-form-item label="登录密码" prop="sysUser.passwordText">
-                        <el-input
-                            v-model="form.sysUser.passwordText"
-                            clearable
-                            placeholder="登录密码"
-                        ></el-input>
-                    </el-form-item>
                     <el-form-item label="手机号" prop="sysUser.mobile">
                         <el-input
                             v-model="form.sysUser.mobile"
                             clearable
                             placeholder="手机号"
                         ></el-input>
+                    </el-form-item>
+                    <el-form-item label="登录密码" prop="sysUser.passwordText">
+                        <div class="yzm">
+                            <el-input
+                                v-model="form.sysUser.passwordText"
+                                clearable
+                                maxlength="16"
+                                oninput="value=value.replace(/[^\w]/g,'')"
+                                placeholder="8位以上数字字母组合"
+                            ></el-input>
+                            <el-button
+                                @click="form.sysUser.passwordText = '1234qwer'"
+                                >初始密码
+                            </el-button>
+                        </div>
+                    </el-form-item>
+                    <el-form-item label="交易密码" prop="payPasswordText">
+                        <div class="yzm">
+                            <el-input
+                                v-model="form.payPasswordText"
+                                clearable
+                                maxlength="6"
+                                oninput="value=value.replace(/[^\d]/g,'')"
+                                placeholder="6位数字"
+                            ></el-input>
+                            <el-button @click="form.payPasswordText = '666666'"
+                                >初始密码
+                            </el-button>
+                        </div>
                     </el-form-item>
                     <el-form-item
                         v-if="mode !== 'add'"
@@ -55,10 +77,19 @@
                         ></el-input>
                     </el-form-item>
                     <template v-if="mode !== 'add'">
-                        <el-form-item label="启用" prop="enabled">
-                            <el-switch v-model="form.enabled"></el-switch>
+                        <el-form-item label="启用" prop="sysUser.enabled">
+                            <el-switch
+                                v-model="form.sysUser.enabled"
+                            ></el-switch>
                         </el-form-item>
                     </template>
+                    <el-form-item label="备注" prop="sysUser.profile.summary">
+                        <el-input
+                            v-model="form.sysUser.profile.summary"
+                            clearable
+                            type="textarea"
+                        ></el-input>
+                    </el-form-item>
                 </el-tab-pane>
                 <el-tab-pane v-if="mode === 'view'" label="Json">
                     <json-viewer
@@ -109,20 +140,36 @@ export default {
                 sysUser: {
                     roleIds: [0],
                     positionIds: [0],
-                    passwordText: "1234qwer",
-                    profile: {},
+                    deptId: 0,
+                    profile: { summary: "" },
                     userName:
                         this.$CONFIG.STRINGS.FLG_SYSTEM_PREFIX +
-                        uuidv4().substring(24),
+                        uuidv4().substring(0, 8),
                     avatar: "",
                     mobile: "",
+                    passwordText: "",
                 },
                 id: 0,
                 balance: 0,
+                payPasswordText: "",
             },
             //验证规则
             rules: {
+                payPasswordText: [
+                    {
+                        required: false,
+                        pattern: this.$CONFIG.STRINGS.RGX_PAY_PASSWORD,
+                        message: "6位数字",
+                    },
+                ],
                 sysUser: {
+                    passwordText: [
+                        {
+                            required: false,
+                            pattern: this.$CONFIG.STRINGS.RGX_PASSWORD,
+                            message: "8位以上数字字母组合",
+                        },
+                    ],
                     userName: [
                         {
                             required: true,
@@ -144,13 +191,6 @@ export default {
                                 } catch {}
                             },
                             trigger: "blur",
-                        },
-                    ],
-                    passwordText: [
-                        {
-                            required: true,
-                            pattern: this.$CONFIG.STRINGS.RGX_PASSWORD,
-                            message: "8位以上数字字母组合",
                         },
                     ],
                     mobile: [
@@ -185,6 +225,10 @@ export default {
         //显示
         open(mode = "add") {
             this.mode = mode;
+            if (mode === "add") {
+                this.rules.sysUser.passwordText[0].required = true;
+                this.rules.payPasswordText[0].required = true;
+            }
             this.visible = true;
             return this;
         },
@@ -213,12 +257,11 @@ export default {
         //表单注入数据
         async setData(data) {
             //可以和上面一样单个注入，也可以像下面一样直接合并进去
-            Object.assign(this.form, data);
 
             const [res1, res2] = await Promise.all([
                 this.$API["sys_user"].query.post({
                     filter: {
-                        id: this.form.sysUser.id,
+                        id: data.sysUser.id,
                     },
                 }),
 
@@ -226,14 +269,15 @@ export default {
                     dynamicFilter: {
                         field: "id",
                         operator: "eq",
-                        value: this.form.sysUser.id,
+                        value: data.sysUser.id,
                     },
                 }),
             ]);
-            Object.assign(this.form.sysUser, {
+            Object.assign(data.sysUser, {
                 ...res1.data[0],
                 profile: res2.data[0],
             });
+            Object.assign(this.form, data);
 
             this.form.sysUser.roleIds = this.form.sysUser.roles.map(
                 (x) => x.id
@@ -241,11 +285,19 @@ export default {
             this.form.sysUser.positionIds = this.form.sysUser.positions.map(
                 (x) => x.id
             );
-
-            console.log(this.form.sysUser);
+            this.form.sysUser.deptId = this.form.sysUser.dept.id;
         },
     },
 };
 </script>
 
-<style></style>
+<style>
+.yzm {
+    display: flex;
+    width: 100%;
+}
+
+.yzm .el-button {
+    margin-left: 10px;
+}
+</style>

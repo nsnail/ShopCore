@@ -1,5 +1,6 @@
 using ShopCore.Domain.Attributes.DataValidation;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
+using ShopCore.Domain.DbMaps.Sys;
 using ShopCore.Domain.Dto.Sys.UserProfile;
 
 namespace ShopCore.Domain.Dto.Sys.User;
@@ -7,21 +8,13 @@ namespace ShopCore.Domain.Dto.Sys.User;
 /// <summary>
 ///     请求：更新用户
 /// </summary>
-public sealed record UpdateUserReq : CreateUserReq
+public sealed record UpdateUserReq : CreateUpdateUserReq
 {
     /// <inheritdoc cref="IFieldPrimary{T}.Id" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override long Id { get; init; }
 
-    /// <summary>
-    ///     此属性无意义，只是为了通过数据校验
-    /// </summary>
-    [JsonIgnore]
-    public override string PasswordText => "MOCK-1234";
-
-    /// <summary>
-    ///     用户档案
-    /// </summary>
+    /// <inheritdoc cref="Sys_User.Profile" />
     [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.用户档案))]
     public new UpdateUserProfileReq Profile { get; init; }
 

@@ -87,20 +87,20 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     {
         _ = config.ForType<CreateRoleReq, Sys_Role>()
                   .Map( //
-                      dest => dest.Depts
-                    , src => src.DeptIds.NullOrEmpty()
+                      d => d.Depts
+                    , s => s.DeptIds.NullOrEmpty()
                           ? Array.Empty<Sys_Dept>()
-                          : src.DeptIds.Select(x => new Sys_Dept { Id = x }))
+                          : s.DeptIds.Select(x => new Sys_Dept { Id = x }))
                   .Map( //
-                      dest => dest.Menus
-                    , src => src.MenuIds.NullOrEmpty()
+                      d => d.Menus
+                    , s => s.MenuIds.NullOrEmpty()
                           ? Array.Empty<Sys_Menu>()
-                          : src.MenuIds.Select(x => new Sys_Menu { Id = x }))
+                          : s.MenuIds.Select(x => new Sys_Menu { Id = x }))
                   .Map( //
-                      dest => dest.Apis
-                    , src => src.ApiIds.NullOrEmpty()
+                      d => d.Apis
+                    , s => s.ApiIds.NullOrEmpty()
                           ? Array.Empty<Sys_Api>()
-                          : src.ApiIds.Select(x => new Sys_Api { Id = x }))
+                          : s.ApiIds.Select(x => new Sys_Api { Id = x }))
 
             //
             ;

@@ -1,6 +1,7 @@
 using ShopCore.Domain.DbMaps.Dependency;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
 using ShopCore.Domain.DbMaps.Sys;
+using ShopCore.Domain.Dto.Biz.Member;
 
 namespace ShopCore.Domain.DbMaps.Biz;
 
@@ -8,7 +9,7 @@ namespace ShopCore.Domain.DbMaps.Biz;
 ///     会员表
 /// </summary>
 [Table(Name = Chars.FLG_TABLE_NAME_PREFIX + nameof(Biz_Member))]
-public record Biz_Member : VersionEntity, IFieldCreatedClient
+public record Biz_Member : VersionEntity, IFieldCreatedClient, IRegister
 {
     /// <summary>
     ///     账户余额
@@ -59,4 +60,22 @@ public record Biz_Member : VersionEntity, IFieldCreatedClient
     [Column]
     [JsonIgnore]
     public virtual long SysUserId { get; init; }
+
+    /// <inheritdoc />
+    public void Register(TypeAdapterConfig config)
+    {
+        _ = config.ForType<RegisterMemberReq, Biz_Member>() //
+                  .Map(d => d.PayPassword, s => s.PayPasswordText.Pwd().Guid())
+
+            //
+            ;
+
+        _ = config.ForType<UpdateMemberReq, Biz_Member>() //
+                  .Map(                                   //
+                      d => d.PayPassword
+                    , s => s.PayPasswordText.NullOrEmpty() ? Guid.Empty : s.PayPasswordText.Pwd().Guid())
+
+            //
+            ;
+    }
 }

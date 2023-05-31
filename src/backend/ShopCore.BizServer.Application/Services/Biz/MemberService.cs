@@ -6,7 +6,6 @@ using ShopCore.Domain.Dto.Biz.Member;
 using ShopCore.Domain.Dto.Dependency;
 using ShopCore.Domain.Dto.Sys.Sms;
 using ShopCore.SysComponent.Application.Services.Sys.Dependency;
-using DataType = FreeSql.DataType;
 
 namespace ShopCore.BizServer.Application.Services.Biz;
 
@@ -47,7 +46,8 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
         var regReq = req.Adapt<RegisterMemberReq>();
 
         // 免除短信验证
-        regReq.SysUser.VerifySmsCodeReq = new VerifySmsCodeReq { Code = Global.SecretKey, DestMobile = req.SysUser.Mobile };
+        regReq.SysUser.VerifySmsCodeReq
+            = new VerifySmsCodeReq { Code = Global.SecretKey, DestMobile = req.SysUser.Mobile };
 
         // 走注册流程
         return RegisterAsync(regReq);
@@ -85,7 +85,8 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
     {
         var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
 
-        return new PagedQueryRsp<QueryMemberRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryMemberRsp>>());
+        return new PagedQueryRsp<QueryMemberRsp>(req.Page, req.PageSize, total
+                                               , list.Adapt<IEnumerable<QueryMemberRsp>>());
     }
 
     /// <summary>
@@ -100,7 +101,6 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
     /// <summary>
     ///     会员注册
     /// </summary>
-    /// <exception cref="ShopCoreInvalidOperationException">手机号已被使用</exception>
     public async Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req)
     {
         // 获取配置信息
@@ -116,7 +116,7 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
                                                                 });
 
         // 创建会员
-        var member = await Rpo.InsertAsync(sysUser.Adapt<CreateMemberReq>());
+        var member = await Rpo.InsertAsync(req.Adapt<Biz_Member>() with { SysUserId = sysUser.Id });
         return member.Adapt<QueryMemberRsp>() with { SysUser = sysUser };
     }
 
@@ -125,12 +125,22 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
     /// </summary>
     public async Task<QueryMemberRsp> UpdateAsync(UpdateMemberReq req)
     {
-        if (Rpo.Orm.Ado.DataType == DataType.Sqlite) {
-            return await UpdateForSqliteAsync(req);
+        // 更新系统用户
+        _ = await _userService.UpdateAsync(req.SysUser);
+
+        // 更新会员
+        var member = req.Adapt<Biz_Member>();
+
+        var updateCols = new List<string>();
+        if (member.PayPassword != Guid.Empty) {
+            updateCols.Add(nameof(Biz_Member.PayPassword));
         }
 
-        var ret = await Rpo.UpdateDiy.SetSource(req).ExecuteUpdatedAsync();
-        return ret.FirstOrDefault()?.Adapt<QueryMemberRsp>();
+        if (updateCols.Any()) {
+            _ = await Rpo.UpdateDiy.SetSource(member).UpdateColumns(updateCols.ToArray()).ExecuteAffrowsAsync();
+        }
+
+        return await GetAsync(new QueryMemberReq { Id = req.Id });
     }
 
     private ISelect<Biz_Member> QueryInternal(QueryReq<QueryMemberReq> req)
@@ -141,18 +151,5 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
                       req.Filter?.Id                      > 0, a => a.Id == req.Filter.Id)
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending(a => a.Id);
-    }
-
-    /// <summary>
-    ///     非sqlite数据库请删掉
-    /// </summary>
-    private async Task<QueryMemberRsp> UpdateForSqliteAsync(Biz_Member req)
-    {
-        if (await Rpo.UpdateDiy.SetSource(req).ExecuteAffrowsAsync() <= 0) {
-            return null;
-        }
-
-        var ret = await QueryInternal(new QueryReq<QueryMemberReq> { Filter = new QueryMemberReq { Id = req.Id } }).ToOneAsync();
-        return ret.Adapt<QueryMemberRsp>();
     }
 }

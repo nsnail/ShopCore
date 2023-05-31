@@ -49,36 +49,21 @@
                             </el-form-item>
                         </el-col>
                     </el-row>
-                    <template v-if="mode === 'add'">
-                        <el-row :gutter="10">
-                            <el-col :lg="12" :xs="24">
-                                <el-form-item
-                                    label="登录密码"
-                                    prop="passwordText"
-                                >
-                                    <el-input
-                                        v-model="form.passwordText"
-                                        clearable
-                                        show-password
-                                        type="password"
-                                    ></el-input>
-                                </el-form-item>
-                            </el-col>
-                            <el-col :lg="12" :xs="24">
-                                <el-form-item
-                                    label="确认密码"
-                                    prop="passwordText2"
-                                >
-                                    <el-input
-                                        v-model="form.passwordText2"
-                                        clearable
-                                        show-password
-                                        type="password"
-                                    ></el-input>
-                                </el-form-item>
-                            </el-col>
-                        </el-row>
-                    </template>
+
+                    <el-form-item label="登录密码" prop="passwordText">
+                        <div class="yzm">
+                            <el-input
+                                v-model="form.passwordText"
+                                clearable
+                                maxlength="16"
+                                oninput="value=value.replace(/[^\w]/g,'')"
+                                placeholder="8位以上数字字母组合"
+                            ></el-input>
+                            <el-button @click="form.passwordText = '1234qwer'"
+                                >初始密码
+                            </el-button>
+                        </div>
+                    </el-form-item>
 
                     <el-form-item label="所属角色" prop="roleIds">
                         <el-select
@@ -702,31 +687,9 @@ export default {
                 ],
                 passwordText: [
                     {
-                        required: true,
+                        required: false,
                         message: "8位以上数字字母组合",
                         pattern: this.$CONFIG.STRINGS.RGX_PASSWORD,
-                    },
-                    {
-                        validator: (rule, value, callback) => {
-                            if (this.form.passwordText2 !== "") {
-                                this.$refs.dialogForm.validateField(
-                                    "passwordText2"
-                                );
-                            }
-                            callback();
-                        },
-                    },
-                ],
-                passwordText2: [
-                    { required: true, message: "请再次输入密码" },
-                    {
-                        validator: (rule, value, callback) => {
-                            if (value !== this.form.passwordText) {
-                                callback(new Error("两次输入密码不一致!"));
-                            } else {
-                                callback();
-                            }
-                        },
                     },
                 ],
                 deptId: [{ required: true, message: "请选择所属部门" }],
@@ -785,6 +748,9 @@ export default {
         //显示
         open(mode = "add") {
             this.mode = mode;
+            if (mode === "add") {
+                this.rules.passwordText[0].required = true;
+            }
             this.visible = true;
             return this;
         },
@@ -881,4 +847,13 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.yzm {
+    display: flex;
+    width: 100%;
+}
+
+.yzm .el-button {
+    margin-left: 10px;
+}
+</style>

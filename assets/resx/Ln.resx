@@ -36,6 +36,7 @@
     <data name="乌孜别克族" xml:space="preserve"><value>乌孜别克族</value></data>
     <data name="事务已回滚" xml:space="preserve"><value>事务已回滚</value></data>
     <data name="事务已提交" xml:space="preserve"><value>事务已提交</value></data>
+    <data name="交易密码" xml:space="preserve"><value>交易密码</value></data>
     <data name="京族" xml:space="preserve"><value>京族</value></data>
     <data name="人机校验请求" xml:space="preserve"><value>人机校验请求</value></data>
     <data name="人机验证未通过" xml:space="preserve"><value>人机验证未通过</value></data>

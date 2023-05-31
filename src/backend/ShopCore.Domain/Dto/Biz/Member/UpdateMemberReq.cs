@@ -8,7 +8,7 @@ namespace ShopCore.Domain.Dto.Biz.Member;
 /// <summary>
 ///     请求：更新会员
 /// </summary>
-public sealed record UpdateMemberReq : CreateMemberReq
+public sealed record UpdateMemberReq : CreateUpdateMemberReq, IRegister
 {
     /// <inheritdoc cref="Biz_Member.SysUser" />
     [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.系统用户))]
@@ -17,4 +17,16 @@ public sealed record UpdateMemberReq : CreateMemberReq
     /// <inheritdoc cref="IFieldVersion.Version" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override long Version { get; init; }
+
+    /// <inheritdoc />
+    public new void Register(TypeAdapterConfig config)
+    {
+        _ = config.ForType<UpdateMemberReq, Biz_Member>() //
+                  .Map(                                   //
+                      d => d.PayPassword
+                    , s => s.PayPasswordText.NullOrEmpty() ? Guid.Empty : s.PayPasswordText.Pwd().Guid())
+
+            //
+            ;
+    }
 }

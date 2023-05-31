@@ -196,14 +196,11 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     public void Register(TypeAdapterConfig config)
     {
         _ = config.ForType<CreateUserProfileReq, Sys_UserProfile>()
+                  .Map(d => d.NationArea,  s => s.NationArea  == null ? null : s.NationArea.Value)
+                  .Map(d => d.CompanyArea, s => s.CompanyArea == null ? null : s.CompanyArea.Value)
+                  .Map(d => d.HomeArea,    s => s.HomeArea    == null ? null : s.HomeArea.Value)
                   .Map( //
-                      dest => dest.NationArea, src => src.NationArea == null ? null : src.NationArea.Value)
-                  .Map( //
-                      dest => dest.CompanyArea, src => src.CompanyArea == null ? null : src.CompanyArea.Value)
-                  .Map( //
-                      dest => dest.HomeArea, src => src.HomeArea == null ? null : src.HomeArea.Value)
-                  .Map( //
-                      dest => dest.EmergencyContactArea
-                    , src => src.EmergencyContactArea == null ? null : src.EmergencyContactArea.Value);
+                      d => d.EmergencyContactArea
+                    , s => s.EmergencyContactArea == null ? null : s.EmergencyContactArea.Value);
     }
 }

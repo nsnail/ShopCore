@@ -20,7 +20,7 @@
                     <el-input
                         v-model="queryParams.keywords"
                         clearable
-                        placeholder="会员编号 / 名称 / 描述"
+                        placeholder="会员编号 / 用户名 / 手机号"
                         style="width: 200px"
                     ></el-input>
                     <el-button
@@ -210,7 +210,7 @@ export default {
         add() {
             this.dialog.save = true;
             this.$nextTick(() => {
-                this.$refs.saveDialog.open();
+                this.$refs.saveDialog.open("add");
             });
         },
         //编辑
@@ -272,17 +272,22 @@ export default {
         upSearch() {
             this.queryParams.dynamicFilter.filters[0].filters = [
                 {
-                    field: "name",
-                    operator: "contains",
-                    value: this.queryParams.keywords,
-                },
-                {
-                    field: "description",
+                    field: "sysUser.userName",
                     operator: "contains",
                     value: this.queryParams.keywords,
                 },
                 {
                     field: "id",
+                    operator: "contains",
+                    value: this.queryParams.keywords,
+                },
+                {
+                    field: "sysUser.id",
+                    operator: "contains",
+                    value: this.queryParams.keywords,
+                },
+                {
+                    field: "sysUser.mobile",
                     operator: "contains",
                     value: this.queryParams.keywords,
                 },

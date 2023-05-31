@@ -100,13 +100,22 @@ public record Sys_User : VersionEntity, IFieldEnabled, IRegister
     public void Register(TypeAdapterConfig config)
     {
         _ = config.ForType<CreateUserReq, Sys_User>()
-                  .Map(dest => dest.Password, src => src.PasswordText.Pwd().Guid())
-                  .Map(dest => dest.Token,    _ => Guid.NewGuid())
+                  .Map(d => d.Password, s => s.PasswordText.Pwd().Guid())
+                  .Map(d => d.Token,    _ => Guid.NewGuid())
+                  .Map(d => d.Enabled,  _ => true)
                   .Map( //
-                      dest => dest.Roles
-                    , src => src.RoleIds.NullOrEmpty() ? Array.Empty<Sys_Role>() : src.RoleIds.Select(x => new Sys_Role { Id = x }))
+                      d => d.Roles
+                    , s => s.RoleIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Role>()
+                          : s.RoleIds.Select(x => new Sys_Role { Id = x }))
                   .Map( //
-                      dest => dest.Positions
-                    , src => src.PositionIds.NullOrEmpty() ? Array.Empty<Sys_Position>() : src.PositionIds.Select(x => new Sys_Position { Id = x }));
+                      d => d.Positions
+                    , s => s.PositionIds.NullOrEmpty()
+                          ? Array.Empty<Sys_Position>()
+                          : s.PositionIds.Select(x => new Sys_Position { Id = x }));
+
+        _ = config.ForType<UpdateUserReq, Sys_User>()
+                  .Map( //
+                      d => d.Password, s => s.PasswordText.NullOrEmpty() ? Guid.Empty : s.PasswordText.Pwd().Guid());
     }
 }
