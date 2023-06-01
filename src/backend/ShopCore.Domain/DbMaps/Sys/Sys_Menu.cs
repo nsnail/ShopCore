@@ -23,7 +23,7 @@ public record Sys_Menu : VersionEntity, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public virtual IEnumerable<Sys_Menu> Children { get; init; }
+    public IEnumerable<Sys_Menu> Children { get; init; }
 
     /// <summary>
     ///     背景颜色
@@ -100,7 +100,7 @@ public record Sys_Menu : VersionEntity, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleMenu))]
-    public virtual ICollection<Sys_Role> Roles { get; init; }
+    public ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     排序值，越大越前

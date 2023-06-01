@@ -11,7 +11,7 @@ public sealed class PasswordAttribute : RegexAttribute
     public PasswordAttribute() //
         : base(Chars.RGX_PASSWORD)
     {
-        ErrorMessageResourceName = nameof(Ln._6位数字);
+        ErrorMessageResourceName = nameof(Ln._8位以上数字字母组合);
         ErrorMessageResourceType = typeof(Ln);
     }
 }

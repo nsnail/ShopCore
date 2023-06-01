@@ -36,5 +36,5 @@ public record Sys_Position : VersionEntity, IFieldSort, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserPosition))]
-    public virtual ICollection<Sys_User> Users { get; init; }
+    public ICollection<Sys_User> Users { get; init; }
 }

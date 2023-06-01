@@ -15,7 +15,7 @@ public record Sys_DicContent : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(CatalogId))]
-    public virtual Sys_DicCatalog Catalog { get; init; }
+    public Sys_DicCatalog Catalog { get; init; }
 
     /// <summary>
     ///     字典目录编号

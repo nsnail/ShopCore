@@ -13,7 +13,7 @@ public record Biz_Product : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(CategoryId))]
-    public virtual Biz_ProductCategory Category { get; init; }
+    public Biz_ProductCategory Category { get; init; }
 
     /// <summary>
     ///     所属商品分类编号

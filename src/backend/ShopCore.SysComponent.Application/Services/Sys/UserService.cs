@@ -141,21 +141,10 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
     }
 
     /// <summary>
-    ///     分页查询用户
-    /// </summary>
-    public async Task<PagedQueryRsp<QueryUserRsp>> PagedQueryAsync(PagedQueryReq<QueryUserReq> req)
-    {
-        var list = await (await QueryInternalAsync(req)).Page(req.Page, req.PageSize)
-                                                        .Count(out var total)
-                                                        .ToListAsync(_selectUserFields);
-        return new PagedQueryRsp<QueryUserRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryUserRsp>>());
-    }
-
-    /// <summary>
     ///     密码登录
     /// </summary>
     /// <exception cref="ShopCoreInvalidOperationException">用户名或密码错误</exception>
-    public async Task<LoginRsp> PwdLoginAsync(PwdLoginReq req)
+    public async Task<LoginRsp> LoginByPwdAsync(LoginByPwdReq req)
     {
         var pwd = req.Password.Pwd().Guid();
 
@@ -172,6 +161,32 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
         }
 
         return dbUser is null ? throw new ShopCoreInvalidOperationException(Ln.用户名或密码错误) : LoginInternal(dbUser);
+    }
+
+    /// <summary>
+    ///     短信登录
+    /// </summary>
+    /// <exception cref="ShopCoreInvalidOperationException">短信验证码不正确</exception>
+    /// <exception cref="ShopCoreInvalidOperationException">用户不存在</exception>
+    public async Task<LoginRsp> LoginBySmsAsync(LoginBySmsReq req)
+    {
+        if (!await _smsService.VerifySmsCodeAsync(req.Adapt<VerifySmsCodeReq>())) {
+            throw new ShopCoreInvalidOperationException(Ln.短信验证码不正确);
+        }
+
+        var dbUser = await Rpo.GetAsync(a => a.Mobile == req.DestMobile);
+        return dbUser is null ? throw new ShopCoreInvalidOperationException(Ln.用户不存在) : LoginInternal(dbUser);
+    }
+
+    /// <summary>
+    ///     分页查询用户
+    /// </summary>
+    public async Task<PagedQueryRsp<QueryUserRsp>> PagedQueryAsync(PagedQueryReq<QueryUserReq> req)
+    {
+        var list = await (await QueryInternalAsync(req)).Page(req.Page, req.PageSize)
+                                                        .Count(out var total)
+                                                        .ToListAsync(_selectUserFields);
+        return new PagedQueryRsp<QueryUserRsp>(req.Page, req.PageSize, total, list.Adapt<IEnumerable<QueryUserRsp>>());
     }
 
     /// <summary>
@@ -195,13 +210,13 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
     ///     注册用户
     /// </summary>
     /// <exception cref="ShopCoreInvalidOperationException">短信验证码不正确</exception>
-    public async Task<QueryUserRsp> RegisterAsync(RegisterReq req)
+    public async Task<QueryUserRsp> RegisterAsync(RegisterUserReq userReq)
     {
-        if (!await _smsService.VerifySmsCodeAsync(req.VerifySmsCodeReq)) {
+        if (!await _smsService.VerifySmsCodeAsync(userReq.VerifySmsCodeReq)) {
             throw new ShopCoreInvalidOperationException(Ln.短信验证码不正确);
         }
 
-        var createReq = req.Adapt<CreateUserReq>();
+        var createReq = userReq.Adapt<CreateUserReq>() with { Profile = new CreateUserProfileReq() };
         return await CreateAsync(createReq);
     }
 
@@ -224,21 +239,6 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
         dbUser.Password = req.PasswordText.Pwd().Guid();
 
         _ = await Rpo.UpdateDiy.SetSource(dbUser).ExecuteAffrowsAsync();
-    }
-
-    /// <summary>
-    ///     短信登录
-    /// </summary>
-    /// <exception cref="ShopCoreInvalidOperationException">短信验证码不正确</exception>
-    /// <exception cref="ShopCoreInvalidOperationException">用户不存在</exception>
-    public async Task<LoginRsp> SmsLoginAsync(SmsLoginReq req)
-    {
-        if (!await _smsService.VerifySmsCodeAsync(req.Adapt<VerifySmsCodeReq>())) {
-            throw new ShopCoreInvalidOperationException(Ln.短信验证码不正确);
-        }
-
-        var dbUser = await Rpo.GetAsync(a => a.Mobile == req.DestMobile);
-        return dbUser is null ? throw new ShopCoreInvalidOperationException(Ln.用户不存在) : LoginInternal(dbUser);
     }
 
     /// <summary>

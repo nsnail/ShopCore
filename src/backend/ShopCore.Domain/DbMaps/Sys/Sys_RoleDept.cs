@@ -7,31 +7,31 @@ namespace ShopCore.Domain.DbMaps.Sys;
 /// </summary>
 [Table(Name = Chars.FLG_TABLE_NAME_PREFIX + nameof(Sys_RoleDept))]
 [Index($"idx_{{tablename}}_{nameof(RoleId)}_{nameof(DeptId)}", $"{nameof(RoleId)},{nameof(DeptId)}", true)]
-public record Sys_RoleDept : ImmutableEntity
+public sealed record Sys_RoleDept : ImmutableEntity
 {
     /// <summary>
     ///     关联的部门
     /// </summary>
     [JsonIgnore]
-    public virtual Sys_Dept Dept { get; init; }
+    public Sys_Dept Dept { get; init; }
 
     /// <summary>
     ///     可访问的部门编号
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual long DeptId { get; init; }
+    public long DeptId { get; init; }
 
     /// <summary>
     ///     关联的角色
     /// </summary>
     [JsonIgnore]
-    public virtual Sys_Role Role { get; init; }
+    public Sys_Role Role { get; init; }
 
     /// <summary>
     ///     角色编号
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual long RoleId { get; init; }
+    public long RoleId { get; init; }
 }

@@ -14,5 +14,9 @@
   {
     "ApiId": "api/sys/user",
     "RoleId": 371729946431493
+  },
+  {
+    "ApiId": "api/biz/member/member.info",
+    "RoleId": 371729946431493
   }
 ]

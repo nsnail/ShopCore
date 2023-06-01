@@ -15,5 +15,5 @@ public sealed record RegisterMemberReq : CreateUpdateMemberReq
 
     /// <inheritdoc cref="Biz_Member.SysUser" />
     [CultureRequired(ErrorMessageResourceType = typeof(Ln), ErrorMessageResourceName = nameof(Ln.系统用户))]
-    public new RegisterReq SysUser { get; init; }
+    public new RegisterUserReq SysUser { get; init; }
 }

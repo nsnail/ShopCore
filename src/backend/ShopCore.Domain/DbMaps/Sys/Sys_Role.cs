@@ -17,7 +17,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleApi))]
-    public virtual ICollection<Sys_Api> Apis { get; init; }
+    public ICollection<Sys_Api> Apis { get; init; }
 
     /// <summary>
     ///     数据范围
@@ -31,7 +31,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleDept))]
-    public virtual ICollection<Sys_Dept> Depts { get; init; }
+    public ICollection<Sys_Dept> Depts { get; init; }
 
     /// <summary>
     ///     是否显示仪表板
@@ -52,7 +52,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleMenu))]
-    public virtual ICollection<Sys_Menu> Menus { get; init; }
+    public ICollection<Sys_Menu> Menus { get; init; }
 
     /// <summary>
     ///     角色名称
@@ -80,7 +80,7 @@ public record Sys_Role : VersionEntity, IFieldSort, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_UserRole))]
-    public virtual ICollection<Sys_User> Users { get; init; }
+    public ICollection<Sys_User> Users { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)

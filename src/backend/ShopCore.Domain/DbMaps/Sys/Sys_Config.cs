@@ -28,7 +28,7 @@ public record Sys_Config : VersionEntity, IFieldEnabled
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(UserRegisterDeptId))]
-    public virtual Sys_Dept UserRegisterDept { get; init; }
+    public Sys_Dept UserRegisterDept { get; init; }
 
     /// <summary>
     ///     用户注册默认部门编号
@@ -42,7 +42,7 @@ public record Sys_Config : VersionEntity, IFieldEnabled
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(UserRegisterPosId))]
-    public virtual Sys_Position UserRegisterPos { get; init; }
+    public Sys_Position UserRegisterPos { get; init; }
 
     /// <summary>
     ///     用户注册默认岗位编号
@@ -56,7 +56,7 @@ public record Sys_Config : VersionEntity, IFieldEnabled
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(UserRegisterRoleId))]
-    public virtual Sys_Role UserRegisterRole { get; init; }
+    public Sys_Role UserRegisterRole { get; init; }
 
     /// <summary>
     ///     用户注册默认角色编号

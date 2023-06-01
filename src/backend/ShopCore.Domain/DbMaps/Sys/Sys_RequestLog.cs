@@ -14,7 +14,7 @@ public record Sys_RequestLog : ImmutableEntity, IFieldCreatedClient
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ApiId))]
-    public virtual Sys_Api Api { get; init; }
+    public Sys_Api Api { get; init; }
 
     /// <summary>
     ///     接口编号

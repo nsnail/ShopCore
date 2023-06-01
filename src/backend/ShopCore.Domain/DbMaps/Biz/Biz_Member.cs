@@ -44,7 +44,7 @@ public record Biz_Member : VersionEntity, IFieldCreatedClient, IRegister
     /// </summary>
     [Column]
     [JsonIgnore]
-    public virtual Guid PayPassword { get; init; }
+    public Guid PayPassword { get; init; }
 
     /// <summary>
     ///     系统用户
@@ -52,14 +52,14 @@ public record Biz_Member : VersionEntity, IFieldCreatedClient, IRegister
     [Column]
     [JsonIgnore]
     [Navigate(nameof(SysUserId))]
-    public virtual Sys_User SysUser { get; init; }
+    public Sys_User SysUser { get; init; }
 
     /// <summary>
     ///     系统用户编号
     /// </summary>
     [Column]
     [JsonIgnore]
-    public virtual long SysUserId { get; init; }
+    public long SysUserId { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)

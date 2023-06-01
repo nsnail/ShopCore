@@ -21,7 +21,7 @@ public record Biz_ProductCategory : VersionEntity, IFieldSort
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public virtual IEnumerable<Biz_ProductCategory> Children { get; init; }
+    public IEnumerable<Biz_ProductCategory> Children { get; init; }
 
     /// <summary>
     ///     父编号

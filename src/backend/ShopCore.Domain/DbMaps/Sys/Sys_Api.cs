@@ -14,7 +14,7 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(nameof(ParentId))]
-    public virtual IEnumerable<Sys_Api> Children { get; init; }
+    public IEnumerable<Sys_Api> Children { get; init; }
 
     /// <summary>
     ///     唯一编码
@@ -56,7 +56,7 @@ public record Sys_Api : ImmutableEntity<string>, IFieldSummary
     /// </summary>
     [JsonIgnore]
     [Navigate(ManyToMany = typeof(Sys_RoleApi))]
-    public virtual ICollection<Sys_Role> Roles { get; init; }
+    public ICollection<Sys_Role> Roles { get; init; }
 
     /// <summary>
     ///     服务描述

@@ -21,7 +21,7 @@ public record Sys_Sms : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
-    public virtual string Content { get; init; }
+    public string Content { get; init; }
 
     /// <summary>
     ///     目标手机
@@ -35,7 +35,7 @@ public record Sys_Sms : VersionEntity
     /// </summary>
     [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
-    public virtual string Report { get; init; }
+    public string Report { get; init; }
 
     /// <summary>
     ///     短信状态

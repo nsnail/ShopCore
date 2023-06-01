@@ -107,10 +107,12 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
 
         QuerySmsRsp ret;
 
+        #if !DEBUG
         // 有发送记录，且小于1分钟，不允许
-        if (lastSent is not null && (DateTime.Now - lastSent.CreatedTime).TotalMinutes < 1) {
+        if (lastSent is not null && (DateTime.UtcNow - lastSent.CreatedTime).TotalMinutes < 1) {
             throw new ShopCoreInvalidOperationException(Ln._1分钟内只能发送1次);
         }
+        #endif
 
         if (lastSent is not null && lastSent.Status != SmsStatues.Verified) { // 上次发送未验证，生成相同code
             ret = await CreateAsync(req.Adapt<CreateSmsReq>() with { Code = lastSent.Code });
@@ -152,8 +154,8 @@ public sealed class SmsService : RepositoryService<Sys_Sms, ISmsService>, ISmsSe
 
         var lastSent = await GetLastSentAsync(req.DestMobile);
 
-        if (lastSent is null || lastSent.Status                != SmsStatues.Sent || req.Code != lastSent.Code ||
-            (DateTime.Now - lastSent.CreatedTime).TotalMinutes > 10) {
+        if (lastSent is null || lastSent.Status                   != SmsStatues.Sent || req.Code != lastSent.Code ||
+            (DateTime.UtcNow - lastSent.CreatedTime).TotalMinutes > 10) {
             return false;
         }
 

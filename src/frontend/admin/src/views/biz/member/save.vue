@@ -33,6 +33,8 @@
                         <el-input
                             v-model="form.sysUser.mobile"
                             clearable
+                            maxlength="11"
+                            oninput="value=value.replace(/[^\d]/g,'')"
                             placeholder="手机号"
                         ></el-input>
                     </el-form-item>

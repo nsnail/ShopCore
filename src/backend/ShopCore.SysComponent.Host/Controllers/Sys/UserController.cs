@@ -90,22 +90,34 @@ public sealed class UserController : ControllerBase<IUserService>, IUserModule
     }
 
     /// <summary>
+    ///     密码登录
+    /// </summary>
+    [AllowAnonymous]
+    public async Task<LoginRsp> LoginByPwdAsync(LoginByPwdReq req)
+    {
+        var ret = await Service.LoginByPwdAsync(req);
+        ret.SetToRspHeader();
+        return ret;
+    }
+
+    /// <summary>
+    ///     短信登录
+    /// </summary>
+    [AllowAnonymous]
+    [Transaction]
+    public async Task<LoginRsp> LoginBySmsAsync(LoginBySmsReq req)
+    {
+        var ret = await Service.LoginBySmsAsync(req);
+        ret.SetToRspHeader();
+        return ret;
+    }
+
+    /// <summary>
     ///     分页查询用户
     /// </summary>
     public Task<PagedQueryRsp<QueryUserRsp>> PagedQueryAsync(PagedQueryReq<QueryUserReq> req)
     {
         return Service.PagedQueryAsync(req);
-    }
-
-    /// <summary>
-    ///     密码登录
-    /// </summary>
-    [AllowAnonymous]
-    public async Task<LoginRsp> PwdLoginAsync(PwdLoginReq req)
-    {
-        var ret = await Service.PwdLoginAsync(req);
-        ret.SetToRspHeader();
-        return ret;
     }
 
     /// <summary>
@@ -129,18 +141,18 @@ public sealed class UserController : ControllerBase<IUserService>, IUserModule
     /// </summary>
     [Transaction]
     [AllowAnonymous]
-    public async Task<QueryUserRsp> RegisterAsync(RegisterReq req)
+    public async Task<QueryUserRsp> RegisterAsync(RegisterUserReq userReq)
     {
         var config = await _configService.GetLatestConfigAsync();
 
-        return await Service.RegisterAsync(req with {
-                                                        DeptId = config.UserRegisterDeptId
-                                                      , PositionIds = new[] { config.UserRegisterPosId }
-                                                      , RoleIds = new[] { config.UserRegisterRoleId }
-                                                      , Profile = new CreateUserProfileReq()
-                                                      , Enabled = !config.UserRegisterConfirm
-                                                      , Mobile = req.VerifySmsCodeReq.DestMobile
-                                                    });
+        return await Service.RegisterAsync(userReq with {
+                                                            DeptId = config.UserRegisterDeptId
+                                                          , PositionIds = new[] { config.UserRegisterPosId }
+                                                          , RoleIds = new[] { config.UserRegisterRoleId }
+                                                          , Profile = new CreateUserProfileReq()
+                                                          , Enabled = !config.UserRegisterConfirm
+                                                          , Mobile = userReq.VerifySmsCodeReq.DestMobile
+                                                        });
     }
 
     /// <summary>
@@ -150,18 +162,6 @@ public sealed class UserController : ControllerBase<IUserService>, IUserModule
     public Task ResetPasswordAsync(ResetPasswordReq req)
     {
         return Service.ResetPasswordAsync(req);
-    }
-
-    /// <summary>
-    ///     短信登录
-    /// </summary>
-    [AllowAnonymous]
-    [Transaction]
-    public async Task<LoginRsp> SmsLoginAsync(SmsLoginReq req)
-    {
-        var ret = await Service.SmsLoginAsync(req);
-        ret.SetToRspHeader();
-        return ret;
     }
 
     /// <summary>

@@ -2,8 +2,10 @@ using ShopCore.BizServer.Application.Modules.Biz;
 using ShopCore.BizServer.Application.Services.Biz.Dependency;
 using ShopCore.Domain.Dto.Biz.Member;
 using ShopCore.Domain.Dto.Dependency;
+using ShopCore.Domain.Dto.Sys.User;
 using ShopCore.Host.Attributes;
 using ShopCore.Host.Controllers;
+using ShopCore.SysComponent.Application.Services.Sys.Dependency;
 
 namespace ShopCore.BizServer.Host.Controllers.Biz;
 
@@ -13,11 +15,16 @@ namespace ShopCore.BizServer.Host.Controllers.Biz;
 [ApiDescriptionSettings(nameof(Biz), Module = nameof(Biz))]
 public sealed class MemberController : ControllerBase<IMemberService>, IMemberModule
 {
+    private readonly IUserService _userService;
+
     /// <summary>
     ///     Initializes a new instance of the <see cref="MemberController" /> class.
     /// </summary>
-    public MemberController(IMemberService service) //
-        : base(service) { }
+    public MemberController(IMemberService service, IUserService userService) //
+        : base(service)
+    {
+        _userService = userService;
+    }
 
     /// <summary>
     ///     批量删除会员
@@ -65,6 +72,14 @@ public sealed class MemberController : ControllerBase<IMemberService>, IMemberMo
     }
 
     /// <summary>
+    ///     当前会员信息
+    /// </summary>
+    public Task<QueryMemberRsp> MemberInfoAsync()
+    {
+        return Service.MemberInfoAsync();
+    }
+
+    /// <summary>
     ///     分页查询会员
     /// </summary>
     public Task<PagedQueryRsp<QueryMemberRsp>> PagedQueryAsync(PagedQueryReq<QueryMemberReq> req)
@@ -85,9 +100,15 @@ public sealed class MemberController : ControllerBase<IMemberService>, IMemberMo
     /// </summary>
     [AllowAnonymous]
     [Transaction]
-    public Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req)
+    public async Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req)
     {
-        return Service.RegisterAsync(req);
+        var ret = await Service.RegisterAsync(req);
+        var loginRsp = await _userService.LoginByPwdAsync(new LoginByPwdReq {
+                                                                                Account  = req.SysUser.UserName
+                                                                              , Password = req.SysUser.PasswordText
+                                                                            });
+        loginRsp.SetToRspHeader();
+        return ret;
     }
 
     /// <summary>

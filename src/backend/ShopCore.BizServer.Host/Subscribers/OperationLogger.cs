@@ -30,7 +30,7 @@ public sealed class OperationLogger : IEventSubscriber
         // 登录日志特殊处理
         if (operationEvent.Data.ApiId.Equals("api/user/login", StringComparison.OrdinalIgnoreCase)) {
             try {
-                var loginReq = operationEvent.Data.RequestBody.ToObject<PwdLoginReq>();
+                var loginReq = operationEvent.Data.RequestBody.ToObject<LoginByPwdReq>();
                 logReq = operationEvent.Data with { ExtraData = loginReq.Account };
             }
             catch {

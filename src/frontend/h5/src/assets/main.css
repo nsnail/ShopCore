@@ -1,0 +1,7 @@
+@import './base.css';
+
+
+:root:root {
+    font-size: 110%;
+    --van-primary-color: var(--van-green);
+}

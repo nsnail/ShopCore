@@ -43,7 +43,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual int? CompanyArea { get; init; }
+    public int? CompanyArea { get; init; }
 
     /// <summary>
     ///     工作单位
@@ -78,7 +78,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual int? EmergencyContactArea { get; init; }
+    public int? EmergencyContactArea { get; init; }
 
     /// <summary>
     ///     紧急联系人手机号
@@ -120,7 +120,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual int? HomeArea { get; init; }
+    public int? HomeArea { get; init; }
 
     /// <summary>
     ///     住宅电话
@@ -149,7 +149,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     /// </summary>
     [JsonIgnore]
     [Column]
-    public virtual int? NationArea { get; init; }
+    public int? NationArea { get; init; }
 
     /// <summary>
     ///     政治面貌
@@ -190,7 +190,7 @@ public record Sys_UserProfile : VersionEntity, IFieldSummary, IRegister
     ///     用户基本信息
     /// </summary>
     [JsonIgnore]
-    public virtual Sys_User User { get; init; }
+    public Sys_User User { get; init; }
 
     /// <inheritdoc />
     public void Register(TypeAdapterConfig config)

@@ -100,20 +100,20 @@ export default {
             this.islogin = true;
             //获取token
             try {
-                await this.$API.sys_user.pwdLogin.post(this.form);
+                await this.$API["sys_user"].loginByPwd.post(this.form);
             } catch {
                 this.islogin = false;
                 return false;
             }
             //获取用户信息
             try {
-                const userInfo = await this.$API.sys_user.userInfo.post();
+                const userInfo = await this.$API["sys_user"].userInfo.post();
                 this.$TOOL.data.set("USER_INFO", userInfo.data);
                 let permissions = [];
                 let ignorePermissionControl = false;
                 userInfo.data.roles.forEach((x) => {
                     permissions = permissions.concat(x.apiIds);
-                    if (x.ignorePermissionControl) {
+                    if (x["ignorePermissionControl"]) {
                         ignorePermissionControl = true;
                     }
                 });
@@ -125,7 +125,7 @@ export default {
             }
             //获取菜单
             try {
-                const menu = await this.$API.sys_menu.userMenus.post();
+                const menu = await this.$API["sys_menu"].userMenus.post();
                 if (menu.data.length === 0) {
                     await this.$alert(
                         "当前用户无任何菜单权限，请联系系统管理员",

@@ -27,7 +27,12 @@ public interface IUserModule : ICrudModule<CreateUserReq, QueryUserRsp // 创建
     /// <summary>
     ///     密码登录
     /// </summary>
-    Task<LoginRsp> PwdLoginAsync(PwdLoginReq req);
+    Task<LoginRsp> LoginByPwdAsync(LoginByPwdReq req);
+
+    /// <summary>
+    ///     短信登录
+    /// </summary>
+    Task<LoginRsp> LoginBySmsAsync(LoginBySmsReq req);
 
     /// <summary>
     ///     查询用户档案
@@ -37,17 +42,12 @@ public interface IUserModule : ICrudModule<CreateUserReq, QueryUserRsp // 创建
     /// <summary>
     ///     注册用户
     /// </summary>
-    Task<QueryUserRsp> RegisterAsync(RegisterReq req);
+    Task<QueryUserRsp> RegisterAsync(RegisterUserReq userReq);
 
     /// <summary>
     ///     重设密码
     /// </summary>
     Task ResetPasswordAsync(ResetPasswordReq req);
-
-    /// <summary>
-    ///     短信登录
-    /// </summary>
-    Task<LoginRsp> SmsLoginAsync(SmsLoginReq req);
 
     /// <summary>
     ///     当前用户信息

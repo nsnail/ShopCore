@@ -9,7 +9,7 @@ public sealed class SmsCodeAttribute : RegexAttribute
     ///     Initializes a new instance of the <see cref="SmsCodeAttribute" /> class.
     /// </summary>
     public SmsCodeAttribute() //
-        : base(Chars.RGX_SMSCODE)
+        : base(Chars.RGX_SMS_CODE)
     {
         ErrorMessageResourceName = nameof(Ln.短信验证码不正确);
         ErrorMessageResourceType = typeof(Ln);

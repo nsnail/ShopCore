@@ -14,6 +14,11 @@ public interface IMemberModule : ICrudModule<CreateMemberReq, QueryMemberRsp // 
 >
 {
     /// <summary>
+    ///     当前会员信息
+    /// </summary>
+    Task<QueryMemberRsp> MemberInfoAsync();
+
+    /// <summary>
     ///     会员注册
     /// </summary>
     Task<QueryMemberRsp> RegisterAsync(RegisterMemberReq req);

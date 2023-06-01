@@ -79,6 +79,20 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
     }
 
     /// <summary>
+    ///     当前会员信息
+    /// </summary>
+    public async Task<QueryMemberRsp> MemberInfoAsync()
+    {
+        var user = await _userService.UserInfoAsync();
+        if (user is null) {
+            return null;
+        }
+
+        var dbMember = await Rpo.Where(a => a.SysUserId == user.Id).ToOneAsync();
+        return dbMember.Adapt<QueryMemberRsp>() with { SysUser = user };
+    }
+
+    /// <summary>
     ///     分页查询会员
     /// </summary>
     public async Task<PagedQueryRsp<QueryMemberRsp>> PagedQueryAsync(PagedQueryReq<QueryMemberReq> req)
