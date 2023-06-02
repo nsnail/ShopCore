@@ -50,9 +50,9 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
     /// <summary>
     ///     判断商品是否存在
     /// </summary>
-    public Task<bool> ExistAsync(QueryReq<QueryProductReq> req)
+    public async Task<bool> ExistAsync(QueryReq<QueryProductReq> req)
     {
-        return QueryInternal(req).AnyAsync();
+        return await (await QueryInternalAsync(req)).AnyAsync();
     }
 
     /// <summary>
@@ -60,7 +60,7 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
     /// </summary>
     public async Task<QueryProductRsp> GetAsync(QueryProductReq req)
     {
-        var ret = await QueryInternal(new QueryReq<QueryProductReq> { Filter = req }).ToOneAsync();
+        var ret = await (await QueryInternalAsync(new QueryReq<QueryProductReq> { Filter = req })).ToOneAsync();
         return ret.Adapt<QueryProductRsp>();
     }
 
@@ -69,7 +69,9 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
     /// </summary>
     public async Task<PagedQueryRsp<QueryProductRsp>> PagedQueryAsync(PagedQueryReq<QueryProductReq> req)
     {
-        var list = await QueryInternal(req).Page(req.Page, req.PageSize).Count(out var total).ToListAsync();
+        var list = await (await QueryInternalAsync(req)).Page(req.Page, req.PageSize)
+                                                        .Count(out var total)
+                                                        .ToListAsync();
 
         return new PagedQueryRsp<QueryProductRsp>(req.Page, req.PageSize, total
                                                 , list.Adapt<IEnumerable<QueryProductRsp>>());
@@ -80,7 +82,7 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
     /// </summary>
     public async Task<IEnumerable<QueryProductRsp>> QueryAsync(QueryReq<QueryProductReq> req)
     {
-        var ret = await QueryInternal(req).Take(req.Count).ToListAsync();
+        var ret = await (await QueryInternalAsync(req)).Take(req.Count).ToListAsync();
         return ret.Adapt<IEnumerable<QueryProductRsp>>();
     }
 
@@ -97,14 +99,22 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
         return ret.FirstOrDefault()?.Adapt<QueryProductRsp>();
     }
 
-    private ISelect<Biz_Product> QueryInternal(QueryReq<QueryProductReq> req)
+    private async Task<ISelect<Biz_Product>> QueryInternalAsync(QueryReq<QueryProductReq> req)
     {
+        List<long> recursiveCateIds = null;
+        if (req.Filter?.CategoryId > 0) {
+            recursiveCateIds = await Rpo.Orm.Select<Biz_ProductCategory>()
+                                        .Where(a => a.Id == req.Filter.CategoryId)
+                                        .AsTreeCte()
+                                        .ToListAsync(a => a.Id);
+        }
+
         return Rpo.Select.Include(a => a.Category)
                   .WhereDynamicFilter(req.DynamicFilter)
                   .WhereIf( //
                       req.Filter?.Id > 0, a => a.Id == req.Filter.Id)
                   .WhereIf( //
-                      req.Filter?.CategoryId              > 0, a => a.CategoryId == req.Filter.CategoryId)
+                      !recursiveCateIds.NullOrEmpty(), a => recursiveCateIds.Contains(a.CategoryId))
                   .OrderByPropertyNameIf(req.Prop?.Length > 0, req.Prop, req.Order == Orders.Ascending)
                   .OrderByDescending(a => a.Id);
     }
@@ -118,8 +128,8 @@ public sealed class ProductService : RepositoryService<Biz_Product, IProductServ
             return null;
         }
 
-        var ret = await QueryInternal(new QueryReq<QueryProductReq> { Filter = new QueryProductReq { Id = req.Id } })
-            .ToOneAsync();
+        var ret = await (await QueryInternalAsync(
+            new QueryReq<QueryProductReq> { Filter = new QueryProductReq { Id = req.Id } })).ToOneAsync();
         return ret.Adapt<QueryProductRsp>();
     }
 }

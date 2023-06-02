@@ -75,6 +75,7 @@ public sealed class ProductCategoryController : ControllerBase<IProductCategoryS
     /// <summary>
     ///     查询商品分类
     /// </summary>
+    [AllowAnonymous]
     public Task<IEnumerable<QueryProductCategoryRsp>> QueryAsync(QueryReq<QueryProductCategoryReq> req)
     {
         return Service.QueryAsync(req);

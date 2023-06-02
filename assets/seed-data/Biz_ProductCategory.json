@@ -1,55 +1,64 @@
 [
   {
-    "categoryName": "电子产品",
-    "sort": 100,
-    "children": [
+    "CategoryName": "电子产品",
+    "Sort": 100,
+    "Children": [
       {
-        "categoryName": "手机",
-        "sort": 100,
+        "Id": 423962074361861,
+        "CategoryName": "手机",
+        "Sort": 100,
       },
       {
-        "categoryName": "电视",
-        "sort": 100,
+        "Id": 423962074374149,
+        "CategoryName": "电视",
+        "Sort": 100,
       },
       {
-        "categoryName": "电脑",
-        "sort": 100,
+        "Id": 423962074374150,
+        "CategoryName": "电脑",
+        "Sort": 100,
       }
     ]
   },
   {
-    "categoryName": "家居用品",
-    "sort": 100,
-    "children": [
+    "CategoryName": "家居用品",
+    "Sort": 100,
+    "Children": [
       {
-        "categoryName": "家具",
-        "sort": 100,
+        "Id": 423962074374151,
+        "CategoryName": "家具",
+        "Sort": 100,
       },
       {
-        "categoryName": "厨具",
-        "sort": 100,
+        "Id": 423962074374152,
+        "CategoryName": "厨具",
+        "Sort": 100,
       },
       {
-        "categoryName": "卫浴用品",
-        "sort": 100,
+        "Id": 423962074374153,
+        "CategoryName": "卫浴",
+        "Sort": 100,
       }
     ]
   },
   {
-    "categoryName": "服装",
-    "sort": 100,
-    "children": [
+    "CategoryName": "服装服饰",
+    "Sort": 100,
+    "Children": [
       {
-        "categoryName": "男装",
-        "sort": 100,
+        "Id": 423962074374154,
+        "CategoryName": "男装",
+        "Sort": 100,
       },
       {
-        "categoryName": "女装",
-        "sort": 100,
+        "Id": 423962074374155,
+        "CategoryName": "女装",
+        "Sort": 100,
       },
       {
-        "categoryName": "童装",
-        "sort": 100,
+        "Id": 423962074374156,
+        "CategoryName": "童装",
+        "Sort": 100,
       }
     ]
   }

@@ -19,5 +19,15 @@ onMounted(async () => {
         <div class="col-span-3 text-sm">{{ memberInfo.sysUser.userName }}</div>
         <div class='col-span-3 text-sm'>{{ memberInfo.sysUser.mobile }}</div>
     </div>
+    <van-cell-group>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+        <van-cell is-link title="设置" to="/"></van-cell>
+    </van-cell-group>
 
 </template>

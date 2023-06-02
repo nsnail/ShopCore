@@ -58,7 +58,7 @@ public sealed class ProductController : ControllerBase<IProductService>, IProduc
     /// <summary>
     ///     获取单个商品
     /// </summary>
-    [NonAction]
+    [AllowAnonymous]
     public Task<QueryProductRsp> GetAsync(QueryProductReq req)
     {
         return Service.GetAsync(req);
@@ -67,6 +67,7 @@ public sealed class ProductController : ControllerBase<IProductService>, IProduc
     /// <summary>
     ///     分页查询商品
     /// </summary>
+    [AllowAnonymous]
     public Task<PagedQueryRsp<QueryProductRsp>> PagedQueryAsync(PagedQueryReq<QueryProductReq> req)
     {
         return Service.PagedQueryAsync(req);
@@ -75,6 +76,7 @@ public sealed class ProductController : ControllerBase<IProductService>, IProduc
     /// <summary>
     ///     查询商品
     /// </summary>
+    [AllowAnonymous]
     public Task<IEnumerable<QueryProductRsp>> QueryAsync(QueryReq<QueryProductReq> req)
     {
         return Service.QueryAsync(req);

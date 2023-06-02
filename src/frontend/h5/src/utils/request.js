@@ -15,10 +15,10 @@ axios.interceptors.request.use(
         let token = tool.cookie.get('TOKEN')
         if (token) {
             config.headers['Authorization'] = `Bearer ${token}`
-            let expires = tool.data.get('TOKEN-EXP')
+            let expires = tool.cookie.get('TOKEN-EXP')
             //accessToken 已过期或 5分钟内过期 带上刷新token
             if (!expires || expires - new Date().getTime() < 300000) {
-                let refresh_token = tool.data.get('X-TOKEN')
+                let refresh_token = tool.cookie.get('X-TOKEN')
                 if (refresh_token) {
                     config.headers['X-Authorization'] = `Bearer ${refresh_token}`
                 }
@@ -59,21 +59,24 @@ axios.interceptors.response.use(
             if (token) {
                 // 保存访问令牌
                 tool.cookie.set('TOKEN', token, {
-                    expires: cookieExpires
+                    expires: cookieExpires,
+                    path: '/'
                 })
 
                 // 解析访问令牌，保存令牌的失效时间
                 const jwt = tool.crypto.decryptJWT(token)
                 const secs = jwt.exp - jwt.iat
                 tool.cookie.set('TOKEN-EXP', new Date().getTime() + secs * 1000, {
-                    expires: cookieExpires
+                    expires: cookieExpires,
+                    path: '/'
                 })
             }
 
             if (refreshToken) {
                 // 保存刷新令牌
                 tool.cookie.set('X-TOKEN', token, {
-                    expires: cookieExpires
+                    expires: cookieExpires,
+                    path: '/'
                 })
             }
         }

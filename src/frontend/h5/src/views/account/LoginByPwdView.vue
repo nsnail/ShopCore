@@ -49,8 +49,8 @@ async function onSubmit() {
                 <van-cell class="my-4">
                     <template #value>
                         <van-row>
-                            <van-col :span="12" class="text-right"><a href="/reset-pwd">找回密码</a></van-col>
-                            <van-col :span="12" class="text-right"><a href="/login-by-sms">短信登录</a></van-col>
+                            <van-col :span="12" class="text-right"><a href="/account/reset-pwd">找回密码</a></van-col>
+                            <van-col :span="12" class="text-right"><a href="/account/login-by-sms">短信登录</a></van-col>
                         </van-row>
                     </template>
                 </van-cell>

@@ -42,6 +42,17 @@ delete :{
 },
 
 /**
+ * 获取单个商品
+ */
+get :{
+    url: `${config.API_URL}/api/biz/product/get`,
+        name: `获取单个商品`,
+        post:async function(data={}, config={}) {
+        return await http.post(this.url,data, config)
+    }
+},
+
+/**
  * 分页查询商品
  */
 pagedQuery :{

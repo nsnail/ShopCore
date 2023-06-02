@@ -1,5 +1,8 @@
 import 'vant/lib/index.css'
 import {
+    ActionBar,
+    ActionBarButton,
+    ActionBarIcon,
     Button,
     Cell,
     CellGroup,
@@ -11,15 +14,21 @@ import {
     GridItem,
     Icon,
     Image,
+    Lazyload,
     Notify,
     NumberKeyboard,
     PasswordInput,
+    PullRefresh,
     Row,
+    Search,
     Step,
     Steps,
+    Tab,
     Tabbar,
     TabbarItem,
-    Toast
+    Tabs,
+    Toast,
+    TreeSelect
 } from 'vant'
 
 export default {
@@ -44,5 +53,14 @@ export default {
         app.use(Grid)
         app.use(GridItem)
         app.use(Image)
+        app.use(Lazyload)
+        app.use(PullRefresh)
+        app.use(Search)
+        app.use(Tabs)
+        app.use(Tab)
+        app.use(TreeSelect)
+        app.use(ActionBar)
+        app.use(ActionBarButton)
+        app.use(ActionBarIcon)
     }
 }

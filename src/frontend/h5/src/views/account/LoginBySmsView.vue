@@ -29,11 +29,11 @@ watch(waitSecReSend, (newValue) => {
 })
 
 watch(form.value, (newValue) => {
-    if (newValue.mobile.length === 11) {
+    if (newValue.mobile && newValue.mobile.length === 11) {
         showKeyBoardMobile.value = false
         _this.$TOOL.data.set('mobile', newValue.mobile)
     }
-    if (newValue.code.length === 4) {
+    if (newValue.code && newValue.code.length === 4) {
         showKeyboardCode.value = false
     }
 })
