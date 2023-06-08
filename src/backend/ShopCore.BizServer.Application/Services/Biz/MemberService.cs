@@ -89,7 +89,7 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
         }
 
         var dbMember = await Rpo.Where(a => a.SysUserId == user.Id).ToOneAsync();
-        return dbMember.Adapt<QueryMemberRsp>() with { SysUser = user };
+        return dbMember is null ? null : dbMember.Adapt<QueryMemberRsp>() with { SysUser = user };
     }
 
     /// <summary>

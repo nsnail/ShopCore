@@ -11,7 +11,7 @@ public sealed class MobileAttribute : RegexAttribute
     public MobileAttribute() //
         : base(Chars.RGX_MOBILE)
     {
-        ErrorMessageResourceName = nameof(Ln.您正在使用的手机号码);
+        ErrorMessageResourceName = nameof(Ln.可用的手机号);
         ErrorMessageResourceType = typeof(Ln);
     }
 }

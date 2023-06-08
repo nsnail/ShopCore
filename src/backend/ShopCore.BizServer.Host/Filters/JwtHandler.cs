@@ -1,5 +1,6 @@
+using ShopCore.BizServer.Cache.Biz;
 using ShopCore.Domain.Contexts;
-using ShopCore.SysComponent.Application.Services.Sys.Dependency;
+using ShopCore.SysComponent.Cache.Sys;
 
 namespace ShopCore.BizServer.Host.Filters;
 
@@ -18,20 +19,23 @@ public sealed class JwtHandler : AppAuthorizeHandler
     public override async Task<bool> PipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
     {
         // 无法从token中获取context user，拒绝访问
-        var user = App.GetService<ContextUserToken>();
-        if (user is null) {
+        if (App.GetService<ContextUserToken>() is null) {
             return false;
         }
 
         // 数据库不存在context user，或用户已被禁用，拒绝访问
-        var userService = App.GetService<IUserService>();
-        userService.UserToken = user;
-        var userInfo = await userService.UserInfoAsync();
+        var userInfo = await App.GetService<IUserCache>().UserInfoAsync();
         if (userInfo is null) {
             return false;
         }
 
         httpContext.Items.Add(Chars.FLG_CONTEXT_USER_INFO, userInfo);
+
+        // 添加context member
+        var memberInfo = await App.GetService<IMemberCache>().MemberInfoAsync();
+        if (memberInfo is not null) {
+            httpContext.Items.Add(Chars.FLG_CONTEXT_MEMBER_INFO, memberInfo);
+        }
 
         var path = httpContext.Request.Path.Value!.TrimStart('/');
         foreach (var role in userInfo.Roles) {

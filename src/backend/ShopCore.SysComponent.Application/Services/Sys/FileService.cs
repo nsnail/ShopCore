@@ -27,12 +27,12 @@ public sealed class FileService : ServiceBase<IFileService>, IFileService
     public async Task<string> UploadAsync(IFormFile file)
     {
         if (file is null || file.Length < 1) {
-            throw new ShopCoreInvalidOperationException($"{Ln.文件} {Ln.不能为空}");
+            throw new ShopCoreInvalidOperationException(Ln.文件不能为空);
         }
 
         if (!_uploadOptions.ContentTypes.Contains(file.ContentType)) {
             throw new ShopCoreInvalidOperationException(string.Format( //
-                                                            CultureInfo.InvariantCulture, Ln.允许上传的文件格式
+                                                            CultureInfo.InvariantCulture, Ln.允许的文件格式
                                                           , string.Join(",", _uploadOptions.ContentTypes)));
         }
 

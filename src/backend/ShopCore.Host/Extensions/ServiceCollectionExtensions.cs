@@ -151,8 +151,10 @@ public static class ServiceCollectionExtensions
     /// </summary>
     public static IServiceCollection AddContextUser(this IServiceCollection me)
     {
-        _ = me.AddScoped(typeof(ContextUserToken), _ => ContextUserToken.Create());
-        _ = me.AddScoped(typeof(ContextUserInfo),  _ => ContextUserInfo.Create());
+        _ = me.AddScoped(typeof(ContextUserToken),  _ => ContextUserToken.Create());
+        _ = me.AddScoped(typeof(ContextUserInfo),   _ => ContextUserInfo.Create());
+        _ = me.AddScoped(typeof(ContextMemberInfo), _ => ContextMemberInfo.Create());
+
         return me;
     }
 

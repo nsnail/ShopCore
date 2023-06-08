@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using ShopCore.Application.Services;
 
 namespace ShopCore.Cache;
@@ -46,6 +47,14 @@ public abstract class DistributedCache<TService> : CacheBase<IDistributedCache, 
     {
         var cacheRead = await Cache.GetStringAsync(key);
         return cacheRead is not null ? cacheRead.ToObject<T>() : default;
+    }
+
+    /// <summary>
+    ///     获取缓存键
+    /// </summary>
+    protected virtual string GetCacheKey(string id = "0", [CallerMemberName] string memberName = null)
+    {
+        return $"{GetType().FullName}.{memberName}.{id}";
     }
 
     /// <summary>

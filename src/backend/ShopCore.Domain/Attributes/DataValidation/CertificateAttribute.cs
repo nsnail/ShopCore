@@ -11,7 +11,7 @@ public sealed class CertificateAttribute : RegexAttribute
     public CertificateAttribute() //
         : base(Chars.RGX_CERTIFICATE)
     {
-        ErrorMessageResourceName = nameof(Ln.请输入有效证件号码);
+        ErrorMessageResourceName = nameof(Ln.有效证件号码);
         ErrorMessageResourceType = typeof(Ln);
     }
 }

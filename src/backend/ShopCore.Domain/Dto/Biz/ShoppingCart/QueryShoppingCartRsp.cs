@@ -1,18 +1,14 @@
 using ShopCore.Domain.DbMaps.Biz;
 using ShopCore.Domain.DbMaps.Dependency.Fields;
-using ShopCore.Domain.Dto.Sys.User;
+using ShopCore.Domain.Dto.Biz.Product;
 
-namespace ShopCore.Domain.Dto.Biz.Member;
+namespace ShopCore.Domain.Dto.Biz.ShoppingCart;
 
 /// <summary>
-///     响应：查询会员
+///     响应：查询购物车
 /// </summary>
-public record QueryMemberRsp : Biz_Member
+public sealed record QueryShoppingCartRsp : Biz_ShoppingCart
 {
-    /// <inheritdoc cref="Biz_Member.Balance" />
-    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
-    public override long Balance { get; init; }
-
     /// <inheritdoc cref="IFieldCreatedTime.CreatedTime" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override DateTime CreatedTime { get; init; }
@@ -21,8 +17,13 @@ public record QueryMemberRsp : Biz_Member
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
     public override long Id { get; init; }
 
-    /// <inheritdoc cref="Biz_Member.SysUser" />
-    public new QueryUserRsp SysUser { get; set; }
+    /// <inheritdoc cref="Biz_ShoppingCart.Product" />
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public new QueryProductRsp Product { get; init; }
+
+    /// <inheritdoc cref="Biz_ShoppingCart.Quantity" />
+    [JsonIgnore(Condition = JsonIgnoreCondition.Never)]
+    public override int Quantity { get; set; }
 
     /// <inheritdoc cref="IFieldVersion.Version" />
     [JsonIgnore(Condition = JsonIgnoreCondition.Never)]

@@ -321,11 +321,11 @@
     ],
     "MaxSize": 1073741824,
     "Minio": {
-      "ServerAddress": "vm-ubt-1:9000",
+      "ServerAddress": "vm-ubt-2:9000",
       "AccessKey": "nVMM0gSqwyIjM8iZ",
       "SecretKey": "F8OZngGrNsZSYn4MP9swwMSf5rfm61EC",
       "BucketName": "shop-core",
-      "AccessUrl": "http://vm-ubt-1:9000",
+      "AccessUrl": "http://vm-ubt-2:9000",
       "Secure": false,
     }
   },

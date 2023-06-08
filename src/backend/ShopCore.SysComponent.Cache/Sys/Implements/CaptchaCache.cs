@@ -19,7 +19,8 @@ public sealed class CaptchaCache : DistributedCache<ICaptchaService>, IScoped, I
     public async Task<GetCaptchaRsp> GetCaptchaImageAsync()
     {
         var captchaRsp = await Service.GetCaptchaImageAsync();
-        await CreateAsync(GetCacheKey(captchaRsp.Id), captchaRsp.SawOffsetX, TimeSpan.FromMinutes(1));
+        await CreateAsync(GetCacheKey(captchaRsp.Id, nameof(CaptchaCache)), captchaRsp.SawOffsetX
+,                                                                           TimeSpan.FromMinutes(1));
         return captchaRsp;
     }
 
@@ -32,10 +33,10 @@ public sealed class CaptchaCache : DistributedCache<ICaptchaService>, IScoped, I
         var ret = await VerifyCaptchaAsync(req);
         if (ret) {
             // 人机验证通过，删除人机验证缓存
-            await RemoveAsync(GetCacheKey(req.Id));
+            await RemoveAsync(GetCacheKey(req.Id, nameof(CaptchaCache)));
         }
         else {
-            throw new ShopCoreInvalidOperationException(Ln.人机验证未通过);
+            throw new ShopCoreInvalidOperationException(Ln.人机校验未通过);
         }
     }
 
@@ -44,13 +45,7 @@ public sealed class CaptchaCache : DistributedCache<ICaptchaService>, IScoped, I
     /// </summary>
     public async Task<bool> VerifyCaptchaAsync(VerifyCaptchaReq req)
     {
-        var cacheKey = GetCacheKey(req.Id);
-        var val      = await GetAsync<int?>(cacheKey);
+        var val = await GetAsync<int?>(GetCacheKey(req.Id, nameof(CaptchaCache)));
         return await Service.VerifyCaptchaAsync(req with { SawOffsetX = val });
-    }
-
-    private string GetCacheKey(string id)
-    {
-        return $"{GetType().FullName}.{nameof(GetCaptchaImageAsync)}.{id}";
     }
 }

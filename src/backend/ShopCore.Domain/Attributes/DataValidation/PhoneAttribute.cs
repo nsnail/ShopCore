@@ -11,7 +11,7 @@ public sealed class PhoneAttribute : ValidationAttribute
     /// </summary>
     public PhoneAttribute()
     {
-        ErrorMessageResourceName = nameof(Ln.您正在使用的手机号码或座机号码);
+        ErrorMessageResourceName = nameof(Ln.可用的手机号或座机号);
         ErrorMessageResourceType = typeof(Ln);
     }
 

@@ -20,6 +20,6 @@ public sealed class CultureRangeAttribute : RangeAttribute
     /// <inheritdoc />
     public override string FormatErrorMessage(string name)
     {
-        return $"{ErrorMessageString} {Ln.必须位于} {Minimum} - {Maximum}";
+        return $"{ErrorMessageString} {Ln.必须介于} {Minimum} - {Maximum}";
     }
 }

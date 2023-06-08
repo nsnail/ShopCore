@@ -233,7 +233,7 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
 
         var dbUser = await Rpo.GetAsync(a => a.Mobile == req.VerifySmsCodeReq.DestMobile);
         if (dbUser is null) {
-            throw new ShopCoreInvalidOperationException(Ln.用户不存在);
+            throw new ShopCoreInvalidOperationException($"{Ln.用户} {Ln.不存在}");
         }
 
         dbUser.Password = req.PasswordText.Pwd().Guid();

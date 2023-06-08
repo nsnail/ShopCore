@@ -14,6 +14,7 @@ public static class Chars
     public const string FLG_APPLICATION_JSON           = "application/json";
     public const string FLG_CONSUL_REG_HOSTNAME        = "CONSUL_REG_HOSTNAME";
     public const string FLG_CONSUL_REG_PORT            = "CONSUL_REG_PORT";
+    public const string FLG_CONTEXT_MEMBER_INFO        = nameof(FLG_CONTEXT_MEMBER_INFO);
     public const string FLG_CONTEXT_OWNER_DEPT_ID      = nameof(FLG_CONTEXT_OWNER_DEPT_ID);
     public const string FLG_CONTEXT_USER_ID            = nameof(FLG_CONTEXT_USER_ID);
     public const string FLG_CONTEXT_USER_INFO          = nameof(FLG_CONTEXT_USER_INFO);
