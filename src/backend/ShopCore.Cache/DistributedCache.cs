@@ -29,11 +29,11 @@ public abstract class DistributedCache<TService> : CacheBase<IDistributedCache, 
         var cacheWrite = createObj.ToJson();
 
         var options = new DistributedCacheEntryOptions();
-        if (absLifeTime is not null) {
+        if (absLifeTime != null) {
             _ = options.SetAbsoluteExpiration(absLifeTime.Value);
         }
 
-        if (slideLifeTime is not null) {
+        if (slideLifeTime != null) {
             _ = options.SetSlidingExpiration(slideLifeTime.Value);
         }
 
@@ -46,7 +46,7 @@ public abstract class DistributedCache<TService> : CacheBase<IDistributedCache, 
     protected async Task<T> GetAsync<T>(string key)
     {
         var cacheRead = await Cache.GetStringAsync(key);
-        return cacheRead is not null ? cacheRead.ToObject<T>() : default;
+        return cacheRead != null ? cacheRead.ToObject<T>() : default;
     }
 
     /// <summary>
@@ -77,7 +77,7 @@ public abstract class DistributedCache<TService> : CacheBase<IDistributedCache, 
         var obj = await createProc.Invoke();
 
         var cacheWrite = obj?.ToJson();
-        if (cacheWrite is null) {
+        if (cacheWrite == null) {
             return obj;
         }
 

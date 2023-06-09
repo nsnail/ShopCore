@@ -160,7 +160,7 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
                 : await Rpo.GetAsync(a => a.UserName == req.Account && a.Password == pwd);
         }
 
-        return dbUser is null ? throw new ShopCoreInvalidOperationException(Ln.用户名或密码错误) : LoginInternal(dbUser);
+        return dbUser == null ? throw new ShopCoreInvalidOperationException(Ln.用户名或密码错误) : LoginInternal(dbUser);
     }
 
     /// <summary>
@@ -175,7 +175,7 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
         }
 
         var dbUser = await Rpo.GetAsync(a => a.Mobile == req.DestMobile);
-        return dbUser is null ? throw new ShopCoreInvalidOperationException(Ln.用户不存在) : LoginInternal(dbUser);
+        return dbUser == null ? throw new ShopCoreInvalidOperationException(Ln.用户不存在) : LoginInternal(dbUser);
     }
 
     /// <summary>
@@ -232,7 +232,7 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
         }
 
         var dbUser = await Rpo.GetAsync(a => a.Mobile == req.VerifySmsCodeReq.DestMobile);
-        if (dbUser is null) {
+        if (dbUser == null) {
             throw new ShopCoreInvalidOperationException($"{Ln.用户} {Ln.不存在}");
         }
 
@@ -358,7 +358,7 @@ public sealed class UserService : RepositoryService<Sys_User, IUserService>, IUs
                      .IncludeMany(a => a.Roles.Select(b => new Sys_Role { Id         = b.Id, Name = b.Name }))
                      .IncludeMany(a => a.Positions.Select(b => new Sys_Position { Id = b.Id, Name = b.Name }))
                      .WhereDynamicFilter(req.DynamicFilter)
-                     .WhereIf(deptIds is not null, a => deptIds.Contains(a.DeptId))
+                     .WhereIf(deptIds != null, a => deptIds.Contains(a.DeptId))
                      .WhereIf( //
                          req.Filter?.Id > 0, a => a.Id == req.Filter.Id)
                      .WhereIf( //

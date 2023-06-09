@@ -18,42 +18,42 @@ public record Biz_Product : VersionEntity
     /// <summary>
     ///     所属商品分类编号
     /// </summary>
-    [JsonIgnore]
     [Column]
+    [JsonIgnore]
     public virtual long CategoryId { get; init; }
 
     /// <summary>
     ///     商品描述
     /// </summary>
-    [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_255)]
+    [JsonIgnore]
     public virtual string Description { get; init; }
 
     /// <summary>
     ///     商品图片链接
     /// </summary>
-    [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_127)]
+    [JsonIgnore]
     public virtual string ImageUrl { get; init; }
 
     /// <summary>
     ///     商品名称
     /// </summary>
-    [JsonIgnore]
     [Column(DbType = Chars.FLG_DB_FIELD_TYPE_VARCHAR_31)]
+    [JsonIgnore]
     public virtual string Name { get; init; }
 
     /// <summary>
     ///     商品价格
     /// </summary>
-    [JsonIgnore]
     [Column]
+    [JsonIgnore]
     public virtual int Price { get; init; }
 
     /// <summary>
     ///     商品库存
     /// </summary>
-    [JsonIgnore]
     [Column]
+    [JsonIgnore]
     public virtual int Stock { get; init; }
 }

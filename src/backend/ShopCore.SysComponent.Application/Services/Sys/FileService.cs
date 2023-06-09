@@ -26,7 +26,7 @@ public sealed class FileService : ServiceBase<IFileService>, IFileService
     /// <exception cref="ShopCoreInvalidOperationException">允许的文件大小</exception>
     public async Task<string> UploadAsync(IFormFile file)
     {
-        if (file is null || file.Length < 1) {
+        if (file == null || file.Length < 1) {
             throw new ShopCoreInvalidOperationException(Ln.文件不能为空);
         }
 

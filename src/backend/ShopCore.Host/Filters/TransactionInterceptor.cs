@@ -24,8 +24,8 @@ public sealed class TransactionInterceptor : IAsyncActionFilter
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
         // 跳过没有事务特性标记的方法
-        if (context.HttpContext.GetControllerActionDescriptor()
-                   .MethodInfo.GetCustomAttribute<TransactionAttribute>() is null) {
+        if (context.HttpContext.GetControllerActionDescriptor().MethodInfo.GetCustomAttribute<TransactionAttribute>() ==
+            null) {
             _ = await next();
             return;
         }
@@ -33,7 +33,7 @@ public sealed class TransactionInterceptor : IAsyncActionFilter
         // 事务操作
         await _uowManager.AtomicOperateAsync(async () => {
             var result = await next();
-            if (result.Exception is not null) {
+            if (result.Exception != null) {
                 throw result.Exception;
             }
         });

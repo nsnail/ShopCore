@@ -29,7 +29,7 @@ public static class HttpResponseMessageExtensions
     private static async Task<string> BuildJsonAsync( //
         this HttpResponseMessage me, Func<string, string> bodyHandle = null)
     {
-        var body = me?.Content is null ? null : await me.Content!.ReadAsStringAsync();
-        return new { Header = me?.ToString(), Body = bodyHandle is null ? body : bodyHandle(body) }.ToJson();
+        var body = me?.Content == null ? null : await me.Content!.ReadAsStringAsync();
+        return new { Header = me?.ToString(), Body = bodyHandle == null ? body : bodyHandle(body) }.ToJson();
     }
 }

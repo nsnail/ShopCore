@@ -129,7 +129,7 @@ public static class ServiceCollectionExtensions
 
                 options.WriteHandler = (message, _, _, _, _) => {
                     MarkupLine(message.Message.EscapeMarkup(), message, logLevels);
-                    if (message.Exception is not null) {
+                    if (message.Exception != null) {
                         MarkupLine(message.Exception.ToString().EscapeMarkup(), message, logLevels);
                     }
                 };

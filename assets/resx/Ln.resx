@@ -41,11 +41,13 @@
     <data name="交易密码" xml:space="preserve"><value>交易密码</value></data>
     <data name="京族" xml:space="preserve"><value>京族</value></data>
     <data name="人机校验" xml:space="preserve"><value>人机校验</value></data>
+    <data name="人机校验未通过" xml:space="preserve"><value>人机校验未通过</value></data>
     <data name="人机校验请求" xml:space="preserve"><value>人机校验请求</value></data>
     <data name="仡佬族" xml:space="preserve"><value>仡佬族</value></data>
     <data name="仫佬族" xml:space="preserve"><value>仫佬族</value></data>
     <data name="价格" xml:space="preserve"><value>价格</value></data>
     <data name="价格区间" xml:space="preserve"><value>价格区间</value></data>
+    <data name="余额" xml:space="preserve"><value>余额</value></data>
     <data name="佤族" xml:space="preserve"><value>佤族</value></data>
     <data name="侗族" xml:space="preserve"><value>侗族</value></data>
     <data name="俄罗斯族" xml:space="preserve"><value>俄罗斯族</value></data>
@@ -75,6 +77,7 @@
     <data name="哈萨克族" xml:space="preserve"><value>哈萨克族</value></data>
     <data name="唯一编码" xml:space="preserve"><value>唯一编码</value></data>
     <data name="商品" xml:space="preserve"><value>商品</value></data>
+    <data name="商品不存在" xml:space="preserve"><value>商品不存在</value></data>
     <data name="商品名称" xml:space="preserve"><value>商品名称</value></data>
     <data name="商品图片" xml:space="preserve"><value>商品图片</value></data>
     <data name="商品描述" xml:space="preserve"><value>商品描述</value></data>
@@ -86,6 +89,9 @@
     <data name="图片" xml:space="preserve"><value>图片</value></data>
     <data name="土家族" xml:space="preserve"><value>土家族</value></data>
     <data name="土族" xml:space="preserve"><value>土族</value></data>
+    <data name="地址区域编号不存在" xml:space="preserve"><value>地址区域编号不存在</value></data>
+    <data name="地址编号" xml:space="preserve"><value>地址编号</value></data>
+    <data name="地址编号不存在" xml:space="preserve"><value>地址编号不存在</value></data>
     <data name="基诺族" xml:space="preserve"><value>基诺族</value></data>
     <data name="塔吉克族" xml:space="preserve"><value>塔吉克族</value></data>
     <data name="塔塔尔族" xml:space="preserve"><value>塔塔尔族</value></data>
@@ -105,9 +111,13 @@
     <data name="岗位不存在" xml:space="preserve"><value>岗位不存在</value></data>
     <data name="岗位名称" xml:space="preserve"><value>岗位名称</value></data>
     <data name="岗位编号列表" xml:space="preserve"><value>岗位编号列表</value></data>
+    <data name="已付款" xml:space="preserve"><value>已付款</value></data>
+    <data name="已发货" xml:space="preserve"><value>已发货</value></data>
     <data name="已婚" xml:space="preserve"><value>已婚</value></data>
     <data name="已完成" xml:space="preserve"><value>已完成</value></data>
+    <data name="已收货" xml:space="preserve"><value>已收货</value></data>
     <data name="已被使用" xml:space="preserve"><value>已被使用</value></data>
+    <data name="已退款" xml:space="preserve"><value>已退款</value></data>
     <data name="布依族" xml:space="preserve"><value>布依族</value></data>
     <data name="布朗族" xml:space="preserve"><value>布朗族</value></data>
     <data name="库存" xml:space="preserve"><value>库存</value></data>
@@ -115,6 +125,7 @@
     <data name="开始" xml:space="preserve"><value>开始</value></data>
     <data name="开始事务" xml:space="preserve"><value>开始事务</value></data>
     <data name="彝族" xml:space="preserve"><value>彝族</value></data>
+    <data name="微信" xml:space="preserve"><value>微信</value></data>
     <data name="德昂族" xml:space="preserve"><value>德昂族</value></data>
     <data name="必须介于" xml:space="preserve"><value>必须介于</value></data>
     <data name="怒族" xml:space="preserve"><value>怒族</value></data>
@@ -129,9 +140,13 @@
     <data name="按钮" xml:space="preserve"><value>按钮</value></data>
     <data name="描述" xml:space="preserve"><value>描述</value></data>
     <data name="撒拉族" xml:space="preserve"><value>撒拉族</value></data>
+    <data name="支付宝" xml:space="preserve"><value>支付宝</value></data>
     <data name="支付宝账号" xml:space="preserve"><value>支付宝账号</value></data>
+    <data name="收件人姓名" xml:space="preserve"><value>收件人姓名</value></data>
+    <data name="收件人电话" xml:space="preserve"><value>收件人电话</value></data>
     <data name="数据库" xml:space="preserve"><value>数据库</value></data>
     <data name="数据库同步开始" xml:space="preserve"><value>数据库同步开始</value></data>
+    <data name="数据库服务器时钟偏移" xml:space="preserve"><value>数据库服务器时钟偏移</value></data>
     <data name="数据库结构同步完成" xml:space="preserve"><value>数据库结构同步完成</value></data>
     <data name="数据版本" xml:space="preserve"><value>数据版本</value></data>
     <data name="数量" xml:space="preserve"><value>数量</value></data>
@@ -148,6 +163,7 @@
     <data name="有效证件号码" xml:space="preserve"><value>有效证件号码</value></data>
     <data name="服务器" xml:space="preserve"><value>服务器</value></data>
     <data name="朝鲜族" xml:space="preserve"><value>朝鲜族</value></data>
+    <data name="未付款" xml:space="preserve"><value>未付款</value></data>
     <data name="未婚" xml:space="preserve"><value>未婚</value></data>
     <data name="未指定部门" xml:space="preserve"><value>未指定部门</value></data>
     <data name="未通过" xml:space="preserve"><value>未通过</value></data>
@@ -204,12 +220,15 @@
     <data name="菜单编号" xml:space="preserve"><value>菜单编号</value></data>
     <data name="蒙古族" xml:space="preserve"><value>蒙古族</value></data>
     <data name="藏族" xml:space="preserve"><value>藏族</value></data>
+    <data name="街道地址" xml:space="preserve"><value>街道地址</value></data>
     <data name="裕固族" xml:space="preserve"><value>裕固族</value></data>
     <data name="角色" xml:space="preserve"><value>角色</value></data>
     <data name="角色不存在" xml:space="preserve"><value>角色不存在</value></data>
     <data name="角色名称" xml:space="preserve"><value>角色名称</value></data>
     <data name="角色编号" xml:space="preserve"><value>角色编号</value></data>
     <data name="角色编号列表" xml:space="preserve"><value>角色编号列表</value></data>
+    <data name="订单项" xml:space="preserve"><value>订单项</value></data>
+    <data name="订单项重复" xml:space="preserve"><value>订单项重复</value></data>
     <data name="该角色下存在用户" xml:space="preserve"><value>该角色下存在用户</value></data>
     <data name="该部门下存在子部门" xml:space="preserve"><value>该部门下存在子部门</value></data>
     <data name="该部门下存在用户" xml:space="preserve"><value>该部门下存在用户</value></data>
@@ -218,15 +237,18 @@
     <data name="请联系管理员激活账号" xml:space="preserve"><value>请联系管理员激活账号</value></data>
     <data name="读取用户Token出错" xml:space="preserve"><value>读取用户Token出错</value></data>
     <data name="账号" xml:space="preserve"><value>账号</value></data>
+    <data name="货到付款" xml:space="preserve"><value>货到付款</value></data>
     <data name="赫哲族" xml:space="preserve"><value>赫哲族</value></data>
     <data name="身份证" xml:space="preserve"><value>身份证</value></data>
     <data name="达斡尔族" xml:space="preserve"><value>达斡尔族</value></data>
+    <data name="退款中" xml:space="preserve"><value>退款中</value></data>
     <data name="邀请码不正确" xml:space="preserve"><value>邀请码不正确</value></data>
     <data name="部门" xml:space="preserve"><value>部门</value></data>
     <data name="部门不存在" xml:space="preserve"><value>部门不存在</value></data>
     <data name="部门名称" xml:space="preserve"><value>部门名称</value></data>
     <data name="鄂伦春族" xml:space="preserve"><value>鄂伦春族</value></data>
     <data name="鄂温克族" xml:space="preserve"><value>鄂温克族</value></data>
+    <data name="银行卡" xml:space="preserve"><value>银行卡</value></data>
     <data name="链接" xml:space="preserve"><value>链接</value></data>
     <data name="锡伯族" xml:space="preserve"><value>锡伯族</value></data>
     <data name="键值" xml:space="preserve"><value>键值</value></data>
@@ -239,7 +261,4 @@
     <data name="高中" xml:space="preserve"><value>高中</value></data>
     <data name="高山族" xml:space="preserve"><value>高山族</value></data>
     <data name="黎族" xml:space="preserve"><value>黎族</value></data>
-    <data name="人机校验未通过" xml:space="preserve"><value>人机校验未通过</value></data>
-    <data name="商品不存在" xml:space="preserve"><value>商品不存在</value></data>
-    <data name="数据库服务器时钟偏移" xml:space="preserve"><value>数据库服务器时钟偏移</value></data>
 </root>

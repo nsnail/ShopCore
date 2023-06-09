@@ -19,13 +19,13 @@ public sealed class JwtHandler : AppAuthorizeHandler
     public override async Task<bool> PipelineAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
     {
         // 无法从token中获取context user，拒绝访问
-        if (App.GetService<ContextUserToken>() is null) {
+        if (App.GetService<ContextUserToken>() == null) {
             return false;
         }
 
         // 数据库不存在context user，或用户已被禁用，拒绝访问
         var userInfo = await App.GetService<IUserCache>().UserInfoAsync();
-        if (userInfo is null) {
+        if (userInfo == null) {
             return false;
         }
 
@@ -33,7 +33,7 @@ public sealed class JwtHandler : AppAuthorizeHandler
 
         // 添加context member
         var memberInfo = await App.GetService<IMemberCache>().MemberInfoAsync();
-        if (memberInfo is not null) {
+        if (memberInfo != null) {
             httpContext.Items.Add(Chars.FLG_CONTEXT_MEMBER_INFO, memberInfo);
         }
 

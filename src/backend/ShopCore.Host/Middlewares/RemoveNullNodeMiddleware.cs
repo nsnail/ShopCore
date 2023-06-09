@@ -25,7 +25,7 @@ public sealed class RemoveNullNodeMiddleware
     {
         await _next(context);
 
-        if (context.GetMetadata<RemoveNullNodeAttribute>() is null) {
+        if (context.GetMetadata<RemoveNullNodeAttribute>() == null) {
             return;
         }
 

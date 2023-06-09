@@ -22,7 +22,7 @@ public sealed class ConstantService : ServiceBase<IConstantService>, IConstantSe
     /// </summary>
     public IDictionary<string, Dictionary<string, string[]>> GetEnums()
     {
-        return App.EffectiveTypes.Where(x => x.IsEnum && x.GetCustomAttribute<ExportAttribute>(false) is not null)
+        return App.EffectiveTypes.Where(x => x.IsEnum && x.GetCustomAttribute<ExportAttribute>(false) != null)
                   .ToDictionary(x => x.Name, x => //
                                     x.GetEnumValues()
                                      .Cast<Enum>()

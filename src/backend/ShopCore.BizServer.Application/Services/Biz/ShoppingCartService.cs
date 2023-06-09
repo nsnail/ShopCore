@@ -1,7 +1,6 @@
 using ShopCore.Application.Repositories;
 using ShopCore.Application.Services;
 using ShopCore.BizServer.Application.Services.Biz.Dependency;
-using ShopCore.Domain.Contexts;
 using ShopCore.Domain.DbMaps.Biz;
 using ShopCore.Domain.Dto.Biz.Product;
 using ShopCore.Domain.Dto.Biz.ShoppingCart;
@@ -14,18 +13,15 @@ namespace ShopCore.BizServer.Application.Services.Biz;
 public sealed class ShoppingCartService : RepositoryService<Biz_ShoppingCart, IShoppingCartService>
                                         , IShoppingCartService
 {
-    private readonly ContextMemberInfo _memberInfo;
-    private readonly IProductService   _productService;
+    private readonly IProductService _productService;
 
     /// <summary>
     ///     Initializes a new instance of the <see cref="ShoppingCartService" /> class.
     /// </summary>
-    public ShoppingCartService(Repository<Biz_ShoppingCart> rpo, IProductService productService
-                             , ContextMemberInfo            memberInfo) //
+    public ShoppingCartService(Repository<Biz_ShoppingCart> rpo, IProductService productService) //
         : base(rpo)
     {
         _productService = productService;
-        _memberInfo     = memberInfo;
     }
 
     /// <summary>
@@ -50,10 +46,10 @@ public sealed class ShoppingCartService : RepositoryService<Biz_ShoppingCart, IS
         await CheckProductAsync(req);
 
         var shoppingCart
-            = await GetAsync(new QueryShoppingCartReq { MemberId = _memberInfo.Id, ProductId = req.ProductId });
+            = await GetAsync(new QueryShoppingCartReq { MemberId = req.MemberId, ProductId = req.ProductId });
         Biz_ShoppingCart ret;
-        if (shoppingCart is null) {
-            ret = await Rpo.InsertAsync(req with { MemberId = _memberInfo.Id });
+        if (shoppingCart == null) {
+            ret = await Rpo.InsertAsync(req);
         }
         else {
             shoppingCart.Quantity += req.Quantity;

@@ -63,20 +63,20 @@ public sealed class SqlAuditor : ISingleton
     {
         switch (e.Property.Name) {
             case nameof(IFieldCreatedTime.CreatedTime):
-                if (e.Value is null || (e.Value is DateTime val && val == default)) {
+                if (e.Value == null || (e.Value is DateTime val && val == default)) {
                     e.Value = DateTime.Now;
                 }
 
                 break;
             case nameof(IFieldCreatedUser.CreatedUserId):
-                if (userInfo is not null && e.Value is null or (long and 0)) {
+                if (userInfo != null && e.Value is null or (long and 0)) {
                     e.Value = userInfo.Id;
                 }
 
                 break;
 
             case nameof(IFieldCreatedUser.CreatedUserName):
-                if (userInfo is not null && e.Value is null or "") {
+                if (userInfo != null && e.Value is null or "") {
                     e.Value = userInfo.UserName;
                 }
 
@@ -111,14 +111,14 @@ public sealed class SqlAuditor : ISingleton
     {
         switch (e.Property.Name) {
             case nameof(IFieldOwner.OwnerId):
-                if (userInfo is not null && e.Value is null or (long and 0)) {
+                if (userInfo != null && e.Value is null or (long and 0)) {
                     e.Value = userInfo.Id;
                 }
 
                 break;
             case nameof(IFieldOwner.OwnerDeptId):
-                if (userInfo is not null && e.Value is null or "") {
-                    e.Value = userInfo.DeptId;
+                if (userInfo != null && e.Value is null or "") {
+                    e.Value = userInfo.Dept.Id;
                 }
 
                 break;
@@ -132,8 +132,8 @@ public sealed class SqlAuditor : ISingleton
     /// </summary>
     private static void SetSnowflake(AuditValueEventArgs e)
     {
-        var isSnowflake = e.Property.GetCustomAttribute<SnowflakeAttribute>(false) is not null;
-        var isLongType  = e.Column.CsType == typeof(long);
+        var isSnowflake = e.Property.GetCustomAttribute<SnowflakeAttribute>(false) != null;
+        var isLongType  = e.Column.CsType                                          == typeof(long);
         var isNoValue   = e.Value is null or (long and 0);
         if (isSnowflake && isLongType && isNoValue) {
             e.Value = YitIdHelper.NextId();
@@ -150,14 +150,14 @@ public sealed class SqlAuditor : ISingleton
             //     e.Value = DateTime.Now;
             //     break;
             case nameof(IFieldModifiedUser.ModifiedUserId):
-                if (userInfo is not null && e.Value is null or (long and 0)) {
+                if (userInfo != null && e.Value is null or (long and 0)) {
                     e.Value = userInfo.Id;
                 }
 
                 break;
 
             case nameof(IFieldModifiedUser.ModifiedUserName):
-                if (userInfo is not null && e.Value is null or "") {
+                if (userInfo != null && e.Value is null or "") {
                     e.Value = userInfo.UserName;
                 }
 

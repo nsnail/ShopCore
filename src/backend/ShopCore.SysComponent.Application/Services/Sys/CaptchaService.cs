@@ -45,7 +45,7 @@ public sealed class CaptchaService : ServiceBase<ICaptchaService>, ICaptchaServi
     /// </summary>
     public Task<bool> VerifyCaptchaAsync(VerifyCaptchaReq req)
     {
-        if (req.SawOffsetX is null) {
+        if (req.SawOffsetX == null) {
             return Task.FromResult(false);
         }
 

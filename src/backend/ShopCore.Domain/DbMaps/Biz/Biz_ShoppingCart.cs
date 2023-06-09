@@ -18,12 +18,12 @@ public record Biz_ShoppingCart : VersionEntity, IFieldOwner
     public virtual long MemberId { get; init; }
 
     /// <inheritdoc cref="IFieldOwner.OwnerDeptId" />
-    [Column]
+    [Column(Position = -1)]
     [JsonIgnore]
     public long? OwnerDeptId { get; init; }
 
     /// <inheritdoc cref="IFieldOwner.OwnerId" />
-    [Column]
+    [Column(Position = -1)]
     [JsonIgnore]
     public long? OwnerId { get; init; }
 

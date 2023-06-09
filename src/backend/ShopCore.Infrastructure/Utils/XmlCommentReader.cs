@@ -48,20 +48,20 @@ public sealed class XmlCommentReader : ISingleton
         }
 
         var cref = node.FirstChild.Attributes?["cref"]?.Value;
-        if (cref is not null) {
+        if (cref != null) {
             return GetComments(App.EffectiveTypes.Single(x => x.FullName == cref[2..]));
         }
 
         var methodFromBaseType = memberInfo.DeclaringType?.BaseType?.GetMethod(memberInfo.Name);
 
-        if (methodFromBaseType is not null) {
+        if (methodFromBaseType != null) {
             return GetComments(methodFromBaseType);
         }
 
         var methodFromInterface = memberInfo.DeclaringType?.GetInterfaces()
                                             .Select(x => x.GetMethod(memberInfo.Name))
-                                            .FirstOrDefault(x => x is not null);
-        return methodFromInterface is null ? null : GetComments(methodFromInterface);
+                                            .FirstOrDefault(x => x != null);
+        return methodFromInterface == null ? null : GetComments(methodFromInterface);
     }
 
     private XmlNode GetNodeByMethod(MethodInfo method)
@@ -82,7 +82,7 @@ public sealed class XmlCommentReader : ISingleton
         return _xmlDocuments
                .Select(xmlDoc => xmlDoc.SelectSingleNode(
                            string.Format(NumberFormatInfo.InvariantInfo, _XPATH, nodeName)))
-               .FirstOrDefault(ret => ret is not null);
+               .FirstOrDefault(ret => ret != null);
     }
 
     private XmlNode GetNodeByType(Type type)
@@ -90,6 +90,6 @@ public sealed class XmlCommentReader : ISingleton
         return _xmlDocuments
                .Select(xmlDoc => xmlDoc.SelectSingleNode(
                            string.Format(NumberFormatInfo.InvariantInfo, _XPATH, $"T:{type.FullName}")))
-               .FirstOrDefault(ret => ret is not null);
+               .FirstOrDefault(ret => ret != null);
     }
 }

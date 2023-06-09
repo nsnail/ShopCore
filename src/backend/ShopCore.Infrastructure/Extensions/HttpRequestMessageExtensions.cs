@@ -10,7 +10,7 @@ public static class HttpRequestMessageExtensions
     /// </summary>
     public static async Task<string> BuildJsonAsync(this HttpRequestMessage me)
     {
-        var body = me?.Content is null ? null : await me.Content!.ReadAsStringAsync();
+        var body = me?.Content == null ? null : await me.Content!.ReadAsStringAsync();
         return new { Uri = me?.RequestUri, Header = me?.ToString(), Body = body }.ToJson();
     }
 

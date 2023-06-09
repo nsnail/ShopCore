@@ -70,7 +70,7 @@ public sealed class RequestLogger : ISingleton
     private (long UserId, string UserName)? GetAssociatedUser(HttpContext context)
     {
         var token = context.Request.Headers.Authorization.FirstOrDefault();
-        if (token is null) {
+        if (token == null) {
             return null;
         }
 
@@ -84,6 +84,6 @@ public sealed class RequestLogger : ISingleton
             _logger.Warn($"{Ln.读取用户Token出错}: {ex}");
         }
 
-        return userToken is null ? null : (userToken.Id, userToken.UserName);
+        return userToken == null ? null : (userToken.Id, userToken.UserName);
     }
 }

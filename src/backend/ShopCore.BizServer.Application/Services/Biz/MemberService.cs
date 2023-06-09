@@ -84,12 +84,12 @@ public sealed class MemberService : RepositoryService<Biz_Member, IMemberService
     public async Task<QueryMemberRsp> MemberInfoAsync()
     {
         var user = await _userService.UserInfoAsync();
-        if (user is null) {
+        if (user == null) {
             return null;
         }
 
         var dbMember = await Rpo.Where(a => a.SysUserId == user.Id).ToOneAsync();
-        return dbMember is null ? null : dbMember.Adapt<QueryMemberRsp>() with { SysUser = user };
+        return dbMember == null ? null : dbMember.Adapt<QueryMemberRsp>() with { SysUser = user };
     }
 
     /// <summary>

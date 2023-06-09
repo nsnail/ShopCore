@@ -110,18 +110,18 @@ public sealed class UserProfileService : RepositoryService<Sys_UserProfile, IUse
                                                             });
         return ret.ConvertAll(x => x.a.Adapt<QueryUserProfileRsp>() with {
                                                                              NationArea
-                                                                             = x.b.Key is null
+                                                                             = x.b.Key == null
                                                                                  ? null
                                                                                  : x.b.Adapt<QueryDicContentRsp>()
                                                                            , CompanyArea
-                                                                             = x.c.Key is null
+                                                                             = x.c.Key == null
                                                                                  ? null
                                                                                  : x.c.Adapt<QueryDicContentRsp>()
                                                                            , HomeArea
-                                                                             = x.d.Key is null
+                                                                             = x.d.Key == null
                                                                                  ? null
                                                                                  : x.d.Adapt<QueryDicContentRsp>()
-                                                                           , EmergencyContactArea = x.e.Key is null
+                                                                           , EmergencyContactArea = x.e.Key == null
                                                                                  ? null
                                                                                  : x.e.Adapt<QueryDicContentRsp>()
                                                                          });

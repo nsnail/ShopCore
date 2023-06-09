@@ -4,12 +4,12 @@ namespace ShopCore.Domain.Attributes.DataValidation;
 ///     电话验证器（手机或固话）
 /// </summary>
 [AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
-public sealed class PhoneAttribute : ValidationAttribute
+public sealed class CulturePhoneAttribute : ValidationAttribute
 {
     /// <summary>
-    ///     Initializes a new instance of the <see cref="PhoneAttribute" /> class.
+    ///     Initializes a new instance of the <see cref="CulturePhoneAttribute" /> class.
     /// </summary>
-    public PhoneAttribute()
+    public CulturePhoneAttribute()
     {
         ErrorMessageResourceName = nameof(Ln.可用的手机号或座机号);
         ErrorMessageResourceType = typeof(Ln);
